@@ -7,11 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "planAndTest.web", "planAndT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exeMission", "exeMission\exeMission.csproj", "{EF3324DA-1458-44DE-BAF1-9AD472D9800F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E77C23C6-8509-495D-94CC-1391F1CACE62}"
-	ProjectSection(SolutionItems) = preProject
-		testjson.json = testjson.json
-		TextFile1.txt = TextFile1.txt
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "models", "models\models.csproj", "{C38E3107-F707-4A1D-B77B-771B19349DB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +23,10 @@ Global
 		{EF3324DA-1458-44DE-BAF1-9AD472D9800F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF3324DA-1458-44DE-BAF1-9AD472D9800F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF3324DA-1458-44DE-BAF1-9AD472D9800F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C38E3107-F707-4A1D-B77B-771B19349DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C38E3107-F707-4A1D-B77B-771B19349DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C38E3107-F707-4A1D-B77B-771B19349DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C38E3107-F707-4A1D-B77B-771B19349DB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
