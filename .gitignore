@@ -10,3 +10,4 @@
 *.v2
 /planAndTest/models/bin/Debug/netcoreapp3.1
 /planAndTest/models/obj
+/planAndTest/.vs
