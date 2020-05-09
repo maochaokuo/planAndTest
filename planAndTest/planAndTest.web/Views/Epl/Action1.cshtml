@@ -1,0 +1,36 @@
+﻿
+@model planAndTest.web.Models.EPL.EplAction1vm
+@{
+    ViewData["Title"] = "Action1";
+    Layout = "~/Views/Shared/_LayoutEPL.cshtml";
+}
+
+<h1>Action1</h1>
+
+@using( Html.BeginForm())
+{
+    @Html.HiddenFor(m=>m.cmd)
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            field 1
+        </div>
+        <div class="col-9">
+            @*<input type="text" id="txt1" name="txt1" value="to be typed in" />*@
+            @Html.TextBoxFor(m=>m.txt1, new { @Value = "to be typed in" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            @Model.cmdTxt
+        </div>
+        <div class="col-9">
+            <input type="button" id="func1" name="func1" value="func1" onclick="$('#cmd').val('func1');this.form.submit()"/>
+            <input type="button" id="func2" name="func2" value="func2" onclick="$('#cmd').val('func2');this.form.submit()"/>
+        </div>
+    </div>
+</div>
+}
+<script>
+
+</script>

@@ -12,5 +12,17 @@ namespace planAndTest.web.Controllers
         {
             return View();
         }
+        public IActionResult Action1()
+        {
+            return View();
+        }
+        public IActionResult Action2()
+        {
+            return View();
+        }
+        public IActionResult Action3()
+        {
+            return View();
+        }
     }
 }
