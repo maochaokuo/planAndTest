@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "planAndTest.web", "planAndTest.web\planAndTest.web.csproj", "{3FA533EC-D1B6-4E0A-A6CB-EBECE9231B19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exeMission", "exeMission\exeMission.csproj", "{EF3324DA-1458-44DE-BAF1-9AD472D9800F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E77C23C6-8509-495D-94CC-1391F1CACE62}"
+	ProjectSection(SolutionItems) = preProject
+		testjson.json = testjson.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FA533EC-D1B6-4E0A-A6CB-EBECE9231B19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA533EC-D1B6-4E0A-A6CB-EBECE9231B19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FA533EC-D1B6-4E0A-A6CB-EBECE9231B19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA533EC-D1B6-4E0A-A6CB-EBECE9231B19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF3324DA-1458-44DE-BAF1-9AD472D9800F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF3324DA-1458-44DE-BAF1-9AD472D9800F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF3324DA-1458-44DE-BAF1-9AD472D9800F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF3324DA-1458-44DE-BAF1-9AD472D9800F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD1ABD13-4AD5-4B5E-A668-82B0034FA5EC}
+	EndGlobalSection
+EndGlobal
