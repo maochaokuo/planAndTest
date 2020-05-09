@@ -7,3 +7,4 @@
 /planAndTest/exeMission/obj
 /planAndTest/planAndTest.web/bin/Debug/netcoreapp3.1
 /planAndTest/planAndTest.web/obj
+*.v2
