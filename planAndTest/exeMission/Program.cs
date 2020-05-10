@@ -20,6 +20,12 @@ namespace exeMission
 , i, args[i]);
                 d.output(line);
             }
+
+            //todo !!... 現在這已經可以進來了
+            //但跑一次就結束，沒法debug
+            //應改為keep looping，不斷去檢查calls目錄有沒有新目錄
+            //若有的話，spawn new thread去計算
+            //one service call done to call ReturnAcall
         }
     }
 }
