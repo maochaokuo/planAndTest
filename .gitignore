@@ -13,3 +13,5 @@
 /planAndTest/.vs
 /planAndTest/callMission/bin
 /planAndTest/callMission/obj
+/planAndTest/commonLib/obj
+/planAndTest/commonLib/bin
