@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using callMission;
+using commonLib;
 using Microsoft.AspNetCore.Mvc;
+using models.calls;
 using planAndTest.web.Models.EPL;
 
 namespace planAndTest.web.Controllers
@@ -25,6 +27,10 @@ namespace planAndTest.web.Controllers
         {
             vm.cmdTxt = vm.cmd;
             callExe ce = new callExe();
+            clsHelloTest cht = new clsHelloTest();
+            string json = jsonUtl.encodeJson(cht);
+            string err = ce.MakeAcall(reflectionUtl.TypeName<clsHelloTest>()
+                , json);
             return View(vm);
         }
         public IActionResult Action2()

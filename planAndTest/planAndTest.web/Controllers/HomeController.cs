@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using callMission;
+using commonLib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using models.calls;
 using planAndTest.web.Models;
 
 namespace planAndTest.web.Controllers
@@ -20,6 +23,13 @@ namespace planAndTest.web.Controllers
 
         public IActionResult Index()
         {
+            callExe ce = new callExe();
+            clsHelloTest cht = new clsHelloTest();
+            cht.callPara = "(I am home/index)";
+            string json = jsonUtl.encodeJson(cht);
+            string err = ce.MakeAcall(reflectionUtl.TypeName<clsHelloTest>()
+                , json);
+
             return View();
         }
 

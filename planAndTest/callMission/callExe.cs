@@ -1,6 +1,7 @@
 ﻿using commonLib;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
@@ -15,9 +16,11 @@ namespace callMission
         public callExe()
         {
             string envPath = AppDomain.CurrentDomain.BaseDirectory;
-            string webProjectPath = envPath.Replace(@"netcoreapp3.1\","");
-            webProjectPath = envPath.Replace(@"Debug\", "");
-            webProjectPath = envPath.Replace(@"bin\", "");
+            int i1 = envPath.IndexOf("netcoreapp3.1\\");
+            int i2 = envPath.IndexOf("netcoreapp3.1");
+            string webProjectPath = envPath.Replace("netcoreapp3.1\\", "");
+            webProjectPath = webProjectPath.Replace("Debug\\", "");
+            webProjectPath = webProjectPath.Replace("bin\\", "");
             string missionPath = webProjectPath.Replace(
                 @"planAndTest.web", @"exeMission");
             DATA_PATH = fileUtl.pb(missionPath, "Data");
@@ -42,7 +45,15 @@ namespace callMission
             ret = putCallJson(callTs, json);
             if (ret.Length > 0) return ret;
 
-            //todo !!... spawn exeMission.exe, with servicename n callTs
+            // spawn exeMission.exe, with servicename n callTs
+            Process p = new Process();
+            p.StartInfo.FileName = EXE_PATH;// "dotnet";
+            p.StartInfo.Arguments = serviceName + " " + callTs;
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = false;
+            p.Start();
+            p.WaitForExit();
+
             return ret;
         }
         private string putCallJson(string callTs, string json)
@@ -50,8 +61,9 @@ namespace callMission
             string ret = "";
             ret = fileUtl.ensureDir(CALL_PATH, callTs);
             if (ret.Length > 0) return ret;
-            ret = fileUtl.json2file(fileUtl.pb(CALL_PATH,
-                callTs), json);
+            string jsonFullfilename = fileUtl.pb(fileUtl.pb(CALL_PATH,
+                callTs), callTs) + ".json";
+            ret = fileUtl.json2file(jsonFullfilename, json);
             if (ret.Length > 0) return ret;
             return ret;
         }
