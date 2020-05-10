@@ -96,5 +96,19 @@ namespace commonLib
             sr = null;
             return ret;
         }
+        public static string json2file(string fileFullpath
+            , string json)
+        {
+            string ret = "";
+            File.AppendAllText(fileFullpath, json);
+            return ret;
+        }
+        public static string file2json(string fileFullpath
+            , out string json)
+        {
+            string ret = "";
+            json = File.ReadAllText(fileFullpath);
+            return ret;
+        }
     }
 }

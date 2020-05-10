@@ -7,8 +7,28 @@ namespace models.calls
 {
     public class clsCallBase
     {
-        public string systemName { get; set; }
-        public string serviceName { get; set; }
+        private string _systemName = "";
+        public string systemName { 
+            get
+            {
+                //if (string.IsNullOrWhiteSpace(_systemName))
+                //    throw new Exception(
+                //        "systenName unavailabl!");
+                return _systemName;
+            }
+            set { _systemName = value; }
+        }
+        private string _serviceName = "";
+        public string serviceName { 
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_serviceName))
+                    throw new Exception(
+                        "serviceName unavailable!");
+                return _serviceName;
+            }
+            set { _serviceName = value; }
+        }
         public string methodName { get; set; }
         public DateTime callTime { get; set; }
         public string callTypeName { get; set; }

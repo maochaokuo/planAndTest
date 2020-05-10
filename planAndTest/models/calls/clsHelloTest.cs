@@ -8,6 +8,8 @@ namespace models.calls
     {
         public clsHelloTest()
         {
+            //systemName = "system";
+            serviceName = "clsHelloTest";
             callTypeName = "string";
             returnTypeName = "string";
             returnPara = string.Format(@"Hello {0}"
