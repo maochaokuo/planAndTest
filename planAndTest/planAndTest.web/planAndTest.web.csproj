@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\callMission\callMission.csproj" />
     <ProjectReference Include="..\models\models.csproj" />
   </ItemGroup>
 

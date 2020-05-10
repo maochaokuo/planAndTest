@@ -11,3 +11,5 @@
 /planAndTest/models/bin/Debug/netcoreapp3.1
 /planAndTest/models/obj
 /planAndTest/.vs
+/planAndTest/callMission/bin
+/planAndTest/callMission/obj

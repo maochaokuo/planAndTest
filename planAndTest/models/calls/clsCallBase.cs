@@ -16,5 +16,18 @@ namespace models.calls
         public DateTime returnTime { get; set; }
         public string returnTypeName { get; set; }
         public string returnPara { get; set; }
+
+        public clsCallBase()
+        {
+            SetCallTime();
+        }
+        public void SetCallTime()
+        {
+            callTime = DateTime.Now;
+        }
+        public void SetReturnTime()
+        {
+            returnTime = DateTime.Now;
+        }
     }
 }
