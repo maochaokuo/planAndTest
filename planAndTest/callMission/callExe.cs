@@ -17,8 +17,6 @@ namespace callMission
         public callExe()
         {
             string envPath = AppDomain.CurrentDomain.BaseDirectory;
-            int i1 = envPath.IndexOf("netcoreapp3.1\\");
-            int i2 = envPath.IndexOf("netcoreapp3.1");
             string webProjectPath = envPath.Replace("netcoreapp3.1\\", "");
             webProjectPath = webProjectPath.Replace("Debug\\", "");
             webProjectPath = webProjectPath.Replace("bin\\", "");
@@ -38,7 +36,12 @@ namespace callMission
             EXE_PATH = missionPath;
             Thread.Sleep(0);
         }
-        
+        public List<string> findCallInprogress()
+        {
+            List<string> ret = null;
+            // todo !!... findCallInprogress
+            return ret;
+        }
         /// <summary>
         /// 
         /// </summary>
