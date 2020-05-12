@@ -59,8 +59,8 @@ namespace callMission
             Process p = new Process();
             p.StartInfo.FileName = EXE_PATH;// "dotnet";
             p.StartInfo.Arguments = serviceName + " " + callTs;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = false;
+            p.StartInfo.UseShellExecute = true;// false;
+            p.StartInfo.CreateNoWindow = true;// false;
             p.Start();
             //p.WaitForExit();
 

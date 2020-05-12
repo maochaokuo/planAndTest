@@ -15,6 +15,11 @@ namespace commonLib
             ret = Path.Combine(path, dirOrFile);
             return ret;
         }
+        public static bool dirExists(string path)
+        {
+            bool ret = Directory.Exists(path);
+            return ret;
+        }
         public static string ensureDir(string path, string dir)
         {
             string ret = "";

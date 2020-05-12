@@ -18,12 +18,9 @@ namespace exeMission
         }
         public string startLooping()
         {
-            string ret = ""; ;
-            for(; ; )
-            {
-                //todo!!...ce.findCallInprogress();
-                Thread.Sleep(50);//每檢查完一次睡50ms
-            }
+            string ret = "";
+            clsMainLoop cml=new clsMainLoop();
+            ret = cml.theMainLoop(cmli);
             return ret;
         }
     }

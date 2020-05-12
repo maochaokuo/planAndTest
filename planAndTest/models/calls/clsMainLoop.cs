@@ -1,6 +1,8 @@
-﻿using System;
+﻿using commonLib;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace models.calls
 {
@@ -16,9 +18,23 @@ namespace models.calls
         }
         public string theMainLoop(clsMainLoopInput inputObj)
         {
+            const string CALL_PATH = @"C:\Users\maoch\Desktop\temp\git\planAndTest\planAndTest\exeMission\Data\calls\";
             string ret = "";
-
-
+            dbg d = new dbg(CALL_PATH);
+            string toOutput;
+            for (; ; )
+            {
+                string tDir = fileUtl.pb(
+                        CALL_PATH, inputObj.callTs);
+                toOutput = "tDir=" + tDir;
+                d.output(toOutput);
+                if (!fileUtl.dirExists(tDir))
+                    break;
+                toOutput = "datetime:" + DateTime.Now.ToString();
+                d.output(toOutput);
+                Console.WriteLine(toOutput);
+                Thread.Sleep(2000);
+            }
             return ret;
         }
     }

@@ -20,7 +20,8 @@ namespace commonLib
         }
         public void output(string outStr)
         {
-            StreamWriter sw = new StreamWriter(DBG_PATH, true);
+            StreamWriter sw = new StreamWriter(
+                Path.Combine( DBG_PATH, DBG_FILE), true);
             sw.WriteLine(outStr);
             sw.Close();
             sw = null;

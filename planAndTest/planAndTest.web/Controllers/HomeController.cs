@@ -24,12 +24,20 @@ namespace planAndTest.web.Controllers
         public IActionResult Index()
         {
             callExe ce = new callExe();
-            clsHelloTest cht = new clsHelloTest();
-            cht.callPara = "(I am home/index)";
-            string json = jsonUtl.encodeJson(cht);
-            string err = ce.MakeAcall(reflectionUtl.TypeName<clsHelloTest>()
-                , json);
+            //clsHelloTest cht = new clsHelloTest();
+            //cht.callPara = "(I am home/index)";
+            //string json = jsonUtl.encodeJson(cht);
+            //string err = ce.MakeAcall(reflectionUtl.TypeName<clsHelloTest>()
+            //    , json);
 
+            clsMainLoop cml = new clsMainLoop();
+            clsMainLoopInput cmli = new clsMainLoopInput();
+            cmli.serviceName = "";
+            cmli.callTs = "";
+            string json = jsonUtl.encodeJson(cmli);
+            cml.callPara = json;
+            string err = ce.MakeAcall(reflectionUtl.TypeName<
+                clsMainLoop>(), json);
             return View();
         }
 
