@@ -36,6 +36,9 @@ namespace exeMission
             //應改為keep looping，不斷去檢查calls目錄有沒有新目錄
             //若有的話，spawn new thread去計算
             //one service call done to call ReturnAcall
+
+            //todo !!... console起來，除了自己之外都先清除
+            //所以若再run 一個console, 應該會砍掉前一個
         }
     }
 }

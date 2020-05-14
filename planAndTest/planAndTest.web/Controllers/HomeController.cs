@@ -23,6 +23,9 @@ namespace planAndTest.web.Controllers
 
         public IActionResult Index()
         {
+            //todo !!... 若要呼叫，距離上次成功呼叫若太久
+            //或上次失敗，則先echo, 等echo back
+            //todo !!... 若失敗，activate console
             callExe ce = new callExe();
             //clsHelloTest cht = new clsHelloTest();
             //cht.callPara = "(I am home/index)";
