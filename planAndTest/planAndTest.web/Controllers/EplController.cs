@@ -27,10 +27,12 @@ namespace planAndTest.web.Controllers
         {
             vm.cmdTxt = vm.cmd;
             callExe ce = new callExe();
-            clsHelloTest cht = new clsHelloTest();
+            string callId = callExe.genCallId();
+            clsHelloTest cht = new clsHelloTest(callId);
             string json = jsonUtl.encodeJson(cht);
-            string err = ce.MakeAcall(reflectionUtl.TypeName<clsHelloTest>()
-                , json);
+            string err = ce.MakeAcall(callId,
+                reflectionUtl.TypeName<clsHelloTest>()
+                , json );
             return View(vm);
         }
         public IActionResult Action2()

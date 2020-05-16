@@ -41,7 +41,7 @@ namespace commonLib
         public static string newestFile(string path, string ext="")
         {
             string ret = "";
-            var directory = new DirectoryInfo(path);// "C:\\MyDirectory");
+            var directory = new DirectoryInfo(path);
             var myFile = (from f in directory.GetFiles()
                           orderby f.LastWriteTime descending
                           select f).First();
@@ -72,7 +72,7 @@ namespace commonLib
             }
             return ret;
         }
-        public static string genTimeStamp()
+        private static string genTimeStamp()
         {
             string ret = "";
             ret = DateTime.Now.ToString("yyyyMMddHHmmssfff");

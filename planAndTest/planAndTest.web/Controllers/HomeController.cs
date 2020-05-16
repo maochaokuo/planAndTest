@@ -8,6 +8,7 @@ using commonLib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using models.calls;
+using planAndTest.web.Helper;
 using planAndTest.web.Models;
 
 namespace planAndTest.web.Controllers
@@ -23,24 +24,26 @@ namespace planAndTest.web.Controllers
 
         public IActionResult Index()
         {
-            //todo !!... 若要呼叫，距離上次成功呼叫若太久
-            //或上次失敗，則先echo, 等echo back
-            //todo !!... 若失敗，activate console
-            callExe ce = new callExe();
+            remoteCallHelper hch = new remoteCallHelper();
+            string err = hch.checkMainLoop();
+            // 若失敗，activate console
+            if (err.Length > 0)
+                err = hch.runNewMainLoop();
+            if (err.Length > 0)
+                throw new Exception(
+                    "remote call engine failed");
+            string echoCallId = "";
+            err = hch.makeOneCall("clsMainLoop", "echo", 
+                out echoCallId);
+            if (err.Length > 0)
+                throw new Exception("echo main engin failed");
+
             //clsHelloTest cht = new clsHelloTest();
             //cht.callPara = "(I am home/index)";
             //string json = jsonUtl.encodeJson(cht);
             //string err = ce.MakeAcall(reflectionUtl.TypeName<clsHelloTest>()
             //    , json);
 
-            clsMainLoop cml = new clsMainLoop();
-            clsMainLoopInput cmli = new clsMainLoopInput();
-            cmli.serviceName = "";
-            cmli.callTs = "";
-            string json = jsonUtl.encodeJson(cmli);
-            cml.callPara = json;
-            string err = ce.MakeAcall(reflectionUtl.TypeName<
-                clsMainLoop>(), json);
             return View();
         }
 

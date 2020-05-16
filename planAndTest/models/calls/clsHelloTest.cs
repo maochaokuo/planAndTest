@@ -6,7 +6,8 @@ namespace models.calls
 {
     public class clsHelloTest : clsCallBase
     {
-        public clsHelloTest()
+        public clsHelloTest(string callId)
+            : base(callId)
         {
             //systemName = "system";
             serviceName = this.GetType().Name;// "clsHelloTest";

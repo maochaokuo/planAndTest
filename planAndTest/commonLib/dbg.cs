@@ -18,7 +18,7 @@ namespace commonLib
             DBG_PATH = dbgPath;
             DBG_FILE = dbgFile;
         }
-        public void output(string outStr)
+        public void ot(string outStr)
         {
             StreamWriter sw = new StreamWriter(
                 Path.Combine( DBG_PATH, DBG_FILE), true);

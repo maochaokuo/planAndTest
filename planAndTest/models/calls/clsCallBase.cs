@@ -18,6 +18,7 @@ namespace models.calls
             }
             set { _systemName = value; }
         }
+        public string callId { get; set; }
         private string _serviceName = "";
         public string serviceName { 
             get
@@ -37,8 +38,9 @@ namespace models.calls
         public string returnTypeName { get; set; }
         public string returnPara { get; set; }
 
-        public clsCallBase()
+        public clsCallBase(string callId)
         {
+            this.callId = callId;
             SetCallTime();
         }
         public void SetCallTime()
