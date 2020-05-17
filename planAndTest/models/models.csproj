@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="calls\clsMainLoopInput.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="EPL\" />
     <Folder Include="shared\" />
     <Folder Include="SD\" />

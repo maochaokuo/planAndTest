@@ -1,7 +1,9 @@
 ﻿using commonLib;
+using models.calls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+//using System.IO;
 using System.Text;
 using System.Threading;
 
@@ -75,14 +77,30 @@ namespace callMission
         public List<string> allCallsInprogress(
             string exceptCallId="")
         {
-            List<string> ret = null;
-            // todo !!... findCallInprogress
+            List<string> ret = fileUtl.getAllSubdirs(
+                CALL_PATH);
+            // findCallInprogress
             return ret;
         }
+
         private string DeleteAcall(string callId)
         {
             string ret = "";
-            //todo !!... DeleteAcall
+            string callDir = fileUtl.pb(CALL_PATH, callId);
+            ret = fileUtl.deleteDirFiles(callDir);
+            if (ret.Length > 0) return ret;
+            ret = fileUtl.deleteDir(callDir);
+            return ret;
+        }
+        private string ReadAcall(string callId
+            , out clsCallBase callObj)
+        {
+            string ret = "";
+            string callDir = fileUtl.pb(CALL_PATH, callId);
+            string callFile = fileUtl.newestFile(callDir);
+            string json = fileUtl.file2string( fileUtl.pb(
+                callDir, callFile));
+            callObj = jsonUtl.decodeJson<clsCallBase>(json);
             return ret;
         }
         /// <summary>
@@ -130,12 +148,15 @@ namespace callMission
             , string returnJson, out string retCallId)
         {
             string ret = "";
+            //刪掉呼叫callId
             string callTsPath = fileUtl.pb(CALL_PATH, oriCallId);
             ret = fileUtl.purgePath(callTsPath, true);
+            //產生回傳
             retCallId = genCallId();
             if (ret.Length > 0) return ret;
             string newfile = retCallId + ".json";
-            ret = fileUtl.json2file(fileUtl.pb(CALL_PATH, newfile), returnJson);
+            ret = fileUtl.json2file(fileUtl.pb(CALL_PATH, newfile)
+                , returnJson);
             //todo !!... 少做一件事，移到calldone_path
             return ret;
         }

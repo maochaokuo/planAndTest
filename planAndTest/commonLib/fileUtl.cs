@@ -20,6 +20,12 @@ namespace commonLib
             bool ret = Directory.Exists(path);
             return ret;
         }
+        /// <summary>
+        /// make sure a directory exist
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
         public static string ensureDir(string path, string dir)
         {
             string ret = "";
@@ -33,12 +39,23 @@ namespace commonLib
             }
             return ret;
         }
+        /// <summary>
+        /// delete a directory
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string deleteDir(string path)
+        {
+            string ret = "";
+            Directory.Delete(path);
+            return ret;
+        }
         public static string FileInfo2Name(FileInfo fi)
         {
             string ret = fi.Name;
             return ret;
         }
-        public static string newestFile(string path, string ext="")
+        public static string newestFile(string path)//, string ext="")
         {
             string ret = "";
             var directory = new DirectoryInfo(path);
@@ -113,6 +130,61 @@ namespace commonLib
         {
             string ret = "";
             json = File.ReadAllText(fileFullpath);
+            return ret;
+        }
+        /// <summary>
+        /// delete all files under a directory
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string deleteDirFiles(string path)
+        {
+            string ret = "";
+            DirectoryInfo di = new DirectoryInfo(path);
+            foreach (FileInfo file in di.GetFiles())
+                file.Delete();
+            return ret;
+        }
+        /// <summary>
+        /// delete all subdirectories under a directory
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string deleteDirSubdirs(string path)
+        {
+            string ret = "";
+            DirectoryInfo di = new DirectoryInfo(path);
+            foreach (DirectoryInfo dir in di.GetDirectories())
+                dir.Delete(true);
+            return ret;
+        }
+        /// <summary>
+        /// get all subdirectories under path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static List<string> getAllSubdirs(string path)
+        {
+            List<string> ret = null;
+            string[] subDirs = Directory.GetDirectories(path);
+            ret = new List<string>(subDirs);
+            return ret;
+        }
+        /// <summary>
+        /// read file to string
+        /// </summary>
+        /// <param name="fileFullpath"></param>
+        /// <returns></returns>
+        public static string file2string(string fileFullpath)
+        {
+            string ret = File.ReadAllText(fileFullpath);
+            return ret;
+        }
+        public static string string2file(string fileFullpath
+            , string stringContent)
+        {
+            string ret = "";
+            File.WriteAllText(fileFullpath, stringContent);
             return ret;
         }
     }
