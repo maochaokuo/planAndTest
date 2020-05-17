@@ -23,9 +23,18 @@ namespace planAndTest.web.Helper
         public string checkMainLoop()
         {
             string ret = "";
-            // todo !!... checkMainLoop
+            string newestCallId = fileUtl.newestDir(
+                ce.CALL_PATH);
+            DateTime dt = DateTime.MinValue;
+            ret = callExe.callId2time(newestCallId, 
+                out dt);
+            if (ret.Length > 0) return ret;
+            TimeSpan ts = DateTime.Now - dt;
+            if (ts.TotalMinutes>0)
+            {
             //todo !!... 若要呼叫，距離上次成功呼叫若太久
             //或上次失敗，則先echo, 等echo back
+            }
             return ret;
         }
         /// <summary>
@@ -35,13 +44,15 @@ namespace planAndTest.web.Helper
         public string runNewMainLoop()
         {
             string ret = "";
-            clsMainLoopInput cmli = new clsMainLoopInput();
+            string callId = callExe.genCallId();
+            clsMainLoop cmli = new clsMainLoop(callId);
             cmli.serviceName = "initialize";
-            cmli.callTs = callExe.genCallId();
-            clsMainLoop cml = new clsMainLoop(cmli.callTs);
+            cmli.callTypeName = "object";
+            cmli.callPara = null;
             string json = jsonUtl.encodeJson(cmli);
-            cml.callPara = json;
-            // todo !!... runNewMainLoop
+            ret = ce.MakeAcall(callId, json);
+            if (ret.Length > 0) return ret;
+            ret = ce.spawnEXE(callId, cmli.serviceName);
             return ret;
         }
         /// <summary>
@@ -88,6 +99,7 @@ namespace planAndTest.web.Helper
         {
             string ret = "";
             allCalls = null;
+            //todo !!... callsInprogress
             return ret;
         }
         /// <summary>

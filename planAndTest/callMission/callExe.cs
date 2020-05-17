@@ -23,7 +23,29 @@ namespace callMission
                 "yyyyMMddHHmmssfff");
             return ret;
         }
-
+        public static string callId2time(string callId
+            , out DateTime outime)
+        {
+            string ret = "";
+            outime = DateTime.MinValue;
+            if (callId.Length != 17)
+                ret = "invalid callId";
+            else
+            {
+                string timeS = string.Format(
+                    @"{0}-{1}-{2} {3}:{4}:{5}.{6}",
+                    callId.Substring(0, 4),
+                    callId.Substring(4, 2),
+                    callId.Substring(6, 2),
+                    callId.Substring(8, 2),
+                    callId.Substring(10, 2),
+                    callId.Substring(12, 2),
+                    callId.Substring(14, 3));
+                if (!DateTime.TryParse(timeS, out outime))
+                    ret = "fail to parse callId";
+            }
+            return ret;
+        }
         public callExe()
         {
             string envPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -45,6 +67,14 @@ namespace callMission
             missionPath += @"bin\Debug\netcoreapp3.1\exeMission.exe";
             EXE_PATH = missionPath;
             Thread.Sleep(0);
+        }
+        public string callId2json(string callId
+            , out string json)
+        {
+            string ret = "";
+            string callPath = fileUtl.pb(CALL_PATH, callId);
+            json = fileUtl.file2string(callPath);
+            return ret;
         }
         public string CALLDONE_PATHtoday(
             out string returnPath)
@@ -104,17 +134,15 @@ namespace callMission
             return ret;
         }
         /// <summary>
-        /// 
+        /// spawn exe mission 
         /// </summary>
+        /// <param name="callId"></param>
         /// <param name="serviceName"></param>
-        /// <param name="json">serialized call model, depend on service name</param>
         /// <returns></returns>
-        public string MakeAcall(string callId 
-            , string serviceName, string json)
+        public string spawnEXE(string callId, string
+            serviceName)
         {
             string ret = "";
-            ret = putCallJson(callId, json);
-            if (ret.Length > 0) return ret;
 
             // spawn exeMission.exe, with servicename n callTs
             Process p = new Process();
@@ -127,6 +155,21 @@ namespace callMission
 
             return ret;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serviceName"></param>
+        /// <param name="json">serialized call model, depend on service name</param>
+        /// <returns></returns>
+        public string MakeAcall(string callId 
+            , string json, string serviceName="")
+        {
+            string ret = "";
+            ret = putCallJson(callId, json);
+            //if (ret.Length > 0) return ret;
+
+            return ret;
+        }
         private string putCallJson(string callTs, string json)
         {
             string ret = "";
@@ -134,7 +177,7 @@ namespace callMission
             if (ret.Length > 0) return ret;
             string jsonFullfilename = fileUtl.pb(fileUtl.pb(CALL_PATH,
                 callTs), callTs) + ".json";
-            ret = fileUtl.json2file(jsonFullfilename, json);
+            ret = fileUtl.string2file(jsonFullfilename, json);
             if (ret.Length > 0) return ret;
             return ret;
         }
@@ -148,6 +191,10 @@ namespace callMission
             , string returnJson, out string retCallId)
         {
             string ret = "";
+            //todo !!... 1.get called json/object
+            //2. delete called dir/file
+            //3. update json/object with return info
+            //4. write to return folder
             //刪掉呼叫callId
             string callTsPath = fileUtl.pb(CALL_PATH, oriCallId);
             ret = fileUtl.purgePath(callTsPath, true);
@@ -155,7 +202,7 @@ namespace callMission
             retCallId = genCallId();
             if (ret.Length > 0) return ret;
             string newfile = retCallId + ".json";
-            ret = fileUtl.json2file(fileUtl.pb(CALL_PATH, newfile)
+            ret = fileUtl.string2file(fileUtl.pb(CALL_PATH, newfile)
                 , returnJson);
             //todo !!... 少做一件事，移到calldone_path
             return ret;

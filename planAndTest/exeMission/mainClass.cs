@@ -14,6 +14,7 @@ namespace exeMission
         protected clsMainLoop cml = null;
         protected callExe ce = null;
         protected Dictionary<string, clsCallBase> calls = null;
+        protected Dictionary<string, Thread> callThreads = null;
 
         public mainClass(clsMainLoop cml)
         {
@@ -35,10 +36,11 @@ namespace exeMission
         public string killInprogressCalls()
         {
             string ret = "";
-            //todo !!...killInprogressCalls
+            //todo !!... killInprogressCalls
             //起來，除了自己之外都先清除
             //所以若再run 一個console, 應該會砍掉前一個
             calls = new Dictionary<string, clsCallBase>();
+            callThreads = new Dictionary<string, Thread>();
             return ret;
         }
         /// <summary>
@@ -57,17 +59,17 @@ namespace exeMission
             //若有的話，spawn new thread去計算
             //one service call done to call ReturnAcall
             List<string> allCallsUndone = null;
-            for (; ; )// keep looping for 
+            bool hasMyself = true;
+            while (hasMyself )// keep looping for 
             {
                 // find all calls undone
                 allCallsUndone = ce.allCallsInprogress(
                     cml.callId);
 
-                //todo: loop through the active running calls
+                // loop through the active running calls
                 // to find a new call
-                bool toContinue = false;
-                bool hasMyself = false;
-                foreach(string callId in allCallsUndone)
+                hasMyself = false;
+                foreach (string callId in allCallsUndone)
                 {
                     if (callId == cml.callId)
                     {
@@ -76,11 +78,22 @@ namespace exeMission
                     }
                     else if (calls.ContainsKey(callId))
                         continue;
-                    //todo: get service name, json by callId
+                    // get service name, json by callId
+                    string json="";
+                    ret = ce.callId2json(callId, out json);
+                    if (ret.Length > 0) return ret;
+                    clsCallBase ccb = jsonUtl.decodeJson<
+                        clsCallBase>(json);
+                    string serviceName = ccb.serviceName;
 
-                    //todo: execute the new call
+                    // execute the new call
+                    Thread newCallThread = new Thread(()=>
+                        thread1call(callId, serviceName, json));
+                    newCallThread.Start();
+                    calls.Add(callId, ccb);
+                    callThreads.Add(callId, newCallThread);
 
-                    //undone 做完的怎麼辦呢？自己搬到完成且今天目錄
+                    //undone !!... 做完的怎麼辦呢？自己搬到完成且今天目錄
 
                 }
                 //string tDir = fileUtl.pb(
@@ -110,7 +123,7 @@ namespace exeMission
             invokeService.run(serviceName);
             //todo !!... thread1call
             
-            //todo when done, use callId, notify caller
+            // when done, use callId, notify caller
             //to move to done dir, with returnJson
             return ret;
         }

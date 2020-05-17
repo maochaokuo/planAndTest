@@ -50,16 +50,41 @@ namespace commonLib
             Directory.Delete(path);
             return ret;
         }
+        public static string DirInfo2Name(DirectoryInfo fi)
+        {
+            string ret = fi.Name;
+            return ret;
+        }
         public static string FileInfo2Name(FileInfo fi)
         {
             string ret = fi.Name;
             return ret;
         }
+        /// <summary>
+        /// get newest file under path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string newestDir(string path)
+        {
+            string ret = "";
+            var directory = new DirectoryInfo(path);
+            DirectoryInfo myFile = (from f in directory.GetDirectories()
+                          orderby f.LastWriteTime descending
+                          select f).First();
+            ret = DirInfo2Name(myFile);
+            return ret;
+        }
+        /// <summary>
+        /// get newest file under path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string newestFile(string path)//, string ext="")
         {
             string ret = "";
             var directory = new DirectoryInfo(path);
-            var myFile = (from f in directory.GetFiles()
+            FileInfo myFile = (from f in directory.GetFiles()
                           orderby f.LastWriteTime descending
                           select f).First();
             ret = FileInfo2Name(myFile);
@@ -118,20 +143,6 @@ namespace commonLib
             sr = null;
             return ret;
         }
-        public static string json2file(string fileFullpath
-            , string json)
-        {
-            string ret = "";
-            File.AppendAllText(fileFullpath, json);
-            return ret;
-        }
-        public static string file2json(string fileFullpath
-            , out string json)
-        {
-            string ret = "";
-            json = File.ReadAllText(fileFullpath);
-            return ret;
-        }
         /// <summary>
         /// delete all files under a directory
         /// </summary>
@@ -170,6 +181,20 @@ namespace commonLib
             ret = new List<string>(subDirs);
             return ret;
         }
+        //public static string json2file(string fileFullpath
+        //    , string json)
+        //{
+        //    string ret = "";
+        //    File.AppendAllText(fileFullpath, json);
+        //    return ret;
+        //}
+        //public static string file2json(string fileFullpath
+        //    , out string json)
+        //{
+        //    string ret = "";
+        //    json = File.ReadAllText(fileFullpath);
+        //    return ret;
+        //}
         /// <summary>
         /// read file to string
         /// </summary>
