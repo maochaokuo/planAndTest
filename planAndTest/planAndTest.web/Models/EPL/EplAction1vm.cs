@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace planAndTest.web.Models.EPL
+﻿namespace planAndTest.web.Models.EPL
 {
     public class EplAction1vm : ViewModelBase
     {

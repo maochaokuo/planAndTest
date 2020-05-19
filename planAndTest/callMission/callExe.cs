@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 //using System.IO;
-using System.Text;
-using System.Threading;
 
 namespace callMission
 {
@@ -66,7 +64,6 @@ namespace callMission
 
             missionPath += @"bin\Debug\netcoreapp3.1\exeMission.exe";
             EXE_PATH = missionPath;
-            Thread.Sleep(0);
         }
         public string callId2json(string callId
             , out string json)

@@ -106,12 +106,12 @@ namespace exeMission
                 //d.ot(toOutput);
                 //Console.WriteLine(toOutput);
 
-                Thread.Sleep(50);//
+                Thread.Sleep(50);//loop once sleep 50ms
             }
             return ret;
         }
         /// <summary>
-        /// 要被用thread方式叫起
+        /// thread activate content
         /// </summary>
         /// <param name="callId"></param>
         /// <param name="serviceName"></param>

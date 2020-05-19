@@ -41,7 +41,6 @@ namespace commonLib
         //                LogHelper lh = new LogHelper("Verify Helper checkDTyyyyMMddHHmmss");
         //                lh.Error(innerEx.Message);
         //            }
-        //            Thread.Sleep(0);
         //        }
         //    }
         //    return ret;
