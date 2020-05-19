@@ -4,13 +4,12 @@ using System.Text;
 
 namespace callMission.calls
 {
-    public class srvHelloTest : srvBase
+    public class srvMainLoop : srvBase
     {
-        public override string doCall(string callId)
+        public override string doCall(string inputJson)
         {
-            //todo !!... hell test docall
+            //todo !!... main loop do call
             throw new NotImplementedException();
         }
-
     }
 }

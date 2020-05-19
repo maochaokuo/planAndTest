@@ -92,9 +92,6 @@ namespace exeMission
                     newCallThread.Start();
                     calls.Add(callId, ccb);
                     callThreads.Add(callId, newCallThread);
-
-                    //undone !!... 做完的怎麼辦呢？自己搬到完成且今天目錄
-
                 }
                 //string tDir = fileUtl.pb(
                 //        CALL_PATH, inputObj.callTs);
@@ -120,11 +117,16 @@ namespace exeMission
             , string serviceName, string json )
         {
             string ret = "";
-            invokeService.run(serviceName);
             //todo !!... thread1call
-            
+            string callJson = ...
+            invokeService.run(serviceName, callJson);
+
             // when done, use callId, notify caller
             //to move to done dir, with returnJson
+
+            //undone !!... 做完的怎麼辦呢？自己搬到完成且今天目錄
+
+            // todo !!... 完成後要通知caller
             return ret;
         }
     }

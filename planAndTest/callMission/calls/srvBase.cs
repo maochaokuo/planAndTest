@@ -40,9 +40,14 @@ namespace callMission.calls
             // TO DO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
-
-        public virtual string doCall(string callId)
+        /// <summary>
+        /// the do call procedure
+        /// </summary>
+        /// <param name="inputJson">call type in json</param>
+        /// <returns>return type in json</returns>
+        public virtual string doCall(string inputJson)
         {
+            // never implement in base class
             throw new NotImplementedException();
         }
         #endregion

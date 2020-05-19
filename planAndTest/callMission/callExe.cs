@@ -215,19 +215,5 @@ namespace callMission
                 , json);
             return ret;
         }
-        /// <summary>
-        /// move to return directory
-        /// </summary>
-        /// <param name="callTs"></param>
-        /// <param name="returnJson"></param>
-        /// <returns></returns>
-        private string Move2return(string callTs, string returnJson)
-        {
-            string ret = "";
-
-            //todo !!... delete in progress
-            //add return/calldone directory (with date)
-            return ret;
-        }
     }
 }
