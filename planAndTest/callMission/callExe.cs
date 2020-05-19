@@ -187,21 +187,32 @@ namespace callMission
         public string ReturnAcall(string oriCallId
             , string returnJson, out string retCallId)
         {
-            string ret = "";
-            //todo !!... 1.get called json/object
-            //2. delete called dir/file
-            //3. update json/object with return info
-            //4. write to return folder
-            //刪掉呼叫callId
-            string callTsPath = fileUtl.pb(CALL_PATH, oriCallId);
-            ret = fileUtl.purgePath(callTsPath, true);
-            //產生回傳
+            string ret;
+            retCallId = "";
+            // get called json/object
+            clsCallBase ccb ;
+            ret = ReadAcall(oriCallId, out ccb);
+            if (ret.Length > 0) return ret;
+            //string callTsPath = fileUtl.pb(CALL_PATH, oriCallId);
+            //string json = fileUtl.file2string(callTsPath);
+            //clsCallBase ccb = jsonUtl.decodeJson<clsCallBase>(json);
+            // delete called dir/file
+            ret = DeleteAcall(oriCallId);
+            if (ret.Length > 0) return ret;
+            //ret = fileUtl.purgePath(callTsPath, true);
             retCallId = genCallId();
             if (ret.Length > 0) return ret;
+            //產生回傳 update json/object with return info
+            ccb.returnPara = returnJson;
+            ccb.returnTime = DateTime.Now;
+            string json = jsonUtl.encodeJson(ccb);
             string newfile = retCallId + ".json";
-            ret = fileUtl.string2file(fileUtl.pb(CALL_PATH, newfile)
-                , returnJson);
-            //todo !!... 少做一件事，移到calldone_path
+            // write to return folder
+            string callDonePath;
+            ret = CALLDONE_PATHtoday(out callDonePath);
+            if (ret.Length > 0) return ret;
+            ret = fileUtl.string2file(fileUtl.pb(callDonePath, newfile)
+                , json);
             return ret;
         }
         /// <summary>
