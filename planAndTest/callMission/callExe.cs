@@ -12,7 +12,7 @@ namespace callMission
         public readonly string EXE_PATH;
         public readonly string DATA_PATH;
         public readonly string CALL_PATH;
-        protected readonly string CALLDONE_PATH;
+        public readonly string CALLDONE_PATH;
 
         public static string genCallId()
         {
@@ -73,6 +73,16 @@ namespace callMission
             json = fileUtl.file2string(callPath);
             return ret;
         }
+        public string callId2callBase(string callId
+            , out clsCallBase ccb)
+        {
+            string ret = "", json="";
+            ret = callId2json(callId, out json);
+            ccb = null;
+            if (ret.Length > 0) return ret;
+            ccb = jsonUtl.decodeJson<clsCallBase>(json);
+            return ret;
+        }
         public string CALLDONE_PATHtoday(
             out string returnPath)
         {
@@ -109,7 +119,17 @@ namespace callMission
             // findCallInprogress
             return ret;
         }
-
+        public string DeleteAllCalls(string exceptCallId = "")
+        {
+            string ret = "";
+            List<string> allCalls = allCallsInprogress(exceptCallId);
+            foreach(string callId in allCalls)
+            {
+                ret = DeleteAcall(callId);
+                if (ret.Length > 0) return ret;
+            }
+            return ret;
+        }
         private string DeleteAcall(string callId)
         {
             string ret = "";

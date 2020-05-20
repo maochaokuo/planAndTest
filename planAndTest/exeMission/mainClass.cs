@@ -36,11 +36,11 @@ namespace exeMission
         public string killInprogressCalls()
         {
             string ret = "";
-            //todo !!... killInprogressCalls
             //起來，除了自己之外都先清除
             //所以若再run 一個console, 應該會砍掉前一個
             calls = new Dictionary<string, clsCallBase>();
             callThreads = new Dictionary<string, Thread>();
+            ret = ce.DeleteAllCalls(cml.callId);
             return ret;
         }
         /// <summary>

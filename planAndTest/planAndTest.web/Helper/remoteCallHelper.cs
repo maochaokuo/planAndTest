@@ -28,7 +28,7 @@ namespace planAndTest.web.Helper
                 out dt);
             if (ret.Length > 0) return ret;
             TimeSpan ts = DateTime.Now - dt;
-            if (ts.TotalMinutes>0)
+            if (ts.TotalMinutes > 0)
             {
             //todo !!... 若要呼叫，距離上次成功呼叫若太久
             //或上次失敗，則先echo, 等echo back
@@ -96,8 +96,18 @@ namespace planAndTest.web.Helper
             out List<clsCallBase> allCalls)
         {
             string ret = "";
-            allCalls = null;
-            //todo !!... callsInprogress
+            List<string> callIds = 
+                fileUtl.getAllSubdirs(ce.CALL_PATH);
+            clsCallBase ccb;
+            allCalls = new List<clsCallBase>();
+            foreach(string callId in callIds)
+            {
+                ccb = null;
+                ret = ce.callId2callBase(callId, out ccb);
+                if (ret.Length > 0) return ret;
+                if (ccb != null)
+                    allCalls.Add(ccb);
+            }
             return ret;
         }
         /// <summary>
@@ -109,8 +119,8 @@ namespace planAndTest.web.Helper
             out List<string> doneCallyyyyMMs)
         {
             string ret = "";
-            doneCallyyyyMMs = null;
-            //todo !!... callsDoneYYYYMMs
+            doneCallyyyyMMs = 
+                fileUtl.getAllSubdirs(ce.CALLDONE_PATH);
             return ret;
         }
         /// <summary>
@@ -123,22 +133,36 @@ namespace planAndTest.web.Helper
             out List<string> doneCalldays)
         {
             string ret = "";
-            doneCalldays = null;
-            //todo !!... callsDoneDays
+            string path = fileUtl.pb(ce.CALLDONE_PATH,
+                doneCall1yyyyMM);
+            doneCalldays = fileUtl.getAllSubdirs(path);
             return ret;
         }
         /// <summary>
-        /// 完成呼叫由日取得完成呼叫清單
+        /// 完成呼叫由年月與日取得完成呼叫清單
         /// </summary>
         /// <param name="doneCallDay"></param>
         /// <param name="doneCalls"></param>
         /// <returns></returns>
-        public string callsDoneList(string doneCallDay,
+        public string callsDoneList(DateTime doneCallDay,
             out List<clsCallBase> doneCalls)
         {
             string ret = "";
-            doneCalls = null;
-            //todo !!... callsDoneList
+            string doneCall1yyyyMM = doneCallDay.ToString("yyyyMM");
+            string doneCall1day = doneCallDay.ToString("dd");
+            string path =fileUtl.pb( fileUtl.pb(ce.CALLDONE_PATH,
+                doneCall1yyyyMM), doneCall1day);
+            List<string> doneCallDirs = fileUtl.getAllSubdirs(path);
+            doneCalls = new List<clsCallBase>();
+            clsCallBase ccb;
+            foreach(string dir in doneCallDirs)
+            {
+                ccb = null;
+                ret = ce.callId2callBase(dir, out ccb);
+                if (ret.Length > 0) return ret;
+                if (ccb!=null)
+                    doneCalls.Add(ccb);
+            }
             return ret;
         }
     }
