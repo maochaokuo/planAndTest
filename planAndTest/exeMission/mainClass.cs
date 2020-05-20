@@ -53,7 +53,27 @@ namespace exeMission
             //const string CALL_PATH = @"C:\Users\maoch\Desktop\temp\git\planAndTest\planAndTest\exeMission\Data\calls\";
             string ret = "";
             dbg d = new dbg();
-            string toOutput;
+
+            // check thread status, if stopped, move to done
+            foreach(KeyValuePair<string, Thread> pair
+                in callThreads)
+            {
+                Thread theThread = pair.Value;
+                if (theThread.ThreadState==ThreadState.Stopped)
+                {
+                    clsCallBase ccb = null;
+                    if (!calls.TryGetValue(pair.Key, out ccb))
+                        throw new Exception(
+                            "cannot find ccb in collection");
+                    string retCallId;
+                    ret = ce.ReturnAcall(pair.Key, ccb.returnPara
+                        , out retCallId);
+                    if (ret.Length > 0) return ret;
+                    // the way to get return json
+                    calls.Remove(pair.Key);
+                    callThreads.Remove(pair.Key);
+                }
+            }
 
             //keep looping，不斷去檢查calls目錄有沒有新目錄
             //若有的話，spawn new thread去計算
@@ -88,20 +108,11 @@ namespace exeMission
 
                     // execute the new call
                     Thread newCallThread = new Thread(()=>
-                        thread1call(callId, serviceName, json));
+                        thread1call(callId, serviceName, ref ccb));
                     newCallThread.Start();
                     calls.Add(callId, ccb);
                     callThreads.Add(callId, newCallThread);
                 }
-                //string tDir = fileUtl.pb(
-                //        CALL_PATH, inputObj.callTs);
-                //toOutput = "tDir=" + tDir;
-                //d.ot(toOutput);
-                //if (!fileUtl.dirExists(tDir))
-                //    break;
-                //toOutput = "datetime:" + DateTime.Now.ToString();
-                //d.ot(toOutput);
-                //Console.WriteLine(toOutput);
 
                 Thread.Sleep(50);//loop once sleep 50ms
             }
@@ -114,20 +125,18 @@ namespace exeMission
         /// <param name="serviceName"></param>
         /// <returns></returns>
         private static string thread1call(string callId
-            , string serviceName, string json )
+            , string serviceName, ref clsCallBase ccb)// string callJson)
         {
-            string ret = "";
-            //todo !!... thread1call
-            string callJson = ...
-            invokeService.run(serviceName, callJson);
+            string retJson = "";
+            string callJson = jsonUtl.encodeJson(ccb);
+            retJson =
+                invokeService.run(serviceName, callJson);
+            ccb.returnPara = retJson;
+            ccb.returnTime = DateTime.Now;
 
             // when done, use callId, notify caller
             //to move to done dir, with returnJson
-
-            //undone !!... 做完的怎麼辦呢？自己搬到完成且今天目錄
-
-            // todo !!... 完成後要通知caller
-            return ret;
+            return retJson;
         }
     }
 }

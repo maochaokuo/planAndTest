@@ -1,4 +1,6 @@
-﻿using System;
+﻿using commonLib;
+using models.calls;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,8 +15,14 @@ namespace callMission.calls
         /// <returns>return type in json</returns>
         public override string doCall(string inputJson)
         {
-            //todo !!... hell test docall
-            throw new NotImplementedException();
+            string outputJson;
+            clsHelloTest inOut;
+            inOut = jsonUtl.decodeJson<clsHelloTest>
+                ( inputJson);
+            inOut.returnPara = string.Format(
+                @"Hello, {0}", inOut.callPara);
+            outputJson = jsonUtl.encodeJson(inOut);
+            return outputJson;
         }
 
     }
