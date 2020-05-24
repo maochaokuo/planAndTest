@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using planAndTest.web.Helper;
@@ -15,22 +16,27 @@ namespace planAndTest.web.Controllers
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
+        private void testCall()
         {
-            remoteCallHelper hch = new remoteCallHelper();
-            string err = hch.checkMainLoop();
-            // 若失敗，activate console
-            if (err.Length > 0)
-                err = hch.runNewMainLoop();
-            if (err.Length > 0)
-                throw new Exception(
-                    "remote call engine failed");
-            string echoCallId = "";
-            err = hch.makeOneCall("srvMainLoop", "echo", 
-                out echoCallId);
-            if (err.Length > 0)
-                throw new Exception("echo main engin failed");
+            remoteCallBridge rcb = new remoteCallBridge();
+            string returnJson = "";
+            string ret =rcb.instantCall<callMission.calls.srvHelloTest>("", "srvHelloTest", "doCall"
+                , "paraJson", out returnJson);
+            Thread.Sleep(0);
+
+            //remoteCallHelper hch = new remoteCallHelper();
+            //string err = hch.checkMainLoop();
+            //// 若失敗，activate console
+            //if (err.Length > 0)
+            //    err = hch.runNewMainLoop();
+            //if (err.Length > 0)
+            //    throw new Exception(
+            //        "remote call engine failed");
+            //string echoCallId = "";
+            //err = hch.makeOneCall("srvMainLoop", "echo",
+            //    out echoCallId);
+            //if (err.Length > 0)
+            //    throw new Exception("echo main engin failed");
 
             //clsHelloTest cht = new clsHelloTest();
             //cht.callPara = "(I am home/index)";
@@ -38,6 +44,10 @@ namespace planAndTest.web.Controllers
             //string err = ce.MakeAcall(reflectionUtl.TypeName<clsHelloTest>()
             //    , json);
 
+        }
+        public IActionResult Index()
+        {
+            testCall();
             return View();
         }
 

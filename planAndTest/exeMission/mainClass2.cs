@@ -46,7 +46,7 @@ namespace exeMission
             string returnJson = "";
             try
             {
-                ret = invokeService.run(ccs.systemName,
+                ret = invokeService.run<callMission.calls.srvHelloTest>(ccs.systemName,
                     ccs.serviceName, ccs.methodName,
                     ccs.callPara, out returnJson);
                 //todo !!... call done, remove call json file

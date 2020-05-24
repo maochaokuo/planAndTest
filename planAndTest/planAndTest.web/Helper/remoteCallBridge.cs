@@ -21,19 +21,22 @@ namespace planAndTest.web.Helper
         {
             this.ce = ce;
         }
-        public string instantCall(string systemName, string
+        public string instantCall<T>(string systemName, string
             serviceName, string methodName, string paraJson, out
             string returnJson)
         {
             string ret = "";
             returnJson = "";
+#if RELEASE
             try
+#endif //RELEASE
             {
-                ret = invokeService.run(systemName, serviceName
+                ret = invokeService.run<T>(systemName, serviceName
                     , methodName, paraJson, out returnJson);
                 if (ret.Length > 0)
                     throw new Exception(ret);
             }
+#if RELEASE
             catch(Exception ex)
             {
                 Exception inner = ex;
@@ -41,6 +44,7 @@ namespace planAndTest.web.Helper
                     inner = inner.InnerException;
                 ret = ex.Message + "\n" + ex.StackTrace;
             }
+#endif //RELEASE
             return ret;
         }
         public string persistentCall(string systemName, string
