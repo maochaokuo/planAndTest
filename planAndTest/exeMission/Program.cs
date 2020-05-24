@@ -21,23 +21,30 @@ namespace exeMission
             //                d.output(line);
             //            }
             //clsMainLoop cml = new clsMainLoop();
-            string callId = "";
+            string callId;
             if (args.Length > 0)
+            {
                 callId = args[0];
+                mainClass2 mc2 = new mainClass2(callId);
+                string ret = mc2.executeCall();
+            }
             else
-                callId = callExe.genCallId();
-            clsMainLoop cml = new clsMainLoop(callId);
-            cml.callId = callId;
-            if (args.Length >= 2)
-                cml.serviceName = args[1];
-            else
-                cml.serviceName = reflectionUtl.TypeName<
-                    clsMainLoop>();
-            mainClass mc = new mainClass(cml);
+            {
+                Console.WriteLine("callId not specified!");
+            }
+            //    callId = callExe.genCallId();
+            //clsMainLoop cml = new clsMainLoop(callId);
+            //cml.callId = callId;
+            //if (args.Length >= 2)
+            //    cml.serviceName = args[1];
+            //else
+            //    cml.serviceName = reflectionUtl.TypeName<
+            //        clsMainLoop>();
+            //mainClass mc = new mainClass(cml);
 
-            string err = mc.startLooping();// cml.theMainLoop(cmli);
-            d.ot(string.Format(@"exeMission end @{0} with error {1}"
-                , DateTime.Now.ToString(), err));
+            //string err = mc.startLooping();// cml.theMainLoop(cmli);
+            //d.ot(string.Format(@"exeMission end @{0} with error {1}"
+            //    , DateTime.Now.ToString(), err));
 
         }
     }

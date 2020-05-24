@@ -9,4 +9,10 @@
     <ProjectReference Include="..\models\models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EPL\" />
+    <Folder Include="SD\" />
+    <Folder Include="SA\" />
+  </ItemGroup>
+
 </Project>
