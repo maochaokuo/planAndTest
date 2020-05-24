@@ -17,9 +17,19 @@
             <a class="nav-link text-dark" asp-area="" asp-controller="EPL"
                asp-action="Action3">Action3</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                Jobs
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="Index">Jobs</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Hangfire">Hangfire</a>
+            </div>
+        </li>
+        @*<li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Hangfire"
                asp-action="Index">Hangfire</a>
-        </li>
+        </li>*@
     </ul>
 </div>
