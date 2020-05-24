@@ -66,3 +66,4 @@ public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJo
 ## change log
 ### 2020/5/24
 1. plan changed, use Hangfire, to solve web running console application issues
+2. update menu items

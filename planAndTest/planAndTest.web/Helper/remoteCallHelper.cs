@@ -1,5 +1,6 @@
 ﻿using callMission;
 using commonLib;
+using Hangfire;
 using models.calls;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,10 @@ namespace planAndTest.web.Helper
             ret = ce.MakeAcall(callId, json);
             if (ret.Length > 0) return ret;
             ret = ce.spawnEXE(callId, cmli.serviceName);
+
+            //todo !!... change to use hangire...
+            BackgroundJob.Enqueue(() => Console.WriteLine("home action3!"));
+
             return ret;
         }
         /// <summary>

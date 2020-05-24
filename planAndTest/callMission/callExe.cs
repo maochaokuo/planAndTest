@@ -160,7 +160,6 @@ namespace callMission
             serviceName)
         {
             string ret = "";
-
             // spawn exeMission.exe, with servicename n callTs
             Process p = new Process();
             p.StartInfo.FileName = EXE_PATH;// "dotnet";
