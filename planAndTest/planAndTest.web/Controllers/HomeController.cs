@@ -27,7 +27,7 @@ namespace planAndTest.web.Controllers
                 throw new Exception(
                     "remote call engine failed");
             string echoCallId = "";
-            err = hch.makeOneCall("clsMainLoop", "echo", 
+            err = hch.makeOneCall("srvMainLoop", "echo", 
                 out echoCallId);
             if (err.Length > 0)
                 throw new Exception("echo main engin failed");
