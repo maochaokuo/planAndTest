@@ -69,9 +69,11 @@ namespace commonLib
         {
             string ret = "";
             var directory = new DirectoryInfo(path);
-            DirectoryInfo myFile = (from f in directory.GetDirectories()
-                          orderby f.LastWriteTime descending
-                          select f).First();
+            var myFiles = (from f in directory.GetDirectories()
+                                    orderby f.LastWriteTime descending
+                                    select f).ToList();//.First();
+            if (myFiles == null||myFiles.Count==0) return ret;
+            DirectoryInfo myFile = myFiles.First();
             ret = DirInfo2Name(myFile);
             return ret;
         }
@@ -84,9 +86,11 @@ namespace commonLib
         {
             string ret = "";
             var directory = new DirectoryInfo(path);
-            FileInfo myFile = (from f in directory.GetFiles()
-                          orderby f.LastWriteTime descending
-                          select f).First();
+            var myFiles = (from f in directory.GetFiles()
+                           orderby f.LastWriteTime descending
+                           select f).ToList();//.First();
+            if (myFiles == null||myFiles.Count==0) return ret;
+            FileInfo myFile = myFiles.First();
             ret = FileInfo2Name(myFile);
             //// or...
             //var myFile = directory.GetFiles()
