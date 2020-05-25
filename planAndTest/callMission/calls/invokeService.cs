@@ -1,4 +1,4 @@
-﻿//#define RELEASE
+﻿#define RELEASE
 
 using System;
 using System.Collections.Generic;
@@ -9,37 +9,41 @@ namespace callMission.calls
 {
     public class invokeService
     {
-        public static string run<T>(string systemName, string serviceName
+        public static string run(string systemName, string serviceName
             , string methodName, string callJson, out string returnJson)
         {
             string ret = "";
-            T t1 = default(T);
-            Type objtype = null;
+            //T t1 = default(T);
+            //Type objtype = null;
             Object returnVal =null;
             returnJson = "";
             if (string.IsNullOrWhiteSpace(systemName))
                 systemName = "calls";
             string withNamespace = $"callMission.{systemName}."
                 + serviceName;
-            Type t = Type.GetType(withNamespace);
-            MethodInfo method;
+            Type ObjType = Type.GetType(withNamespace);
+            MethodInfo magicMethod;
 #if RELEASE
             try
 #endif //RELEASE
             {
-                t1 = System.Activator.CreateInstance<T>();
-                objtype = typeof(T);
+                var FacOnj = System.Activator.CreateInstance(ObjType);
+                //t1 = System.Activator.CreateInstance<T>();
+                //objtype = typeof(T);
                 if (string.IsNullOrWhiteSpace(methodName))
                     methodName = "doCall";
                 //method = t.GetMethod(methodName);// "doCall");
-                method = objtype.GetMethod(methodName);
+                magicMethod = ObjType.GetMethod(methodName);
                 //Type objtype = typeof(t);
                 Object[] param = new Object[]{ (Object)callJson };
                 //String[] param = new[] { (String)callJson };
                 //returnVal = method.Invoke(t, param);
-                returnVal = method.Invoke(t1, param);
+                returnVal = magicMethod.Invoke(FacOnj, param);
 
                 returnJson = (string)returnVal;
+                ((IDisposable)FacOnj).Dispose();
+                GC.Collect();
+                magicMethod = null;
             }
 #if RELEASE
             catch (Exception ex)
@@ -49,9 +53,6 @@ namespace callMission.calls
             finally
 #endif //RELEASE
             {
-                method = null;
-                ((IDisposable)t).Dispose();
-                GC.Collect();
             }
             return ret;
         }

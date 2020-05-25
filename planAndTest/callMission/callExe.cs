@@ -160,6 +160,8 @@ namespace callMission
             serviceName)
         {
             string ret = "";
+            //using (var d = new dbg())
+            //    d.ot("spawnexe 1");
             // spawn exeMission.exe, with servicename n callTs
             Process p = new Process();
             p.StartInfo.FileName = EXE_PATH;// "dotnet";
@@ -168,7 +170,8 @@ namespace callMission
             p.StartInfo.CreateNoWindow = true;// false;
             p.Start();
             //p.WaitForExit();
-
+            using (var d = new dbg())
+                d.ot("spawnexe 2");
             return ret;
         }
         /// <summary>

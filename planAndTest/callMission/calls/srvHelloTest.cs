@@ -17,11 +17,11 @@ namespace callMission.calls
         {
             string outputJson;
             clsHelloTest inOut;
-            inOut = jsonUtl.decodeJson<clsHelloTest>
-                ( inputJson);
-            inOut.returnPara = string.Format(
-                @"Hello, {0}", inOut.callPara);
-            outputJson = jsonUtl.encodeJson(inOut);
+            //inOut = jsonUtl.decodeJson<clsHelloTest>
+            //    ( inputJson);
+            outputJson = string.Format(
+                @"Hello, {0}", inputJson);
+            //outputJson = jsonUtl.encodeJson(inOut);
             return outputJson;
         }
 

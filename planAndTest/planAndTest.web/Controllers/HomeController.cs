@@ -20,8 +20,12 @@ namespace planAndTest.web.Controllers
         {
             remoteCallBridge rcb = new remoteCallBridge();
             string returnJson = "";
-            string ret =rcb.instantCall<callMission.calls.srvHelloTest>("", "srvHelloTest", "doCall"
-                , "paraJson", out returnJson);
+            string ret = "";
+            //ret = rcb.instantCall("", "srvHelloTest", "doCall"
+            //    , "paraJson", out returnJson);
+            //Thread.Sleep(0);
+            ret = rcb.persistentCall("", "srvHelloTest", "doCall"
+                , "string", "paraJson", "string", out returnJson);
             Thread.Sleep(0);
 
             //remoteCallHelper hch = new remoteCallHelper();

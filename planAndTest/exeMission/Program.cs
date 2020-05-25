@@ -10,7 +10,6 @@ namespace exeMission
     {
         static void Main(string[] args)
         {
-            dbg d = new dbg();
             //            string line = string.Format(@"args num:{0}"
             //, args.Length);
             //            d.output(line);
@@ -21,17 +20,42 @@ namespace exeMission
             //                d.output(line);
             //            }
             //clsMainLoop cml = new clsMainLoop();
-            string callId;
-            if (args.Length > 0)
+            try
             {
-                callId = args[0];
-                mainClass2 mc2 = new mainClass2(callId);
-                string ret = mc2.executeCall();
+                using (var d = new dbg())
+                    d.ot("exeMission start");
+                string callId;
+                if (args.Length > 0)
+                {
+                    callId = args[0];
+                    using (var d = new dbg())
+                        d.ot($"callId={callId}");
+                    mainClass2 mc2 = new mainClass2(callId);
+                    using (var d = new dbg())
+                        d.ot($"mainClass2 initialized");
+                    string ret = mc2.executeCall();
+                    using (var d = new dbg())
+                        d.ot($"ret={ret}");
+                }
+                else
+                {
+                    Console.WriteLine("callId not specified!");
+                }
+                using (var d = new dbg())
+                    d.ot("exeMission end");
             }
-            else
+            catch(Exception ex)
             {
-                Console.WriteLine("callId not specified!");
+                Exception inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
+                string err = "exception " + inner.Message + "\n" + inner.StackTrace;
+                Console.WriteLine(err);
+                using (var d = new dbg())
+                    d.ot(err);
+
             }
+            Console.ReadLine();
             //    callId = callExe.genCallId();
             //clsMainLoop cml = new clsMainLoop(callId);
             //cml.callId = callId;

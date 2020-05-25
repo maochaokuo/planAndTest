@@ -13,7 +13,7 @@ namespace callMission.calls
         /// <returns>return type in json</returns>
         public override string doCall(string inputJson)
         {
-            //todo !!... main loop do call
+            // main loop do call
             throw new NotImplementedException();
         }
     }

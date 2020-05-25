@@ -21,7 +21,7 @@ namespace planAndTest.web.Helper
         {
             this.ce = ce;
         }
-        public string instantCall<T>(string systemName, string
+        public string instantCall(string systemName, string
             serviceName, string methodName, string paraJson, out
             string returnJson)
         {
@@ -31,7 +31,7 @@ namespace planAndTest.web.Helper
             try
 #endif //RELEASE
             {
-                ret = invokeService.run<T>(systemName, serviceName
+                ret = invokeService.run(systemName, serviceName
                     , methodName, paraJson, out returnJson);
                 if (ret.Length > 0)
                     throw new Exception(ret);
@@ -74,11 +74,14 @@ namespace planAndTest.web.Helper
                 ret = ce.MakeAcall(callId, json);
                 if (ret.Length > 0)
                     throw new Exception(ret);
-
+                using (var d = new dbg())
+                    d.ot("before spawn exe");
                 // change to use hangire...
                 BackgroundJob.Enqueue(() =>
                     ce.spawnEXE(callId, serviceName)
                 );
+                using (var d = new dbg())
+                    d.ot("after spawn exe");
             }
             catch (Exception ex)
             {

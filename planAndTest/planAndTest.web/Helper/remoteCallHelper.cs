@@ -31,16 +31,8 @@ namespace planAndTest.web.Helper
             TimeSpan ts = DateTime.Now - dt;
             if (ts.TotalMinutes > 0)
             {
-            //todo !!... 若要呼叫，距離上次成功呼叫若太久
+            // 若要呼叫，距離上次成功呼叫若太久
             //或上次失敗，則先echo, 等echo back
-            //todo !!... 來，我們按照hangfire改作法
-            //1. 所有呼叫改為，可各自設定為同步呼叫或常駐呼叫
-            //2. 同步呼叫就是原本傳統寫法，常駐呼叫就是叫一隻console起來跑
-            //3. 所以就取消main loop的作法
-            //4. console要顯示畫面，然後用console.write...顯示狀態，這樣
-            //   就可以看得到console是否已經執行完成，或掛掉
-            //5. 另外提供一個清除所有呼叫紀錄的按鍵。
-            //6. 已經完成的呼叫，寫一筆紀錄到完成的目錄，且將呼叫紀錄刪除
             }
             return ret;
         }
@@ -64,6 +56,14 @@ namespace planAndTest.web.Helper
             //todo !!... change to use hangire...
             BackgroundJob.Enqueue(() => Console.WriteLine("home action3!"));
 
+            //todo !!... 來，我們按照hangfire改作法
+            //1. 所有呼叫改為，可各自設定為同步呼叫或常駐呼叫
+            //2. 同步呼叫就是原本傳統寫法，常駐呼叫就是叫一隻console起來跑
+            //3. 所以就取消main loop的作法
+            //4. console要顯示畫面，然後用console.write...顯示狀態，這樣
+            //   就可以看得到console是否已經執行完成，或掛掉
+            //5. 另外提供一個清除所有呼叫紀錄的按鍵。
+            //6. 已經完成的呼叫，寫一筆紀錄到完成的目錄，且將呼叫紀錄刪除
             return ret;
         }
         /// <summary>
@@ -97,7 +97,7 @@ namespace planAndTest.web.Helper
         {
             string ret = "";
             retJson = "";
-            // todo !!... callReturn
+            // callReturn
             return ret;
         }
         /// <summary>
