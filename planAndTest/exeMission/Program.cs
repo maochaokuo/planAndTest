@@ -55,7 +55,7 @@ namespace exeMission
                     d.ot(err);
 
             }
-            Console.ReadLine();
+            //Console.ReadLine();
             //    callId = callExe.genCallId();
             //clsMainLoop cml = new clsMainLoop(callId);
             //cml.callId = callId;

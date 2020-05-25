@@ -70,7 +70,8 @@ namespace callMission
         {
             string ret = "";
             string callPath = fileUtl.pb(CALL_PATH, callId);
-            json = fileUtl.file2string(callPath);
+            string callfile = fileUtl.pb(callPath, callId + ".json");
+            json = fileUtl.file2string(callfile);
             return ret;
         }
         public string callId2callBase(string callId
