@@ -53,10 +53,10 @@ namespace planAndTest.web.Helper
             if (ret.Length > 0) return ret;
             ret = ce.spawnEXE(callId, cmli.serviceName);
 
-            //todo !!... change to use hangire...
-            BackgroundJob.Enqueue(() => Console.WriteLine("home action3!"));
+            //change to use hangire... sample
+            //BackgroundJob.Enqueue(() => Console.WriteLine("home action3!"));
 
-            //todo !!... 來，我們按照hangfire改作法
+            // 來，我們按照hangfire改作法
             //1. 所有呼叫改為，可各自設定為同步呼叫或常駐呼叫
             //2. 同步呼叫就是原本傳統寫法，常駐呼叫就是叫一隻console起來跑
             //3. 所以就取消main loop的作法

@@ -16,15 +16,13 @@ namespace exeMission
 
         public mainClass2(string callId)
         {
-            using (var d = new dbg())
-                d.ot("mainClass2 a");
+            dbg.o("mainClass2 a");
             ce = new callExe();
             this.callId = callId;
             string ret = initialize(this.callId);
             if (ret.Length > 0)
                 throw new Exception(ret);
-            using (var d = new dbg())
-                d.ot("mainClass2 b "+ret);
+            dbg.o("mainClass2 b "+ret);
         }
         protected string initialize(string callId)
         {
@@ -53,14 +51,12 @@ namespace exeMission
             string returnJson = "";
             try
             {
-                using (var d = new dbg())
-                    d.ot("executeCall 1");
+                dbg.o("executeCall 1");
                 ret = invokeService.run(ccs.systemName,
                     ccs.serviceName, ccs.methodName,
                     ccs.callPara, out returnJson);
-                using (var d = new dbg())
-                    d.ot($"executeCall ret={ret} returnJson={returnJson}");
-                //todo !!... call done, remove call json file
+                dbg.o($"executeCall ret={ret} returnJson={returnJson}");
+                // call done, remove call json file
                 //add call done json file
             }
             catch(Exception ex)

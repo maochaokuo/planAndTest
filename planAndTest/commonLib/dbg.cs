@@ -2,24 +2,52 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace commonLib
 {
     public class dbg : IDisposable
     {
-        protected readonly string DBG_PATH = @"C:\TEMP\";
-        protected readonly string DBG_FILE = "o.t";
+        protected readonly static string DBG_PATH = @"C:\TEMP\";
+        protected readonly static string DBG_FILE = "o.t";
+        protected string dbgPath = "";
+        protected string dbgFile = "";
         private bool disposedValue;
-
         public dbg()
         {
+            dbgPath = DBG_PATH;
+            dbgFile = DBG_FILE;
         }
         public dbg(string dbgPath, string dbgFile="o.t")
         {
-            DBG_PATH = dbgPath;
-            DBG_FILE = dbgFile;
+            this.dbgPath = dbgPath;
+            this.dbgFile = dbgFile;
         }
-        public void ot(string outStr)
+        protected static bool busy = false;
+        public static string o(string outS)
+        {
+            string ret = "";
+            while (busy)
+                Thread.Sleep(50);
+            busy = true;
+            try
+            {
+                StreamWriter sw = new StreamWriter(
+                    Path.Combine(DBG_PATH, DBG_FILE), true);
+                string sout = $"{DateTime.Now.ToString("HH:mm:ss")}: {outS}";
+                sw.WriteLine(sout);
+                sw.Close();
+                sw = null;
+                Console.WriteLine(sout);
+            }
+            catch(Exception ex)
+            {
+                ret = ex.Message;
+            }
+            busy = false;
+            return ret;
+        }
+        public void t(string outStr)
         {
             StreamWriter sw = new StreamWriter(
                 Path.Combine( DBG_PATH, DBG_FILE), true);
@@ -28,23 +56,22 @@ namespace commonLib
             sw.Close();
             sw = null;
         }
-
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
-                    // TODO: dispose managed state (managed objects)
+                    // TO DO: dispose managed state (managed objects)
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
+                // TO DO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TO DO: set large fields to null
                 disposedValue = true;
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        // // TO DO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
         // ~dbg()
         // {
         //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method

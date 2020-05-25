@@ -3,6 +3,7 @@ using models.calls;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace callMission.calls
 {
@@ -22,6 +23,17 @@ namespace callMission.calls
             outputJson = string.Format(
                 @"Hello, {0}", inputJson);
             //outputJson = jsonUtl.encodeJson(inOut);
+            Thread.Sleep(999);
+            dbg.o("1 second");
+            Thread.Sleep(999);
+            dbg.o("2 second");
+            Thread.Sleep(999);
+            dbg.o("3 second");
+            Thread.Sleep(999);
+            dbg.o("4 second");
+            Thread.Sleep(999);
+            dbg.o("5 second");
+            // todo !!... reconsider here, to feedback running status
             return outputJson;
         }
 

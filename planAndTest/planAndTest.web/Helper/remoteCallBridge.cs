@@ -1,4 +1,6 @@
-﻿using callMission;
+﻿#define RELEASE
+
+using callMission;
 using callMission.calls;
 using commonLib;
 using Hangfire;
@@ -20,6 +22,18 @@ namespace planAndTest.web.Helper
         public remoteCallBridge(callExe ce)
         {
             this.ce = ce;
+        }
+        public string clearCalls()
+        {
+            string ret = "";
+            // todo clearCalls and when to do it
+            return ret;
+        }
+        public string clearCalldones()
+        {
+            string ret = "";
+            // todo clearCalldones and when to do it
+            return ret;
         }
         public string instantCall(string systemName, string
             serviceName, string methodName, string paraJson, out
@@ -52,8 +66,8 @@ namespace planAndTest.web.Helper
             , string paraJson, string returnType, out
             string returnJson)
         {
-            //todo !!... persistentCall
-            //1. 寫call status objct
+            // persistentCall
+            //1. call status objct
             //2. run exe
             string ret = "";
             returnJson = "";
@@ -74,14 +88,12 @@ namespace planAndTest.web.Helper
                 ret = ce.MakeAcall(callId, json);
                 if (ret.Length > 0)
                     throw new Exception(ret);
-                using (var d = new dbg())
-                    d.ot("before spawn exe");
+                dbg.o("before spawn exe");
                 // change to use hangire...
                 BackgroundJob.Enqueue(() =>
                     ce.spawnEXE(callId, serviceName)
                 );
-                using (var d = new dbg())
-                    d.ot("after spawn exe");
+                dbg.o("after spawn exe");
             }
             catch (Exception ex)
             {

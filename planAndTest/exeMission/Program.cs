@@ -22,27 +22,22 @@ namespace exeMission
             //clsMainLoop cml = new clsMainLoop();
             try
             {
-                using (var d = new dbg())
-                    d.ot("exeMission start");
+                dbg.o("exeMission start");
                 string callId;
                 if (args.Length > 0)
                 {
                     callId = args[0];
-                    using (var d = new dbg())
-                        d.ot($"callId={callId}");
+                    dbg.o($"callId={callId}");
                     mainClass2 mc2 = new mainClass2(callId);
-                    using (var d = new dbg())
-                        d.ot($"mainClass2 initialized");
+                    dbg.o($"mainClass2 initialized");
                     string ret = mc2.executeCall();
-                    using (var d = new dbg())
-                        d.ot($"ret={ret}");
+                    dbg.o($"ret={ret}");
                 }
                 else
                 {
-                    Console.WriteLine("callId not specified!");
+                    dbg.o("callId not specified!");
                 }
-                using (var d = new dbg())
-                    d.ot("exeMission end");
+                dbg.o("exeMission end");
             }
             catch(Exception ex)
             {
@@ -51,8 +46,7 @@ namespace exeMission
                     inner = inner.InnerException;
                 string err = "exception " + inner.Message + "\n" + inner.StackTrace;
                 Console.WriteLine(err);
-                using (var d = new dbg())
-                    d.ot(err);
+                dbg.o(err);
 
             }
             //Console.ReadLine();
