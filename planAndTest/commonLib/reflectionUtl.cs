@@ -13,6 +13,48 @@ namespace commonLib
             //ret = typeof(T).FullName;
             return ret;
         }
+        //public ApiResult<object> Input(JsonRequest<object> inObj)
+        //{
+        //    try
+        //    {
+        //        var FacOnj = System.Activator.CreateInstance(Type.GetType("NCaipWebApi.Factory." + inObj.ClassName));
+        //        string MethodName = inObj.MethodName;
+        //        Type ObjType = Type.GetType("NCaipWebApi.Factory." + inObj.ClassName);
+        //        MethodInfo magicMethod = ObjType.GetMethod(MethodName);
+        //        if (inObj.OPLogInfo == null)
+        //            inObj.OPLogInfo = new OPUserInfo();
+        //        object magicValue = magicMethod.Invoke(FacOnj, new object[] { inObj.Param.ToString(), inObj.OPLogInfo.ToString() });
+
+        //        return (ApiResult<object>)magicValue;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        OP_LOG oplog = new OP_LOG();
+        //        clsOPData OPdata = new clsOPData();
+        //        Exception innerEx = ex;
+        //        string err = innerEx.Message;
+        //        string stack;
+        //        for (; ; )
+        //        {
+        //            stack = innerEx.StackTrace;
+        //            innerEx = innerEx.InnerException;
+        //            if (innerEx == null)
+        //                break;
+        //            err = err + "\n" + innerEx.Message;
+        //        }
+        //        err = err + "\n\n" + stack;
+        //        OPdata.Add(err);
+        //        oplog.ADD(OPdata);
+        //        oplog.Status = StatusEnum.FailException;
+        //        FactoryBase fb = new FactoryBase();
+        //        fb.WriteOplog<OP_LOG>(oplog, true);
+        //        ApiResult<object> apiResult = new ApiResult<object>();
+        //        apiResult.Data = null;
+        //        apiResult.Message = err;
+        //        apiResult.Succ = false;
+        //        return apiResult;
+        //    }
+        //}
         //public ReturnStd doInvoke<T, T2>(T2 enu, Object[] param)
         //{
         //    T t = default(T);
