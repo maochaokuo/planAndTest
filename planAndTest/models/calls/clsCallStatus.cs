@@ -22,6 +22,7 @@ namespace models.calls
         }
         public string statusSummary { get; set; }
         public string systemName { get; set; }
+        public string callId { get; set; }
         public string serviceName { get; set; }
         public string methodName { get; set; }
         public DateTime callTime { get; set; }
@@ -32,12 +33,23 @@ namespace models.calls
         public DateTime returnTime { get; set; }
         public string returnTypeName { get; set; }
         public string returnPara { get; set; }
-        public clsCallStatus()
+
+        public clsCallStatus(string callId)
         {
             progressLst = new SortedList<DateTime, clsCallProgress>(
                 new DescendedDateComparer());
+            this.callId = callId;
+            SetCallTime();
         }
-        public string addProgress(string logMsg)
+        public void SetCallTime()
+        {
+            callTime = DateTime.Now;
+        }
+        public void SetReturnTime()
+        {
+            returnTime = DateTime.Now;
+        }
+        public virtual string addProgress(string logMsg)
         {
             string ret = "";
             clsCallProgress ccp = new clsCallProgress

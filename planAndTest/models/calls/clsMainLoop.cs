@@ -2,7 +2,7 @@
 
 namespace models.calls
 {
-    public class clsMainLoop : clsCallBase
+    public class clsMainLoop : clsCallStatus// clsCallBase
     {
         public clsMainLoop(string callId)
             : base(callId)

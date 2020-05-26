@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="calls\clsCallBase.cs" />
     <Compile Remove="calls\clsMainLoopInput.cs" />
   </ItemGroup>
 

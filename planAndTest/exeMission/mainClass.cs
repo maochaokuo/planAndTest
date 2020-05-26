@@ -13,7 +13,7 @@ namespace exeMission
     {
         protected clsMainLoop cml = null;
         protected callExe ce = null;
-        protected Dictionary<string, clsCallBase> calls = null;
+        protected Dictionary<string, clsCallStatus> calls = null;
         protected Dictionary<string, Thread> callThreads = null;
 
         public mainClass(clsMainLoop cml)
@@ -38,7 +38,7 @@ namespace exeMission
             string ret = "";
             //起來，除了自己之外都先清除
             //所以若再run 一個console, 應該會砍掉前一個
-            calls = new Dictionary<string, clsCallBase>();
+            calls = new Dictionary<string, clsCallStatus>();
             callThreads = new Dictionary<string, Thread>();
             ret = ce.DeleteAllCalls(cml.callId);
             return ret;
@@ -61,7 +61,7 @@ namespace exeMission
                 Thread theThread = pair.Value;
                 if (theThread.ThreadState==ThreadState.Stopped)
                 {
-                    clsCallBase ccb = null;
+                    clsCallStatus ccb = null;
                     if (!calls.TryGetValue(pair.Key, out ccb))
                         throw new Exception(
                             "cannot find ccb in collection");
@@ -102,8 +102,8 @@ namespace exeMission
                     string json="";
                     ret = ce.callId2json(callId, out json);
                     if (ret.Length > 0) return ret;
-                    clsCallBase ccb = jsonUtl.decodeJson<
-                        clsCallBase>(json);
+                    clsCallStatus ccb = jsonUtl.decodeJson<
+                        clsCallStatus>(json);
                     string serviceName = ccb.serviceName;
 
                     // execute the new call
@@ -125,7 +125,7 @@ namespace exeMission
         /// <param name="serviceName"></param>
         /// <returns></returns>
         private static string thread1call(string callId
-            , string serviceName, ref clsCallBase ccb)// string callJson)
+            , string serviceName, ref clsCallStatus ccb)// string callJson)
         {
             string retJson = "";
             string callJson = jsonUtl.encodeJson(ccb);

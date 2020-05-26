@@ -73,18 +73,18 @@ namespace planAndTest.web.Helper
             returnJson = "";
             try
             {
-                clsCallStatus ccs = new clsCallStatus
-                {
-                    systemName=systemName,
-                    serviceName=serviceName,
-                    methodName=methodName,
-                    callTypeName=paraType,
-                    callTime=DateTime.Now,
-                    callPara=paraJson,
-                    returnTypeName=returnType
-                };
-                string json = jsonUtl.encodeJson(ccs);
                 string callId = callExe.genCallId();
+                ClsCallStatusPersistent ccs = new ClsCallStatusPersistent(callId);
+                ccs.systemName = systemName;
+                ccs.callId = callId;
+                ccs.serviceName = serviceName;
+                ccs.methodName = methodName;
+                ccs.callTypeName = paraType;
+                ccs.callTime = DateTime.Now;
+                ccs.callPara = paraJson;
+                ccs.returnTypeName = returnType;
+                ccs.callFilepath = "..."; // todo !!...
+                string json = jsonUtl.encodeJson(ccs);
                 ret = ce.MakeAcall(callId, json);
                 if (ret.Length > 0)
                     throw new Exception(ret);

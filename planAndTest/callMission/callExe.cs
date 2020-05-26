@@ -75,13 +75,13 @@ namespace callMission
             return ret;
         }
         public string callId2callBase(string callId
-            , out clsCallBase ccb)
+            , out clsCallStatus ccb)
         {
             string ret = "", json="";
             ret = callId2json(callId, out json);
             ccb = null;
             if (ret.Length > 0) return ret;
-            ccb = jsonUtl.decodeJson<clsCallBase>(json);
+            ccb = jsonUtl.decodeJson<clsCallStatus>(json);
             return ret;
         }
         public string CALLDONE_PATHtoday(
@@ -141,14 +141,14 @@ namespace callMission
             return ret;
         }
         private string ReadAcall(string callId
-            , out clsCallBase callObj)
+            , out clsCallStatus callObj)
         {
             string ret = "";
             string callDir = fileUtl.pb(CALL_PATH, callId);
             string callFile = fileUtl.newestFile(callDir);
             string json = fileUtl.file2string( fileUtl.pb(
                 callDir, callFile));
-            callObj = jsonUtl.decodeJson<clsCallBase>(json);
+            callObj = jsonUtl.decodeJson<clsCallStatus>(json);
             return ret;
         }
         /// <summary>
@@ -211,7 +211,7 @@ namespace callMission
             string ret;
             retCallId = "";
             // get called json/object
-            clsCallBase ccb ;
+            clsCallStatus ccb ;
             ret = ReadAcall(oriCallId, out ccb);
             if (ret.Length > 0) return ret;
             //string callTsPath = fileUtl.pb(CALL_PATH, oriCallId);

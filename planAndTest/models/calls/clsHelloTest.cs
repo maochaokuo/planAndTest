@@ -4,7 +4,7 @@ using System.Text;
 
 namespace models.calls
 {
-    public class clsHelloTest : clsCallBase
+    public class clsHelloTest : clsCallStatus// clsCallBase
     {
         public clsHelloTest(string callId)
             : base(callId)

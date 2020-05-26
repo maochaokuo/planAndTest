@@ -6,6 +6,19 @@ namespace callMission.calls
 {
     public class srvBase : IDisposable, Icall
     {
+        //protected string paraTypeName = "";
+        //protected string bodyJson = "";
+        protected callExe ce = null;
+        public srvBase()
+        {
+            ce = new callExe();
+        }
+        //public srvBase(string paraTypeName)
+        //{
+        //    this.paraTypeName = paraTypeName;
+        //    ce = new callExe();
+        //}
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 

@@ -9,6 +9,15 @@ namespace callMission.calls
 {
     public class srvHelloTest : srvBase
     {
+        public srvHelloTest() : base()
+        {
+            Thread.Sleep(0);
+        }
+        //public srvHelloTest(string paraTypeName)
+        //    : base(paraTypeName)
+        //{
+        //    Thread.Sleep(0);
+        //}
         /// <summary>
         /// the do call procedure
         /// </summary>
@@ -16,14 +25,16 @@ namespace callMission.calls
         /// <returns>return type in json</returns>
         public override string doCall(string inputJson)
         {
+            //todo !!... 還是有點麻煩，怎麼帶入ClsCallStatusPersistent
             string outputJson;
-            clsHelloTest inOut;
+            //clsHelloTest inOut;
             //inOut = jsonUtl.decodeJson<clsHelloTest>
             //    ( inputJson);
             outputJson = string.Format(
                 @"Hello, {0}", inputJson);
             //outputJson = jsonUtl.encodeJson(inOut);
             Thread.Sleep(999);
+
             dbg.o("1 second");
             Thread.Sleep(999);
             dbg.o("2 second");

@@ -106,13 +106,13 @@ namespace planAndTest.web.Helper
         /// <param name="allCalls"></param>
         /// <returns></returns>
         public string callsInprogress(
-            out List<clsCallBase> allCalls)
+            out List<clsCallStatus> allCalls)
         {
             string ret = "";
             List<string> callIds = 
                 fileUtl.getAllSubdirs(ce.CALL_PATH);
-            clsCallBase ccb;
-            allCalls = new List<clsCallBase>();
+            clsCallStatus ccb;
+            allCalls = new List<clsCallStatus>();
             foreach(string callId in callIds)
             {
                 ccb = null;
@@ -158,7 +158,7 @@ namespace planAndTest.web.Helper
         /// <param name="doneCalls"></param>
         /// <returns></returns>
         public string callsDoneList(DateTime doneCallDay,
-            out List<clsCallBase> doneCalls)
+            out List<clsCallStatus> doneCalls)
         {
             string ret = "";
             string doneCall1yyyyMM = doneCallDay.ToString("yyyyMM");
@@ -166,8 +166,8 @@ namespace planAndTest.web.Helper
             string path =fileUtl.pb( fileUtl.pb(ce.CALLDONE_PATH,
                 doneCall1yyyyMM), doneCall1day);
             List<string> doneCallDirs = fileUtl.getAllSubdirs(path);
-            doneCalls = new List<clsCallBase>();
-            clsCallBase ccb;
+            doneCalls = new List<clsCallStatus>();
+            clsCallStatus ccb;
             foreach(string dir in doneCallDirs)
             {
                 ccb = null;
