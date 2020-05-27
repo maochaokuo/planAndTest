@@ -130,7 +130,7 @@ namespace exeMission
             string retJson = "";
             string callJson = jsonUtl.encodeJson(ccb);
             retJson =
-                invokeService.run("", serviceName, "", 
+                invokeService.run(callId, "", serviceName, "", 
                 callJson, out retJson);
             ccb.returnPara = retJson;
             ccb.returnTime = DateTime.Now;

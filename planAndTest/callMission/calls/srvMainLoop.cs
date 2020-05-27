@@ -11,7 +11,7 @@ namespace callMission.calls
         /// </summary>
         /// <param name="inputJson">call type in json</param>
         /// <returns>return type in json</returns>
-        public override string doCall(string inputJson)
+        public override string doCall(string callId, string inputJson)
         {
             // main loop do call
             throw new NotImplementedException();

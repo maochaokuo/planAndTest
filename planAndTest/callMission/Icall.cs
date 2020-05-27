@@ -6,6 +6,6 @@ namespace callMission
 {
     public interface Icall
     {
-        public string doCall(string callId);
+        public string doCall(string callId, string inputJson);
     }
 }

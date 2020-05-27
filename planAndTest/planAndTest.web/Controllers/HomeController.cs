@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using callMission;
+using commonLib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using planAndTest.web.Helper;
@@ -24,8 +26,9 @@ namespace planAndTest.web.Controllers
             //ret = rcb.instantCall("", "srvHelloTest", "doCall"
             //    , "paraJson", out returnJson);
             //Thread.Sleep(0);
-            ret = rcb.persistentCall("", "srvHelloTest", "doCall"
-                , "string", "paraJson", "string", out returnJson);
+            string callId;
+            ret = rcb.persistentCall( "", "srvHelloTest", "doCall"
+                , "string", "paraJson", "string", out callId, out returnJson);
             Thread.Sleep(0);
 
             //remoteCallHelper hch = new remoteCallHelper();

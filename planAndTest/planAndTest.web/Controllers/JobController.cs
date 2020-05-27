@@ -12,5 +12,10 @@ namespace planAndTest.web.Controllers
         {
             return View();
         }
+        public IActionResult JobProgress()
+        {
+            //todo !!... keep updating running progress
+            return View();
+        }
     }
 }

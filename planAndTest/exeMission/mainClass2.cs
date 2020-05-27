@@ -52,7 +52,7 @@ namespace exeMission
             try
             {
                 dbg.o("executeCall 1");
-                ret = invokeService.run(ccs.systemName,
+                ret = invokeService.run(callId, ccs.systemName,
                     ccs.serviceName, ccs.methodName,
                     ccs.callPara, out returnJson);
                 dbg.o($"executeCall ret={ret} returnJson={returnJson}");

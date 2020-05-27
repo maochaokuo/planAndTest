@@ -151,6 +151,17 @@ namespace callMission
             callObj = jsonUtl.decodeJson<clsCallStatus>(json);
             return ret;
         }
+        private string SaveAcall(string callId
+            , clsCallStatus callObj)
+        {
+            string ret = "";
+            string callDir = fileUtl.pb(CALL_PATH, callId);
+            string callFile = fileUtl.pb(callDir, 
+                $"{genCallId()}.json");
+            string json = jsonUtl.encodeJson(callObj);
+            ret = fileUtl.string2file(callFile, json);
+            return ret;
+        }
         /// <summary>
         /// spawn exe mission 
         /// </summary>
@@ -186,6 +197,28 @@ namespace callMission
             ret = putCallJson(callId, json);
             //if (ret.Length > 0) return ret;
 
+            return ret;
+        }
+        public string addProgress(string callId
+            , string progress)
+        {
+            string ret = "";
+            try
+            {
+                clsCallStatus callObj;
+                ret = ReadAcall(callId, out callObj);
+                if (callObj == null)
+                    throw new Exception(
+                        $"read {callId} failed");
+                ret = callObj.addProgress(progress);
+                if (ret.Length > 0)
+                    throw new Exception(ret);
+                ret = SaveAcall(callId, callObj);
+            }
+            catch(Exception ex)
+            {
+                ret = ex.Message;
+            }
             return ret;
         }
         private string putCallJson(string callTs, string json)

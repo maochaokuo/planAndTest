@@ -23,9 +23,9 @@ namespace callMission.calls
         /// </summary>
         /// <param name="inputJson">call type in json</param>
         /// <returns>return type in json</returns>
-        public override string doCall(string inputJson)
+        public override string doCall(string callId, string inputJson)
         {
-            //todo !!... 還是有點麻煩，怎麼帶入ClsCallStatusPersistent
+            //怎麼帶入ClsCallStatusPersistent
             string outputJson;
             //clsHelloTest inOut;
             //inOut = jsonUtl.decodeJson<clsHelloTest>
@@ -33,20 +33,17 @@ namespace callMission.calls
             outputJson = string.Format(
                 @"Hello, {0}", inputJson);
             //outputJson = jsonUtl.encodeJson(inOut);
-            Thread.Sleep(999);
-
-            dbg.o("1 second");
-            Thread.Sleep(999);
-            dbg.o("2 second");
-            Thread.Sleep(999);
-            dbg.o("3 second");
-            Thread.Sleep(999);
-            dbg.o("4 second");
-            Thread.Sleep(999);
-            dbg.o("5 second");
-            // todo !!... reconsider here, to feedback running status
+            for (int i = 1; i <= 10; i++)
+                updateProgress(callId, i);
+            // to feedback running status
             return outputJson;
         }
-
+        private void updateProgress(string callId, int i)
+        {
+            string sout = $"{i} second(s)";
+            ce.addProgress(callId, sout);
+            dbg.o(sout);
+            Thread.Sleep(999);
+        }
     }
 }

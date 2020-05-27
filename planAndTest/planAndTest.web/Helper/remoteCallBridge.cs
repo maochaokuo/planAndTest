@@ -26,15 +26,16 @@ namespace planAndTest.web.Helper
         public string clearCalls()
         {
             string ret = "";
-            // todo clearCalls and when to do it
+            // clearCalls and when to do it
+            ret = ce.DeleteAllCalls();
             return ret;
         }
-        public string clearCalldones()
-        {
-            string ret = "";
-            // todo clearCalldones and when to do it
-            return ret;
-        }
+        //public string clearCalldones()
+        //{
+        //    string ret = "";
+        //    //(no need) to do clearCalldones and when to do it
+        //    return ret;
+        //}
         public string instantCall(string systemName, string
             serviceName, string methodName, string paraJson, out
             string returnJson)
@@ -45,7 +46,8 @@ namespace planAndTest.web.Helper
             try
 #endif //RELEASE
             {
-                ret = invokeService.run(systemName, serviceName
+                string callId = callExe.genCallId();
+                ret = invokeService.run(callId, systemName, serviceName
                     , methodName, paraJson, out returnJson);
                 if (ret.Length > 0)
                     throw new Exception(ret);
@@ -63,18 +65,18 @@ namespace planAndTest.web.Helper
         }
         public string persistentCall(string systemName, string
             serviceName, string methodName, string paraType
-            , string paraJson, string returnType, out
-            string returnJson)
+            , string paraJson, string returnType, out string callId
+            , out string returnJson)
         {
             // persistentCall
             //1. call status objct
             //2. run exe
             string ret = "";
             returnJson = "";
+            callId = callExe.genCallId();
             try
             {
-                string callId = callExe.genCallId();
-                ClsCallStatusPersistent ccs = new ClsCallStatusPersistent(callId);
+                clsCallStatus ccs = new clsCallStatus(callId);
                 ccs.systemName = systemName;
                 ccs.callId = callId;
                 ccs.serviceName = serviceName;
@@ -83,15 +85,16 @@ namespace planAndTest.web.Helper
                 ccs.callTime = DateTime.Now;
                 ccs.callPara = paraJson;
                 ccs.returnTypeName = returnType;
-                ccs.callFilepath = "..."; // todo !!...
+                //ccs.callFilepath = "..."; // todo !!...
                 string json = jsonUtl.encodeJson(ccs);
                 ret = ce.MakeAcall(callId, json);
                 if (ret.Length > 0)
                     throw new Exception(ret);
                 dbg.o("before spawn exe");
                 // change to use hangire...
+                string callIdOut = callId;
                 BackgroundJob.Enqueue(() =>
-                    ce.spawnEXE(callId, serviceName)
+                    ce.spawnEXE(callIdOut, serviceName)
                 );
                 dbg.o("after spawn exe");
             }

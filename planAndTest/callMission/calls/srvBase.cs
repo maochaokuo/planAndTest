@@ -19,6 +19,17 @@ namespace callMission.calls
         //    ce = new callExe();
         //}
 
+        /// <summary>
+        /// the do call procedure
+        /// </summary>
+        /// <param name="inputJson">call type in json</param>
+        /// <returns>return type in json</returns>
+        public virtual string doCall(string callId, string inputJson)
+        {
+            // never implement in base class
+            throw new NotImplementedException();
+        }
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -52,16 +63,6 @@ namespace callMission.calls
             Dispose(true);
             // TO DO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
-        }
-        /// <summary>
-        /// the do call procedure
-        /// </summary>
-        /// <param name="inputJson">call type in json</param>
-        /// <returns>return type in json</returns>
-        public virtual string doCall(string inputJson)
-        {
-            // never implement in base class
-            throw new NotImplementedException();
         }
         #endregion
     }

@@ -9,7 +9,7 @@ namespace callMission.calls
 {
     public class invokeService
     {
-        public static string run(string systemName, string serviceName
+        public static string run(string callId, string systemName, string serviceName
             , string methodName, string callJson, out string returnJson)
         {
             string ret = "";
@@ -35,7 +35,7 @@ namespace callMission.calls
                 //method = t.GetMethod(methodName);// "doCall");
                 magicMethod = ObjType.GetMethod(methodName);
                 //Type objtype = typeof(t);
-                Object[] param = new Object[]{ (Object)callJson };
+                Object[] param = new Object[]{ (Object)callId, (Object)callJson };
                 //String[] param = new[] { (String)callJson };
                 //returnVal = method.Invoke(t, param);
                 returnVal = magicMethod.Invoke(FacOnj, param);
