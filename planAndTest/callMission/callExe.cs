@@ -3,6 +3,7 @@ using models.calls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.InteropServices.WindowsRuntime;
 //using System.IO;
 
 namespace callMission
@@ -120,11 +121,38 @@ namespace callMission
             // findCallInprogress
             return ret;
         }
+        public List<string> allCalldones()
+        {
+            string todayDonePath;
+            string err = CALLDONE_PATHtoday(out todayDonePath);
+            if (err.Length > 0)
+                return null;
+            List<string> ret = fileUtl.getAllSubdirs(
+                todayDonePath);
+            // findCallInprogress
+            return ret;
+        }
         public string DeleteAllCalls(string exceptCallId = "")
         {
             string ret = "";
             List<string> allCalls = allCallsInprogress(exceptCallId);
             foreach(string callId in allCalls)
+            {
+                ret = DeleteAcall(callId);
+                if (ret.Length > 0) return ret;
+            }
+            return ret;
+        }
+        public string DeleteAllCalldones()
+        {
+            string ret = "";
+            string todayDonePath;
+            ret = CALLDONE_PATHtoday(out todayDonePath);
+            if (ret.Length > 0)
+                return ret;
+            List<string> doneCalls = fileUtl.getAllSubdirs(
+                todayDonePath);
+            foreach (string callId in doneCalls)
             {
                 ret = DeleteAcall(callId);
                 if (ret.Length > 0) return ret;

@@ -64,6 +64,10 @@ public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJo
 6. run web and Hangfire virtual directory should be the dashboard
 
 ## change log
+### 2020/5/29
+1. call to console done
+2. call in progress and call done, and delete
+3. 
 ### 2020/5/24
 1. plan changed, use Hangfire, to solve web running console application issues
 2. update menu items

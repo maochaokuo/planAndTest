@@ -6,9 +6,10 @@
 
 <h1>JobProgress</h1>
 
-@Html.BeginForm()
+@using (Html.BeginForm("JobProgress", "Job", FormMethod.Post,
+                                   new { enctype = "multipart/form-data" }))
 {
-    @Html.HiddenFor(m=>m.cmd)
+    @Html.HiddenFor(m => m.cmd)
     <div class="container">
         <div class="row">
             <div class="col">
@@ -18,15 +19,17 @@
         <hr />
         <div class="row">
             <div class="col">
-                calls in progress<br />
+                calls in progress
+                <button type="submit" onclick="$('#cmd').val('deleteCalls');$('form').submit();">delete all calls</button><br />
                 <hr />
-                @foreach(string s1 in Model.callIds)
+                @foreach (string s1 in Model.callIds)
                 {
                     @s1 <br />
                 }
             </div>
             <div class="col">
-                calls done<br />
+                calls done
+                <button type="submit" onclick="$('#cmd').val('deleteCalldones');$('form').submit();">delete all calldones</button><br />
                 <hr />
                 @foreach (string s2 in Model.callDoneTodays)
                 {
@@ -36,18 +39,18 @@
         </div>
     </div>
 }
+    <script type="text/javascript">
+        // self executing function here
+        (function () {
+            // your page initialization code here
+            // the DOM will be available here
 
-<script type="text/javascript">
-    // self executing function here
-    (function () {
-        // your page initialization code here
-        // the DOM will be available here
-        timedRefresh(9000);
-    })();
+            timedRefresh(1000);
+        })();
 
-    function timedRefresh(timeoutPeriod) {
-        setTimeout(function () {
-            location.reload(true);
-        }, timeoutPeriod);
-    }
-</script>
+        function timedRefresh(timeoutPeriod) {
+            setTimeout(function () {
+                location.reload(true);
+            }, timeoutPeriod);
+        }
+    </script>
