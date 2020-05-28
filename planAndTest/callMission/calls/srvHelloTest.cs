@@ -30,12 +30,12 @@ namespace callMission.calls
             //clsHelloTest inOut;
             //inOut = jsonUtl.decodeJson<clsHelloTest>
             //    ( inputJson);
-            outputJson = string.Format(
-                @"Hello, {0}", inputJson);
             //outputJson = jsonUtl.encodeJson(inOut);
-            for (int i = 1; i <= 10; i++)
+            for (int i = 1; i <= 7; i++)
                 updateProgress(callId, i);
             // to feedback running status
+            outputJson = string.Format(
+                @"Hello, {0}", inputJson);
             return outputJson;
         }
         private void updateProgress(string callId, int i)

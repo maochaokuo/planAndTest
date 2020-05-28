@@ -55,7 +55,14 @@ namespace exeMission
                 ret = invokeService.run(callId, ccs.systemName,
                     ccs.serviceName, ccs.methodName,
                     ccs.callPara, out returnJson);
-                dbg.o($"executeCall ret={ret} returnJson={returnJson}");
+                if (ret.Length > 0)
+                    throw new Exception(ret);
+                ccs.SetReturnTime();
+                ccs.returnPara = returnJson;
+                string retCallId;
+                ret = ce.ReturnAcall(callId, returnJson, out retCallId);
+                dbg.o($"executeCall ret={ret} returnJson={returnJson}" +
+                    $" retCallId={retCallId}");
                 // call done, remove call json file
                 //add call done json file
             }
