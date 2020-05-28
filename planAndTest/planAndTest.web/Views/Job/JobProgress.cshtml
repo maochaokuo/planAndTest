@@ -1,0 +1,53 @@
+﻿@model planAndTest.web.Models.Job.jProgress
+@{
+    ViewData["Title"] = "JobProgress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>JobProgress</h1>
+
+@Html.BeginForm()
+{
+    @Html.HiddenFor(m=>m.cmd)
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button type="submit" onclick="$('#cmd').val('hello');$('form').submit();">run hello test</button>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col">
+                calls in progress<br />
+                <hr />
+                @foreach(string s1 in Model.callIds)
+                {
+                    @s1 <br />
+                }
+            </div>
+            <div class="col">
+                calls done<br />
+                <hr />
+                @foreach (string s2 in Model.callDoneTodays)
+                {
+                    @s2 <br />
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    // self executing function here
+    (function () {
+        // your page initialization code here
+        // the DOM will be available here
+        timedRefresh(9000);
+    })();
+
+    function timedRefresh(timeoutPeriod) {
+        setTimeout(function () {
+            location.reload(true);
+        }, timeoutPeriod);
+    }
+</script>
