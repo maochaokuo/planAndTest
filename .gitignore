@@ -21,3 +21,5 @@
 /planAndTest/SASDdb.entity/bin
 /planAndTest/SASDdbPrj/obj
 /planAndTest/SASDdbPrj/bin
+*.dbmdl
+*.jfm

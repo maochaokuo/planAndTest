@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.root", "0.root", "{9D57F1F5-F31E-4DFF-9B73-BB7B6A88566C}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
+		..\sql.data\SASDdb.sql = ..\sql.data\SASDdb.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "callMission", "callMission\callMission.csproj", "{C7A35EC1-B36E-4863-A235-285D2696F38B}"
@@ -30,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.common", "6.common", "{EB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.entity", "5.entity", "{C9E09E22-F4B8-4722-9B4F-F573D99B4C4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SASDdb.entity", "SASDdb.entity\SASDdb.entity.csproj", "{74E0A3E2-A6D0-4D09-9577-354B3EFD1189}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SASDdb.entity", "SASDdb.entity\SASDdb.entity.csproj", "{74E0A3E2-A6D0-4D09-9577-354B3EFD1189}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SASDdbPrj", "SASDdbPrj\SASDdbPrj.sqlproj", "{4217F133-9460-48F6-BB33-D146E48D4F5D}"
 EndProject
