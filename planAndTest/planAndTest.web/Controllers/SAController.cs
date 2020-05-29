@@ -8,8 +8,11 @@ namespace planAndTest.web.Controllers
         {
             return View();
         }
-        public IActionResult Action1()
+        public IActionResult Acticles()
         {
+            //todo !!... articles, ckeditor, paste base64 image
+
+            //todo !!... full text search for articles
             return View();
         }
         public IActionResult Action2()

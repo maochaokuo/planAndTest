@@ -1,5 +1,11 @@
 # planAndTest
 
+## EntityFramework Core tips
+1. from existing database
+```
+Scaffold-DbContext "Server=.;Database=SASDdb;User Id=sa;Password=sa;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+```
+
 ## Hangfire tips
 1. use asp.net core web project
 2. project file
