@@ -22,6 +22,35 @@ namespace SASDdbService
                 ret = qry;
             return ret;
         }
+        public string isDirectoryId(string articleId, out bool isDir)
+        {
+            string ret = "";
+            isDir = false;
+            Article art = GetArticleById(articleId);
+            if (art==null)
+            {
+                ret = "not found";
+                return ret;
+            }
+            isDir = art.IsDir;
+            return ret;
+        }
+        public string GetDirectoryIdByArticleId(string articleId, out string dirId)
+        {
+            string ret = "";
+            dirId = "";
+            Article art = GetArticleById(articleId);
+            if (art==null)
+            {
+                ret = "not found";
+                return ret;
+            }
+            if (art.IsDir)
+                dirId = articleId;
+            else
+                dirId = art.BelongToArticleDirId.ToString();
+            return ret;
+        }
         public List<Article> FulltextSearch(string keywords, int pagesize=0, int pageIndex=0)
         {
             List<Article> ret = null;
