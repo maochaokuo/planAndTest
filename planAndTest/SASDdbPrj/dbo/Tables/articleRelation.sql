@@ -6,3 +6,15 @@
     CONSTRAINT [PK_articleRelation] PRIMARY KEY CLUSTERED ([articleId] ASC, [relatedArticleId] ASC)
 );
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_articleRelation_1]
+    ON [dbo].[articleRelation]([relatedArticleId] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_articleRelation]
+    ON [dbo].[articleRelation]([articleId] ASC);
+

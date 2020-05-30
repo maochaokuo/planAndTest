@@ -17,6 +17,8 @@ namespace SASDdb.entity.Models
 
         public virtual DbSet<Article> Article { get; set; }
         public virtual DbSet<ArticleRelation> ArticleRelation { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,6 +37,9 @@ namespace SASDdb.entity.Models
 
                 entity.HasIndex(e => e.BelongToArticleDirId)
                     .HasName("IX_article");
+
+                entity.HasIndex(e => e.ProjectId)
+                    .HasName("IX_article_1");
 
                 entity.Property(e => e.ArticleId)
                     .HasColumnName("articleId")
@@ -56,6 +61,8 @@ namespace SASDdb.entity.Models
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.IsDir).HasColumnName("isDir");
+
+                entity.Property(e => e.ProjectId).HasColumnName("projectId");
             });
 
             modelBuilder.Entity<ArticleRelation>(entity =>
@@ -63,6 +70,12 @@ namespace SASDdb.entity.Models
                 entity.HasKey(e => new { e.ArticleId, e.RelatedArticleId });
 
                 entity.ToTable("articleRelation");
+
+                entity.HasIndex(e => e.ArticleId)
+                    .HasName("IX_articleRelation");
+
+                entity.HasIndex(e => e.RelatedArticleId)
+                    .HasName("IX_articleRelation_1");
 
                 entity.Property(e => e.ArticleId).HasColumnName("articleId");
 
@@ -76,6 +89,74 @@ namespace SASDdb.entity.Models
                 entity.Property(e => e.RelationToOriginalArticle)
                     .HasColumnName("relationToOriginalArticle")
                     .HasMaxLength(99);
+            });
+
+            modelBuilder.Entity<Project>(entity =>
+            {
+                entity.ToTable("project");
+
+                entity.HasIndex(e => e.OwnUserId)
+                    .HasName("IX_project");
+
+                entity.Property(e => e.ProjectId)
+                    .HasColumnName("projectId")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Createtime)
+                    .HasColumnName("createtime")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.OwnUserId)
+                    .IsRequired()
+                    .HasColumnName("ownUserId")
+                    .HasMaxLength(33)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProjectDescription)
+                    .HasColumnName("projectDescription")
+                    .HasMaxLength(999);
+
+                entity.Property(e => e.ProjectName)
+                    .HasColumnName("projectName")
+                    .HasMaxLength(99);
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("user");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("userId")
+                    .HasMaxLength(33)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Createtime)
+                    .HasColumnName("createtime")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.LastLoginTime)
+                    .HasColumnName("lastLoginTime")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Modifytime)
+                    .HasColumnName("modifytime")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserCommentsPrivate)
+                    .HasColumnName("userCommentsPrivate")
+                    .HasMaxLength(99);
+
+                entity.Property(e => e.UserCommentsPublic)
+                    .HasColumnName("userCommentsPublic")
+                    .HasMaxLength(99);
+
+                entity.Property(e => e.UserPassword)
+                    .HasColumnName("userPassword")
+                    .HasMaxLength(33)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -65,5 +65,7 @@
     <Build Include="Storage\catalog1.sql" />
     <Build Include="FullTextIndexes.sql" />
     <Build Include="dbo\Tables\articleRelation.sql" />
+    <Build Include="dbo\Tables\user.sql" />
+    <Build Include="dbo\Tables\project.sql" />
   </ItemGroup>
 </Project>

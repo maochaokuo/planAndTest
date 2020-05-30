@@ -12,9 +12,11 @@ namespace SASDdbService
         {
             db = new SASDdbContext();
         }
-        public void SaveChanges()
+        public virtual string SaveChanges()
         {
+            string ret = "";
             db.SaveChanges();
+            return ret;
         }
     }
 }
