@@ -13,5 +13,8 @@ namespace SASDdb.entity.Models
         public bool IsDir { get; set; }
         public Guid? BelongToArticleDirId { get; set; }
         public Guid? ProjectId { get; set; }
+        public string ArticleType { get; set; }
+        public string ArticleStatus { get; set; }
+        public short? Priority { get; set; }
     }
 }

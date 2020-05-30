@@ -49,9 +49,21 @@ namespace SASDdb.entity.Models
 
                 entity.Property(e => e.ArticleHtmlContent).HasColumnName("articleHtmlContent");
 
+                entity.Property(e => e.ArticleStatus)
+                    .HasColumnName("articleStatus")
+                    .HasMaxLength(33)
+                    .IsUnicode(false)
+                    .HasComment("new,open,reactivated,resolved.closedassigned");
+
                 entity.Property(e => e.ArticleTitle)
                     .HasColumnName("articleTitle")
                     .HasMaxLength(999);
+
+                entity.Property(e => e.ArticleType)
+                    .HasColumnName("articleType")
+                    .HasMaxLength(33)
+                    .IsUnicode(false)
+                    .HasComment("requirement, issue, solution, etc.");
 
                 entity.Property(e => e.BelongToArticleDirId).HasColumnName("belongToArticleDirId");
 
@@ -61,6 +73,10 @@ namespace SASDdb.entity.Models
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.IsDir).HasColumnName("isDir");
+
+                entity.Property(e => e.Priority)
+                    .HasColumnName("priority")
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.ProjectId).HasColumnName("projectId");
             });
