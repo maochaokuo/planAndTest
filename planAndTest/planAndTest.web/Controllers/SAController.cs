@@ -13,6 +13,8 @@ namespace planAndTest.web.Controllers
             //todo !!... articles, ckeditor, paste base64 image
 
             //todo !!... full text search for articles
+
+            //todo !!... special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
             return View();
         }
         public IActionResult Action2()
