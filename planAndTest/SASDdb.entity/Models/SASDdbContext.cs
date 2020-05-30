@@ -16,12 +16,13 @@ namespace SASDdb.entity.Models
         }
 
         public virtual DbSet<Article> Article { get; set; }
+        public virtual DbSet<ArticleRelation> ArticleRelation { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //todo !!... db connection #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.;Database=SASDdb;User Id=sa;Password=sa;");
             }
         }
@@ -32,11 +33,16 @@ namespace SASDdb.entity.Models
             {
                 entity.ToTable("article");
 
+                entity.HasIndex(e => e.BelongToArticleDirId)
+                    .HasName("IX_article");
+
                 entity.Property(e => e.ArticleId)
                     .HasColumnName("articleId")
                     .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.ArticleContent).HasColumnName("articleContent");
+
+                entity.Property(e => e.ArticleHtmlContent).HasColumnName("articleHtmlContent");
 
                 entity.Property(e => e.ArticleTitle)
                     .HasColumnName("articleTitle")
@@ -50,6 +56,26 @@ namespace SASDdb.entity.Models
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.IsDir).HasColumnName("isDir");
+            });
+
+            modelBuilder.Entity<ArticleRelation>(entity =>
+            {
+                entity.HasKey(e => new { e.ArticleId, e.RelatedArticleId });
+
+                entity.ToTable("articleRelation");
+
+                entity.Property(e => e.ArticleId).HasColumnName("articleId");
+
+                entity.Property(e => e.RelatedArticleId).HasColumnName("relatedArticleId");
+
+                entity.Property(e => e.Createtime)
+                    .HasColumnName("createtime")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.RelationToOriginalArticle)
+                    .HasColumnName("relationToOriginalArticle")
+                    .HasMaxLength(99);
             });
 
             OnModelCreatingPartial(modelBuilder);

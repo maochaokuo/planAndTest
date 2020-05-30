@@ -5,6 +5,11 @@
 ```
 Scaffold-DbContext "Server=.;Database=SASDdb;User Id=sa;Password=sa;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 ```
+2. if Model directory already exist, use -Force
+3. if Scaffold-DbContext not recognized, run:
+```
+Install-Package Microsoft.EntityFrameworkCore.Tools
+```
 
 ## Hangfire tips
 1. use asp.net core web project
@@ -70,10 +75,13 @@ public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJo
 6. run web and Hangfire virtual directory should be the dashboard
 
 ## change log
+### 2020/5/30
+1. fail to add area in asp.net core web
+ 
 ### 2020/5/29
 1. call to console done
 2. call in progress and call done, and delete
-3. 
+
 ### 2020/5/24
 1. plan changed, use Hangfire, to solve web running console application issues
 2. update menu items
