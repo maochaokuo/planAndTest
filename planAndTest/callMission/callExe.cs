@@ -3,6 +3,7 @@ using models.calls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 //using System.IO;
 
@@ -116,8 +117,16 @@ namespace callMission
         public List<string> allCallsInprogress(
             string exceptCallId="")
         {
-            List<string> ret = fileUtl.getAllSubdirs(
+            List<string> ret0 = fileUtl.getAllSubdirs(
                 CALL_PATH);
+            List<string> ret = new List<string>();
+            foreach(string fullDir in ret0)
+            {
+                string subDirOnly = fullDir.Replace(CALL_PATH, "");
+                subDirOnly = subDirOnly.Replace(@"\", "");
+                subDirOnly = subDirOnly.Replace(@".json", "");
+                ret.Add(subDirOnly);
+            }
             // findCallInprogress
             return ret;
         }
@@ -127,8 +136,15 @@ namespace callMission
             string err = CALLDONE_PATHtoday(out todayDonePath);
             if (err.Length > 0)
                 return null;
-            List<string> ret = fileUtl.getAllSubdirs(
+            List<string> ret0 = fileUtl.getAllFiles(
                 todayDonePath);
+            List<string> ret = new List<string>();
+            foreach (string fullpath in ret0)
+            {
+                string file = Path.GetFileName(fullpath);
+                file = file.Replace(@".json", "");
+                ret.Add(file);
+            }
             // findCallInprogress
             return ret;
         }
@@ -269,6 +285,7 @@ namespace callMission
         public string ReturnAcall(string oriCallId
             , string returnJson, out string retCallId)
         {
+            // todo !!... return a call should not change callId !
             string ret;
             retCallId = "";
             // get called json/object

@@ -24,7 +24,9 @@
                 <hr />
                 @foreach (string s1 in Model.callIds)
                 {
-                    @s1 <br />
+                    <div class="row">
+                        @Html.ActionLink(s1, "JobDetail", "Job", routeValues: new { callId=s1})
+                    </div>
                 }
             </div>
             <div class="col">
@@ -33,7 +35,9 @@
                 <hr />
                 @foreach (string s2 in Model.callDoneTodays)
                 {
-                    @s2 <br />
+                    <div class="row">
+                        @Html.ActionLink(s2, "JobDetail", "Job", routeValues: new { callId = s2 })
+                    </div>
                 }
             </div>
         </div>

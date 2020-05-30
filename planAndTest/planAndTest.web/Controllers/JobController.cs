@@ -30,11 +30,15 @@ namespace planAndTest.web.Controllers
             List<string> calls = ce.allCallsInprogress();
             viewModel.callIds.Clear();
             foreach (string aCall in calls)
+            {
                 viewModel.callIds.Add(aCall);
+            }
             List<string> calldones = ce.allCalldones();
             viewModel.callDoneTodays.Clear();
             foreach (string aCalldone in calldones)
+            {
                 viewModel.callDoneTodays.Add(aCalldone);
+            }
             return ret;
         }
         private void testCall()
@@ -109,6 +113,11 @@ namespace planAndTest.web.Controllers
                     break;
             }
             return retAct;
+        }
+        public IActionResult JobDetail(string callId)
+        {
+            //todo !!... just job detail
+            return View();
         }
     }
 }

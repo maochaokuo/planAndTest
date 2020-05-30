@@ -185,6 +185,13 @@ namespace commonLib
             ret = new List<string>(subDirs);
             return ret;
         }
+        public static List<string> getAllFiles(string path)
+        {
+            List<string> ret;
+            string[] files = Directory.GetFiles(path);
+            ret = new List<string>(files);
+            return ret;
+        }
         //public static string json2file(string fileFullpath
         //    , string json)
         //{
