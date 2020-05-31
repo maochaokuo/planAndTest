@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace planAndTest.web.Models.SA
 {
+    [Serializable]
     public class articleEditViewModel : ViewModelBase
     {
         public string articleId { get; set; }

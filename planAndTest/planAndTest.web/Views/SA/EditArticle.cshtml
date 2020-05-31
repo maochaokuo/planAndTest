@@ -1,0 +1,48 @@
+﻿@using planAndTest.web.Models.SA
+@model articleEditViewModel
+@{
+    ViewData["Title"] = "EditArticle";
+    Layout = "~/Views/Shared/_LayoutSA.cshtml";
+}
+
+<h1>EditArticle</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <h6>Parent Directory</h6>
+            </div>
+            <div class="col-10">
+                <h6>@Model.editingArticle.BelongToArticleDirId</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h6>Subject</h6>
+            </div>
+            <div class="col-9">
+                @Html.TextBoxFor(m=>m.editingArticle.ArticleTitle, new { @class="form-control" })
+            </div>
+            <div class="col-1">
+                <button type="submit" onclick="$('#cmd').val('save'); $('form').submit();"
+                        class="form-control">Save</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h6>Content</h6>
+                @Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('ArticleHtmlContent');
+    CKEDITOR.config.height = 400;
+</script>

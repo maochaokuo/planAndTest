@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using commonLib;
+using Microsoft.AspNetCore.Mvc;
 using planAndTest.web.Models.SA;
+using SASDdb.entity.Models;
+using System;
 
 namespace planAndTest.web.Controllers
 {
@@ -22,16 +25,51 @@ namespace planAndTest.web.Controllers
         [HttpPost]
         public IActionResult Acticles(articleEditViewModel viewModel)
         {
+            IActionResult ret;
+            switch (viewModel.cmd)
+            {
+                case "create":
+                    //if (viewModel.editingArticle==null ||
+                    //    viewModel.editingArticle.BelongToArticleDirId==null)
+                    //{
+                    //    //todo !!... show error message
+                    //    ret = View(viewModel);
+                    //    break;
+                    //}
+                    string BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId.ToString();
+                    viewModel.editingArticle = new Article();
+                    viewModel.editingArticle.BelongToArticleDirId = Guid.Parse(BelongToArticleDirId);
+                    ret = RedirectToAction("EditArticle");
+                    break;
+                case "edit":
+                    //if (viewModel.editingArticle == null ||
+                    //    viewModel.editingArticle.BelongToArticleDirId == null)
+                    //{
+                    //    //todo !!... show error message
+                    //    ret = View(viewModel);
+                    //    break;
+                    //}
+                    ret = RedirectToAction("EditArticle");
+                    break;
+                default:
+                    ret=View(viewModel);
+                    break;
+            }
             //todo !!... 
+            TempData["articleEditViewModel"] =jsonUtl.encodeJson( viewModel);
+            return ret;
+        }
+        public IActionResult EditArticle()
+        {
+            articleEditViewModel viewModel = new articleEditViewModel();
+
             return View(viewModel);
         }
-        public IActionResult Action2()
+        [HttpPost]
+        public IActionResult EditArticle(articleEditViewModel viewModel)
         {
-            return View();
-        }
-        public IActionResult Action3()
-        {
-            return View();
+            //todo !!... edit article
+            return View(viewModel);
         }
     }
 }

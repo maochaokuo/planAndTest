@@ -9,6 +9,7 @@
 
 @using (Html.BeginForm())
 {
+    @Html.HiddenFor(m=>m.cmd, new { id="cmd"})
 <div class="row">
     <div class="col-6 border border-primary" style="height:280px;overflow:auto">
         <h6>Directories</h6>
@@ -59,12 +60,15 @@
     <div class="col-10 border-left border-right border-bottom border-primary" style="height:450px;overflow:auto">
         <h6>Selected Subject</h6>
         <div class="row border-top border-primary" style="height:420px;overflow:auto">
-            <div class="col-11">
-                @*@Html.TextArea("name", "textarea value", new { @class = "form-control" })*@
-                @Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id= "ArticleHtmlContent" })
+            <div class="col-10">
+                @*Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id= "ArticleHtmlContent" })*@
+                @Html.Raw(Model.editingArticle.ArticleHtmlContent)
             </div>
-            <div class="col-1">
-                <button>Save</button>
+            <div class="col-2">
+                <button type="submit" onclick="$('#cmd').val('create'); $('form').submit();"
+                        class="form-control">Create</button>
+                <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
+                        class="form-control">Edit</button>
             </div>
         </div>
     </div>
@@ -97,8 +101,8 @@
     </div>
 </div>
 }
-<script>
+@*<script>
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace( 'ArticleHtmlContent' );
-</script>
+</script>*@
