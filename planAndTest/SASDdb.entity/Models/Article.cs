@@ -16,5 +16,10 @@ namespace SASDdb.entity.Models
         public string ArticleType { get; set; }
         public string ArticleStatus { get; set; }
         public short? Priority { get; set; }
+        public Article()
+        {
+            Createtime = DateTime.Now;
+            Priority = 0;
+        }
     }
 }

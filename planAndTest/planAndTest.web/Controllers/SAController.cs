@@ -1,8 +1,10 @@
 ﻿using commonLib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
+using planAndTest.web.Helper;
 using planAndTest.web.Models.SA;
 using SASDdb.entity.Models;
+using SASDdbService;
 using System;
 
 namespace planAndTest.web.Controllers
@@ -103,18 +105,42 @@ namespace planAndTest.web.Controllers
                     if (err.Length>0)
                     {
                         ViewBag.Error = err;
+                        ret = View(viewModel);
+                        break;
                     }
-                    else
+                    Article article2add = new Article();
+                    article2add.ArticleId = Guid.NewGuid();
+                    article2add.ArticleTitle = 
+                        viewModel.editingArticle.ArticleTitle;
+                    article2add.ArticleHtmlContent = 
+                        viewModel.editingArticle.ArticleHtmlContent;
+                    string pureText;
+                    err = htmlHelper.removeHtmlTags(
+                        article2add.ArticleHtmlContent, out pureText);
+                    if (err.Length>0)
                     {
-                        //todo !!...proceed to save article/directory
-                        ViewBag.Message = "article/directory saved";
+                        ViewBag.Error = err;
+                        ret = View(viewModel);
+                        break;
                     }
+                    article2add.ArticleContent = pureText;
+                    article2add.IsDir = viewModel.isDir=="1";
+                    tblArticle tArticle = new tblArticle();
+                    err = tArticle.Add(article2add);
+                    err += tArticle.SaveChanges();
+                    if (err.Length > 0)
+                        ViewBag.Error = err;
+                    else
+                        ViewBag.Message = "new article successfully added";
+                    //todo !!...proceed to save article/directory
+                    ViewBag.Message = "article/directory saved";                    
                     ret = View(viewModel);
                     break;
                 default:
                     ret = View(viewModel);
                     break;
             }
+            TempData["articleEditViewModel"] = jsonUtl.encodeJson(viewModel);
             return ret;
         }
     }

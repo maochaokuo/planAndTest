@@ -75,6 +75,9 @@ public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJo
 6. run web and Hangfire virtual directory should be the dashboard
 
 ## change log
+### 2020/6/1
+1. article saved
+
 ### 2020/5/31
 1. ckeditor 4
 2. ckeditor paste image base64 plugin
