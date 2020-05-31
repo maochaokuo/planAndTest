@@ -75,6 +75,12 @@ public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJo
 6. run web and Hangfire virtual directory should be the dashboard
 
 ## change log
+### 2020/5/31
+1. ckeditor 4
+2. ckeditor paste image base64 plugin
+3. article browsing and article edit
+4. bootstrap alert
+
 ### 2020/5/30
 1. fail to add area in asp.net core web
  

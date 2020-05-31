@@ -10,6 +10,7 @@ namespace planAndTest.web.Models.SA
     public class articleEditViewModel : ViewModelBase
     {
         public string articleId { get; set; }
+        public string isDir { get; set; }
         public Article editingArticle { get; set; }
         public SortedList<string, string> directories { get; set; }
         public SortedList<string, string> subjects { get; set; }

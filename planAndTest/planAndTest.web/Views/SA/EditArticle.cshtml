@@ -10,6 +10,18 @@
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Error
+        </div>
+    }
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.Message
+        </div>
+    }
     <div class="container">
         <div class="row">
             <div class="col-2">
@@ -24,16 +36,34 @@
                 <h6>Subject</h6>
             </div>
             <div class="col-9">
-                @Html.TextBoxFor(m=>m.editingArticle.ArticleTitle, new { @class="form-control" })
+                @Html.TextBoxFor(m => m.editingArticle.ArticleTitle, new { @class = "form-control" })
             </div>
             <div class="col-1">
                 <button type="submit" onclick="$('#cmd').val('save'); $('form').submit();"
-                        class="form-control">Save</button>
+                        class="form-control btn btn-primary" >
+                    Save
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h6>Content</h6>
+            </div>
+            <div class="col-1">
+                @Html.RadioButtonFor(m => m.isDir, "1", new { @checked = true, @class = "form-control" })
+            </div>
+            <div class="col-2">
+                Is a Directory(@Model.isDir)
+            </div>
+            <div class="col-1">
+                @Html.RadioButtonFor(m => m.isDir, "0", new { @checked = true, @class = "form-control" })
+            </div>
+            <div class="col-2">
+                Is an Article
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <h6>Content</h6>
                 @Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
             </div>
         </div>

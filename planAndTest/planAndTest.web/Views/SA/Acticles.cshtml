@@ -58,18 +58,36 @@
 </div>
 <div class="row" >
     <div class="col-10 border-left border-right border-bottom border-primary" style="height:450px;overflow:auto">
-        <h6>Selected Subject</h6>
-        <div class="row border-top border-primary" style="height:420px;overflow:auto">
-            <div class="col-10">
-                @*Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id= "ArticleHtmlContent" })*@
-                @Html.Raw(Model.editingArticle.ArticleHtmlContent)
+        <div class="row">
+            <div class="col-5">
+                <h6>Selected Subject</h6>
             </div>
             <div class="col-2">
                 <button type="submit" onclick="$('#cmd').val('create'); $('form').submit();"
-                        class="form-control">Create</button>
-                <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
-                        class="form-control">Edit</button>
+                        class="form-control btn btn-primary">
+                    Create
+                </button>
             </div>
+            <div class="col-2">
+                <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
+                        class="form-control btn btn-primary">
+                    Edit
+                </button>
+            </div>
+            <div class="col-3">
+                <button type="submit" onclick="$('#cmd').val('createDir'); $('form').submit();"
+                        class="form-control btn btn-primary">
+                    Create Directory
+                </button>
+            </div>
+        </div>
+        <div class="row border-top border-primary" style="height:420px;overflow:auto">
+            <div class="col-12">
+                @*Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id= "ArticleHtmlContent" })*@
+                @Html.Raw(Model.editingArticle.ArticleHtmlContent)
+            </div>
+            @*<div class="col-2">
+            </div>*@
         </div>
     </div>
     <div class="col-2 border-right border-bottom border-primary" style="height:450px;overflow:auto">

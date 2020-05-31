@@ -1,5 +1,6 @@
 ﻿using commonLib;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language;
 using planAndTest.web.Models.SA;
 using SASDdb.entity.Models;
 using System;
@@ -12,15 +13,20 @@ namespace planAndTest.web.Controllers
         {
             return View();
         }
-        public IActionResult Acticles()
+        public IActionResult Acticles(string articleId)
         {
             articleEditViewModel viewModel = new articleEditViewModel();
-            //todo !!... articles, ckeditor, paste base64 image
-
+            viewModel.articleId = articleId;
             //todo !!... full text search for articles
 
             //todo !!... special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
             return View(viewModel);
+        }
+        private string loadArticle(string articleId)
+        {
+            string ret = "";
+            // todo !!... load article
+            return ret;
         }
         [HttpPost]
         public IActionResult Acticles(articleEditViewModel viewModel)
@@ -39,7 +45,8 @@ namespace planAndTest.web.Controllers
                     string BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId.ToString();
                     viewModel.editingArticle = new Article();
                     viewModel.editingArticle.BelongToArticleDirId = Guid.Parse(BelongToArticleDirId);
-                    ret = RedirectToAction("EditArticle");
+                    ret = RedirectToAction("EditArticle", new { 
+                        BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });
                     break;
                 case "edit":
                     //if (viewModel.editingArticle == null ||
@@ -49,7 +56,14 @@ namespace planAndTest.web.Controllers
                     //    ret = View(viewModel);
                     //    break;
                     //}
-                    ret = RedirectToAction("EditArticle");
+                    ret = RedirectToAction("EditArticle", new { 
+                        articleId = viewModel.editingArticle.ArticleId,
+                        BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });
+                    break;
+                case "createDir":
+                    //todo !!... create directory
+                    ret = RedirectToAction("EditArticle", new { isDir = 1,
+                        BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });
                     break;
                 default:
                     ret=View(viewModel);
@@ -59,17 +73,49 @@ namespace planAndTest.web.Controllers
             TempData["articleEditViewModel"] =jsonUtl.encodeJson( viewModel);
             return ret;
         }
-        public IActionResult EditArticle()
+        public IActionResult EditArticle(string isDir)
         {
             articleEditViewModel viewModel = new articleEditViewModel();
-
+            if (!string.IsNullOrWhiteSpace(isDir) && isDir == "1")
+                viewModel.isDir = "1";
+            else
+                viewModel.isDir = "0";
             return View(viewModel);
+        }
+        private string checkForm(articleEditViewModel viewModel)
+        {
+            string ret = "";
+            if (string.IsNullOrWhiteSpace(viewModel.editingArticle.ArticleTitle))
+                ret = "article (or directory) title cannot be empty";
+            return ret;
         }
         [HttpPost]
         public IActionResult EditArticle(articleEditViewModel viewModel)
         {
+            IActionResult ret;
+            string err;
             //todo !!... edit article
-            return View(viewModel);
+            //todo !!... articles, ckeditor, paste base64 image
+            switch (viewModel.cmd)
+            {
+                case "save":
+                    err = checkForm(viewModel);
+                    if (err.Length>0)
+                    {
+                        ViewBag.Error = err;
+                    }
+                    else
+                    {
+                        //todo !!...proceed to save article/directory
+                        ViewBag.Message = "article/directory saved";
+                    }
+                    ret = View(viewModel);
+                    break;
+                default:
+                    ret = View(viewModel);
+                    break;
+            }
+            return ret;
         }
     }
 }
