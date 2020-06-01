@@ -98,6 +98,7 @@ namespace planAndTest.web.Controllers
             string err;
             //todo !!... edit article
             //todo !!... articles, ckeditor, paste base64 image
+            //
             switch (viewModel.cmd)
             {
                 case "save":
@@ -134,6 +135,15 @@ namespace planAndTest.web.Controllers
                         ViewBag.Message = "new article successfully added";
                     //todo !!...proceed to save article/directory
                     ViewBag.Message = "article/directory saved";                    
+                    ret = View(viewModel);
+                    break;
+                case "delete":
+                    //todo !!.. delete confirm
+                    ViewBag.confirmDelete = "1";
+                    ret = View(viewModel);
+                    break;
+                case "realDelete":
+                    //todo !!.. to real delete 
                     ret = View(viewModel);
                     break;
                 default:

@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<button type="button" data-toggle="modal" data-target="#delete-file-modal">Open modal</button>
+<div class="modal fade" id="delete-file-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" method="post" id="delete_file_form">
+                <div class="modal-body">
+                    Are you sure you to delete ?
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-danger" name="in_confirm_insert" id="confirm-delete-button">Delete</button>
+                    <button data-dismiss="modal" class="btn btn-default" name="in_confirm_insert" id="cancel-delete-button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

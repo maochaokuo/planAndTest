@@ -83,6 +83,7 @@ public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJo
 2. ckeditor paste image base64 plugin
 3. article browsing and article edit
 4. bootstrap alert
+5. bootstrap notify
 
 ### 2020/5/30
 1. fail to add area in asp.net core web
