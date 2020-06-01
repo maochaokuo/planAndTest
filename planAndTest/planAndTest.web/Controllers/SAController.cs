@@ -62,7 +62,7 @@ namespace planAndTest.web.Controllers
                         articleId = viewModel.editingArticle.ArticleId,
                         BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });
                     break;
-                case "createDir":
+                case "replyTo":
                     //todo !!... create directory
                     ret = RedirectToAction("EditArticle", new { isDir = 1,
                         BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });

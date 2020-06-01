@@ -10,7 +10,9 @@
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
-    @if (ViewBag.Error != null)
+    <input type="hidden" id="error" value="@ViewBag.Error"/>
+    <input type="hidden" id="message" value="@ViewBag.Message"/>
+    @*@if (ViewBag.Error != null)
     {
         <div class="alert alert-danger" role="alert">
             @ViewBag.Error
@@ -21,7 +23,7 @@
         <div class="alert alert-success" role="alert">
             @ViewBag.Message
         </div>
-    }
+    }*@
     <div class="container">
         <div class="row">
             <div class="col-2">
@@ -75,4 +77,10 @@
     // instance, using default configuration.
     CKEDITOR.replace('ArticleHtmlContent');
     CKEDITOR.config.height = 400;
+    var herror = $('#error').val();
+    var hmessage = $('#message').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
 </script>
