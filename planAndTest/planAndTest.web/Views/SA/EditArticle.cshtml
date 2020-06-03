@@ -7,7 +7,7 @@
 
 <h1>EditArticle</h1>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "eaform" }))
 {
     @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
     @*@Html.TextBoxFor(m => m.cmd, new { id = "cmd" })*@
@@ -94,6 +94,7 @@
 
 <script>
     var confirmDelete = $('#confirmDelete').val();
+    console.log('confirmDelete');
     console.log(confirmDelete);
     if (typeof (confirmDelete) !== 'undefined' && confirmDelete == '1') {
         $('#delete-file-modal').modal('show');
@@ -105,11 +106,13 @@
                     $('#cmd').val('realDelete');
                     var cmd = $('#cmd').val();
                     if (typeof (cmd) === 'undefined' || cmd.length <= 0)
-                        alert('cmd null');
+                        console.log('cmd null');
                     else
-                        alert(cmd);
-                    $('form').submit();
+                        console.log(cmd);
+                    //$('form').submit();
                     console.log('delete clicked');
+                    console.log($('#eaform'));
+                    $('#eaform').submit();
                 }
                 else {
                     console.log('cancel clicked');
