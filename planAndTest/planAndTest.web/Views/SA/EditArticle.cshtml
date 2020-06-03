@@ -46,7 +46,7 @@
                         class="form-control btn btn-primary">
                     Save
                 </button>
-                <button type="submit" onclick="$('#cmd').val('delete'); $('form').submit();"
+                <button type="submit" onclick="$('#cmd').val('delete'); "
                         class="form-control btn btn-primary">
                     Delete
                 </button>
@@ -94,6 +94,7 @@
 
 <script>
     var confirmDelete = $('#confirmDelete').val();
+    console.log(confirmDelete);
     if (typeof (confirmDelete) !== 'undefined' && confirmDelete == '1') {
         $('#delete-file-modal').modal('show');
         $('#delete-file-modal .modal-footer button').on('click', function (event) {
@@ -102,7 +103,16 @@
             $(this).closest('.modal').one('hidden.bs.modal', function () {
                 if ($button[0].id == 'confirm-delete-button') {
                     $('#cmd').val('realDelete');
+                    var cmd = $('#cmd').val();
+                    if (typeof (cmd) === 'undefined' || cmd.length <= 0)
+                        alert('cmd null');
+                    else
+                        alert(cmd);
                     $('form').submit();
+                    console.log('delete clicked');
+                }
+                else {
+                    console.log('cancel clicked');
                 }
             });
         });

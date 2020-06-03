@@ -82,6 +82,7 @@ namespace planAndTest.web.Controllers
                 viewModel.isDir = "1";
             else
                 viewModel.isDir = "0";
+            ViewBag.isDir = viewModel.isDir;
             return View(viewModel);
         }
         private string checkForm(articleEditViewModel viewModel)
@@ -98,7 +99,9 @@ namespace planAndTest.web.Controllers
             string err;
             //todo !!... edit article
             //todo !!... articles, ckeditor, paste base64 image
-            //
+            object obj = Request.Form;
+            if (string.IsNullOrWhiteSpace(viewModel.cmd))
+                throw new Exception("cmd null");
             switch (viewModel.cmd)
             {
                 case "save":
