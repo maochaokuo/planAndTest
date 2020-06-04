@@ -40,6 +40,7 @@ namespace planAndTest.web.Controllers
         public IActionResult Acticles(articleEditViewModel viewModel)
         {
             IActionResult ret;
+            var selectedArticle = Request.Form["selectedArticle"];
             string err = loadArticle(viewModel.articleId, ref viewModel);
             viewModel.errorMsg = err;
             switch (viewModel.cmd)

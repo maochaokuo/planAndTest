@@ -72,6 +72,15 @@ namespace SASDdb.entity.Models
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.DeleteBy)
+                    .HasColumnName("deleteBy")
+                    .HasMaxLength(33)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DeleteTime)
+                    .HasColumnName("deleteTime")
+                    .HasColumnType("datetime");
+
                 entity.Property(e => e.IsDir).HasColumnName("isDir");
 
                 entity.Property(e => e.Priority)

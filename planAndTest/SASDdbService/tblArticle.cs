@@ -17,7 +17,7 @@ namespace SASDdbService
             Article ret=null ;
             var guid = Guid.Parse(articleId);
             var qry = //db.Article.FromSqlRaw($"select * from article where articleId={articleId}").FirstOrDefault();
-                db.Article.Where(a => a.ArticleId == guid).FirstOrDefault();
+                db.Article.Where(a => a.ArticleId == guid && a.DeleteTime==null).FirstOrDefault();
             if (qry != null)
                 ret = qry;
             return ret;
@@ -57,12 +57,15 @@ namespace SASDdbService
             //var guid = Guid.Parse(articleId);
             string where;
             if (string.IsNullOrWhiteSpace(articleId))
-                where = " where isDir=1 and belongToArticleDirId is null";
+                where = " where DeleteTime is null and isDir=1 and belongToArticleDirId is null";
             else
-                where = $" where isDir=1 and belongToArticleDirId = \"{articleId}\"";
+                where = $" where DeleteTime is null and isDir=1 and belongToArticleDirId = \"{articleId}\"";
             var qry = db.Article.FromSqlRaw($"select * from article {where}");
             if (!qry.Any())
+            {
+                ret = new SortedList<string, string>();
                 return ret;
+            }
             ret = new SortedList<string, string>();
             List<Article> articleDirs = qry.ToList();
             foreach (Article art in articleDirs)
@@ -75,12 +78,15 @@ namespace SASDdbService
             //var guid = Guid.Parse(articleId);
             string where;
             if (string.IsNullOrWhiteSpace(articleId))
-                where = " where isDir=0 and belongToArticleDirId is null";
+                where = " where DeleteTime is null and isDir=0 and belongToArticleDirId is null";
             else
-                where = $" where isDir=0 and belongToArticleDirId = \"{articleId}\"";
+                where = $" where DeleteTime is null and isDir=0 and belongToArticleDirId = \"{articleId}\"";
             var qry = db.Article.FromSqlRaw($"select * from article {where}");
             if (!qry.Any())
+            {
+                ret = new SortedList<string, string>();
                 return ret;
+            }
             ret = new SortedList<string, string>();
             List<Article> articleDirs = qry.ToList();
             foreach (Article art in articleDirs)
@@ -108,17 +114,37 @@ namespace SASDdbService
         public string Delete(Article deleteArticle)
         {
             string ret = "";
-            db.Article.Remove(deleteArticle);
+            //db.Article.Remove(deleteArticle);
+            deleteArticle.DeleteTime = DateTime.Now;
+            ret = Update(deleteArticle);
             return ret;
         }
-        public string Delete(string articleId)
+        public string Delete(string articleId, string byUserId="")
         {
             string ret = "";
             Article deleteArticle = GetArticleById(articleId);
+            deleteArticle.DeleteBy = byUserId;
             ret = Delete(deleteArticle);
             return ret;
         }
-
+        public string PurgeDeleted()
+        {
+            string ret = "";
+            var sql = @"
+delete
+from article
+where DATEDIFF(day, deleteTime, getdate()) >= 7
+";
+            int rows = db.Database.ExecuteSqlCommand(sql);
+            return ret;
+        }
+        public string RestoreArticle(string articleId, string newDirId="")
+        {
+            string ret = "";
+            //todo !!... get article
+            //todo !!... set deletetime, deleteby to null, belong... to newdirid
+            return ret;
+        }
         public override string SaveChanges()
         {
             string ret;

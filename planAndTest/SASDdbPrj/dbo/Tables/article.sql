@@ -10,8 +10,12 @@
     [articleType]          VARCHAR (33)     NULL,
     [articleStatus]        VARCHAR (33)     NULL,
     [priority]             SMALLINT         CONSTRAINT [DF_article_priority] DEFAULT ((0)) NULL,
+    [deleteTime]           DATETIME         NULL,
+    [deleteBy]             VARCHAR (33)     NULL,
     CONSTRAINT [PK_article] PRIMARY KEY CLUSTERED ([articleId] ASC)
 );
+
+
 
 
 
