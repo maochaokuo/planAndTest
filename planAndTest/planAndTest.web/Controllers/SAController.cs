@@ -18,22 +18,30 @@ namespace planAndTest.web.Controllers
         public IActionResult Acticles(string articleId)
         {
             articleEditViewModel viewModel = new articleEditViewModel();
+            string err = loadArticle(articleId, ref viewModel);
+            viewModel.errorMsg = err;
             viewModel.articleId = articleId;
             //todo !!... full text search for articles
 
             //todo !!... special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
             return View(viewModel);
         }
-        private string loadArticle(string articleId)
+        private string loadArticle(string articleId, ref articleEditViewModel viewModel)
         {
             string ret = "";
-            // todo !!... load article
+            // load directories
+            tblArticle tbart = new tblArticle();
+            viewModel.directories = tbart.directoriesByArticleId(articleId);
+            // load subjects
+            viewModel.subjects = tbart.subjectsByArticleId(articleId);
             return ret;
         }
         [HttpPost]
         public IActionResult Acticles(articleEditViewModel viewModel)
         {
             IActionResult ret;
+            string err = loadArticle(viewModel.articleId, ref viewModel);
+            viewModel.errorMsg = err;
             switch (viewModel.cmd)
             {
                 case "create":
@@ -46,7 +54,8 @@ namespace planAndTest.web.Controllers
                     //}
                     string BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId.ToString();
                     viewModel.editingArticle = new Article();
-                    viewModel.editingArticle.BelongToArticleDirId = Guid.Parse(BelongToArticleDirId);
+                    if (!string.IsNullOrWhiteSpace(BelongToArticleDirId))
+                        viewModel.editingArticle.BelongToArticleDirId = Guid.Parse(BelongToArticleDirId);
                     ret = RedirectToAction("EditArticle", new { 
                         BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });
                     break;
@@ -67,8 +76,17 @@ namespace planAndTest.web.Controllers
                     ret = RedirectToAction("EditArticle", new { isDir = 1,
                         BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });
                     break;
+                case "delete":
+                    //todo !!.. delete confirm
+                    ViewBag.confirmDelete = "1";
+                    ret = View(viewModel);
+                    break;
+                case "realDelete":
+                    //todo !!.. to real delete 
+                    ret = View(viewModel);
+                    break;
                 default:
-                    ret=View(viewModel);
+                    ret = View(viewModel);
                     break;
             }
             //todo !!... 
@@ -138,15 +156,6 @@ namespace planAndTest.web.Controllers
                         ViewBag.Message = "new article successfully added";
                     //todo !!...proceed to save article/directory
                     ViewBag.Message = "article/directory saved";                    
-                    ret = View(viewModel);
-                    break;
-                case "delete":
-                    //todo !!.. delete confirm
-                    ViewBag.confirmDelete = "1";
-                    ret = View(viewModel);
-                    break;
-                case "realDelete":
-                    //todo !!.. to real delete 
                     ret = View(viewModel);
                     break;
                 default:

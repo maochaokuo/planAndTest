@@ -14,11 +14,13 @@ namespace planAndTest.web.Models.SA
         public Article editingArticle { get; set; }
         public SortedList<string, string> directories { get; set; }
         public SortedList<string, string> subjects { get; set; }
+        public List<string> selectedArticleId { get; set; }
         public articleEditViewModel()
         {
             editingArticle = new Article();
             directories = null;
             subjects = null;
+            selectedArticleId = new List<string>();
         }
     }
 }

@@ -10,9 +10,11 @@
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "eaform" }))
 {
     @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.errorMsg, new { id="errorMsg"})
+    @Html.HiddenFor(m => m.successMsg, new { id="successMsg"})
     @*@Html.TextBoxFor(m => m.cmd, new { id = "cmd" })*@
-    <input type="hidden" id="error" value="@ViewBag.Error" />
-    <input type="hidden" id="message" value="@ViewBag.Message" />
+    @*<input type="hidden" id="error" value="@ViewBag.Error" />
+    <input type="hidden" id="message" value="@ViewBag.Message" />*@
     @*@if (ViewBag.Error != null)
         {
             <div class="alert alert-danger" role="alert">
@@ -38,7 +40,7 @@
             <div class="col-2">
                 <h6>Subject</h6>
             </div>
-            <div class="col-9">
+            <div class="col-8">
                 @Html.TextBoxFor(m => m.editingArticle.ArticleTitle, new { @class = "form-control" })
             </div>
             <div class="col-1">
@@ -46,6 +48,8 @@
                         class="form-control btn btn-primary">
                     Save
                 </button>
+            </div>
+            <div class="col-1">
                 <button type="submit" onclick="$('#cmd').val('delete'); "
                         class="form-control btn btn-primary">
                     Delete
@@ -60,7 +64,7 @@
                 @Html.RadioButtonFor(m => m.isDir, "1", new { @checked = true, @class = "form-control" })
             </div>
             <div class="col-2">
-                Is a Directory(@Model.isDir)
+                Is a Directory
             </div>
             <div class="col-1">
                 @Html.RadioButtonFor(m => m.isDir, "0", new { @checked = true, @class = "form-control" })
@@ -75,9 +79,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="confirmDelete" value="@ViewBag.confirmDelete" />
 }
-@Html.Partial("confirmDeleteView")
 <script>
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
@@ -90,34 +92,4 @@
     if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
         $.notify({ message: hmessage }, { type: 'success' });
 
-</script>
-
-<script>
-    var confirmDelete = $('#confirmDelete').val();
-    console.log('confirmDelete');
-    console.log(confirmDelete);
-    if (typeof (confirmDelete) !== 'undefined' && confirmDelete == '1') {
-        $('#delete-file-modal').modal('show');
-        $('#delete-file-modal .modal-footer button').on('click', function (event) {
-            var $button = $(event.target);
-
-            $(this).closest('.modal').one('hidden.bs.modal', function () {
-                if ($button[0].id == 'confirm-delete-button') {
-                    $('#cmd').val('realDelete');
-                    var cmd = $('#cmd').val();
-                    if (typeof (cmd) === 'undefined' || cmd.length <= 0)
-                        console.log('cmd null');
-                    else
-                        console.log(cmd);
-                    //$('form').submit();
-                    console.log('delete clicked');
-                    console.log($('#eaform'));
-                    $('#eaform').submit();
-                }
-                else {
-                    console.log('cancel clicked');
-                }
-            });
-        });
-    }
 </script>

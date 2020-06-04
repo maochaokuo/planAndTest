@@ -9,118 +9,147 @@
 
 @using (Html.BeginForm())
 {
-    @Html.HiddenFor(m=>m.cmd, new { id="cmd"})
-<div class="row">
-    <div class="col-6 border border-primary" style="height:280px;overflow:auto">
-        <h6>Directories</h6>
-        <div class="row border-top border-primary" style="height:250px;overflow:auto">
-            a<br />
-            b<br />
-            c<br />
-            d<br />
-            e<br />
-            f<br />
-            g<br />
-            h<br />
-            i<br />
-            j<br />
-            c<br />
-            d<br />
-            e<br />
-            f<br />
-            g<br />
-            h<br />
-            i<br />
-            j<br />
-            k<br />
-            l<br />
-            m<br />
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    <div class="row">
+        <div class="col-6 border border-primary" style="height:280px;overflow:auto">
+            <div class="row">
+                <div class="col-12" style="height:31px">
+                    <h6>Directories</h6>
+                </div>
+                @*<div class="col-9">
+                        <button type="submit" onclick="$('#cmd').val('delete'); $('form').submit();" style="width:0px"
+                                class="btn btn-primary btn-sm float-right">
+                            Delete
+                        </button>
+                    </div>*@
+            </div>
+            <div class="row border-top border-primary" style="height:240px;overflow:auto">
+                @foreach(var rec in Model.directories)
+                {
+                    @Html.ActionLink(rec.Value, "Articles", "SA", new { articleId=rec.Key})
+                    <br />
+                }
+                </div>
+            </div>
+
+            <div class="col-6 border-top border-bottom border-right border-primary" style="height:280px;overflow:auto">
+            <div class="row">
+                <div class="col-3" style="height:31px">
+                    <h6>Subjects</h6>
+                </div>
+                <div class="col-9">
+                    <button type="submit" onclick="$('#cmd').val('delete'); $('form').submit();"
+                            class="btn btn-primary btn-sm float-right">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div class="row border-top border-primary" style="height:240px;overflow:auto">
+                @foreach (var rec in Model.subjects)
+                {
+                    @Html.CheckBox("selectedArticle", false) @* todo no idea about mutiple selection *@
+                    @Html.ActionLink(rec.Value, "Articles", "SA", new { articleId = rec.Key })
+                    <br />
+                }
+            </div>
         </div>
     </div>
-    <div class="col-6 border-top border-bottom border-right border-primary" style="height:280px;overflow:auto">
-        <h6>Subjects</h6>
-        <div class="row border-top border-primary" style="height:250px;overflow:auto">
-            n<br />
-            o<br />
-            p<br />
-            q<br />
-            r<br />
-            s<br />
-            t<br />
-            u<br />
-            v<br />
-            w<br />
-            x<br />
-            y<br />
-            z<br />
+    <div class="row">
+        <div class="col-10 border-left border-right border-bottom border-primary" style="height:450px;overflow:auto">
+            <div class="row">
+                <div class="col-5">
+                    <h6>Content</h6>
+                </div>
+                <div class="col-7">
+                    <button type="submit" onclick="$('#cmd').val('replyTo'); $('form').submit();"
+                            class="btn btn-primary btn-sm float-right">
+                        Reply To
+                    </button>
+                    <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
+                            class="btn btn-primary btn-sm float-right">
+                        Edit
+                    </button>
+                    <button type="submit" onclick="$('#cmd').val('create'); $('form').submit();"
+                            class="btn btn-primary btn-sm float-right">
+                        Create
+                    </button>
+                </div>
+            </div>
+            <div class="row border-top border-primary" style="height:410px;overflow:auto">
+                <div class="col-12">
+                    @*Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id= "ArticleHtmlContent" })*@
+                    @Html.Raw(Model.editingArticle.ArticleHtmlContent)
+                </div>
+                @*<div class="col-2">
+                    </div>*@
+            </div>
+        </div>
+        <div class="col-2 border-right border-bottom border-primary" style="height:450px;overflow:auto">
+            <div class="row">
+                5<br />
+                6<br />
+                7<br />
+                8<br />
+                6<br />
+                7<br />
+                8<br />
+                6<br />
+                7<br />
+                8<br />
+                6<br />
+                7<br />
+                8<br />
+                6<br />
+                7<br />
+                8<br />
+                6<br />
+                7<br />
+                8<br />
+                6<br />
+                7<br />
+                8<br />
+                9<br />
+            </div>
         </div>
     </div>
-</div>
-<div class="row" >
-    <div class="col-10 border-left border-right border-bottom border-primary" style="height:450px;overflow:auto">
-        <div class="row">
-            <div class="col-5">
-                <h6>Selected Subject</h6>
-            </div>
-            <div class="col-2">
-                <button type="submit" onclick="$('#cmd').val('create'); $('form').submit();"
-                        class="form-control btn btn-primary">
-                    Create
-                </button>
-            </div>
-            <div class="col-2">
-                <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
-                        class="form-control btn btn-primary">
-                    Edit
-                </button>
-            </div>
-            <div class="col-3">
-                <button type="submit" onclick="$('#cmd').val('replyTo'); $('form').submit();"
-                        class="form-control btn btn-primary">
-                    Reply To
-                </button>
-            </div>
-        </div>
-        <div class="row border-top border-primary" style="height:420px;overflow:auto">
-            <div class="col-12">
-                @*Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id= "ArticleHtmlContent" })*@
-                @Html.Raw(Model.editingArticle.ArticleHtmlContent)
-            </div>
-            @*<div class="col-2">
-            </div>*@
-        </div>
-    </div>
-    <div class="col-2 border-right border-bottom border-primary" style="height:450px;overflow:auto">
-        <div class="row" >
-            5<br />
-            6<br />
-            7<br />
-            8<br />
-            6<br />
-            7<br />
-            8<br />
-            6<br />
-            7<br />
-            8<br />
-            6<br />
-            7<br />
-            8<br />
-            6<br />
-            7<br />
-            8<br />
-            6<br />
-            7<br />
-            8<br />
-            6<br />
-            7<br />
-            8<br />
-            9<br />
-        </div>
-    </div>
-</div>
+    <input type="hidden" id="confirmDelete" value="@ViewBag.confirmDelete" />
 }
-@*<script>
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    CKEDITOR.replace( 'ArticleHtmlContent' );
-</script>*@
+
+@Html.Partial("confirmDeleteView")
+
+<script>
+    var herror = $('#error').val();
+    var hmessage = $('#message').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
+
+    var confirmDelete = $('#confirmDelete').val();
+    console.log('confirmDelete');
+    console.log(confirmDelete);
+    if (typeof (confirmDelete) !== 'undefined' && confirmDelete == '1') {
+        $('#delete-file-modal').modal('show');
+        $('#delete-file-modal .modal-footer button').on('click', function (event) {
+            var $button = $(event.target);
+
+            $(this).closest('.modal').one('hidden.bs.modal', function () {
+                if ($button[0].id == 'confirm-delete-button') {
+                    $('#cmd').val('realDelete');
+                    var cmd = $('#cmd').val();
+                    if (typeof (cmd) === 'undefined' || cmd.length <= 0)
+                        console.log('cmd null');
+                    else
+                        console.log(cmd);
+                    //$('form').submit();
+                    console.log('delete clicked');
+                    console.log($('#eaform'));
+                    $('#eaform').submit();
+                }
+                else {
+                    console.log('cancel clicked');
+                }
+            });
+        });
+    }
+</script>

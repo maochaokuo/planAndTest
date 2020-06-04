@@ -51,6 +51,42 @@ namespace SASDdbService
                 dirId = art.BelongToArticleDirId.ToString();
             return ret;
         }
+        public SortedList<string, string> directoriesByArticleId(string articleId)
+        {
+            SortedList<string, string> ret = null;
+            //var guid = Guid.Parse(articleId);
+            string where;
+            if (string.IsNullOrWhiteSpace(articleId))
+                where = " where isDir=1 and belongToArticleDirId is null";
+            else
+                where = $" where isDir=1 and belongToArticleDirId = \"{articleId}\"";
+            var qry = db.Article.FromSqlRaw($"select * from article {where}");
+            if (!qry.Any())
+                return ret;
+            ret = new SortedList<string, string>();
+            List<Article> articleDirs = qry.ToList();
+            foreach (Article art in articleDirs)
+                ret.Add(art.ArticleId.ToString(), art.ArticleTitle);
+            return ret;
+        }
+        public SortedList<string, string> subjectsByArticleId(string articleId)
+        {
+            SortedList<string, string> ret = null;
+            //var guid = Guid.Parse(articleId);
+            string where;
+            if (string.IsNullOrWhiteSpace(articleId))
+                where = " where isDir=0 and belongToArticleDirId is null";
+            else
+                where = $" where isDir=0 and belongToArticleDirId = \"{articleId}\"";
+            var qry = db.Article.FromSqlRaw($"select * from article {where}");
+            if (!qry.Any())
+                return ret;
+            ret = new SortedList<string, string>();
+            List<Article> articleDirs = qry.ToList();
+            foreach (Article art in articleDirs)
+                ret.Add(art.ArticleId.ToString(), art.ArticleTitle);
+            return ret;
+        }
         public List<Article> FulltextSearch(string keywords, int pagesize=0, int pageIndex=0)
         {
             List<Article> ret = null;
