@@ -15,7 +15,7 @@ namespace planAndTest.web.Controllers
         {
             return View();
         }
-        public IActionResult Acticles(string articleId)
+        public IActionResult Articles(string articleId)
         {
             articleEditViewModel viewModel = new articleEditViewModel();
             string err = loadArticle(articleId, ref viewModel);
@@ -37,7 +37,7 @@ namespace planAndTest.web.Controllers
             return ret;
         }
         [HttpPost]
-        public IActionResult Acticles(articleEditViewModel viewModel)
+        public IActionResult Articles(articleEditViewModel viewModel)
         {
             IActionResult ret;
             var selectedArticle = Request.Form["selectedArticle"];
@@ -90,7 +90,6 @@ namespace planAndTest.web.Controllers
                     ret = View(viewModel);
                     break;
             }
-            //todo !!... 
             TempData["articleEditViewModel"] =jsonUtl.encodeJson( viewModel);
             return ret;
         }
