@@ -12,6 +12,9 @@
     @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
     @Html.HiddenFor(m => m.errorMsg, new { id="errorMsg"})
     @Html.HiddenFor(m => m.successMsg, new { id="successMsg"})
+    @Html.HiddenFor(m=>m.parentDirTitle)
+    @Html.HiddenFor(m=>m.BelongToArticleDirId)
+    @Html.HiddenFor(m=>m.changeMode)
     @*@Html.TextBoxFor(m => m.cmd, new { id = "cmd" })*@
     @*<input type="hidden" id="error" value="@ViewBag.Error" />
     <input type="hidden" id="message" value="@ViewBag.Message" />*@
@@ -34,7 +37,7 @@
             </div>
             <div class="col-10">
                 <h6>
-                    @Html.ActionLink(Model.parentDirTitle, "Articls", "SA", new { articleId=Model.BelongToArticleDirId})
+                    @Html.ActionLink(Model.parentDirTitle, "Articles", "SA", new { articleId=Model.BelongToArticleDirId })
                 </h6>
             </div>
         </div>
@@ -87,11 +90,14 @@
     // instance, using default configuration.
     CKEDITOR.replace('ArticleHtmlContent');
     CKEDITOR.config.height = 400;
-    var herror = $('#error').val();
-    var hmessage = $('#message').val();
+    var herror = $('#errorMsg').val();
+    var hmessage = $('#successMsg').val();
     if (typeof (herror) !== 'undefined' && herror.length > 0)
         $.notify({ message: herror }, { type: 'danger' });
+    else
+        console.log(herror);
     if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
         $.notify({ message: hmessage }, { type: 'success' });
-
+    else
+        console.log(hmessage);
 </script>

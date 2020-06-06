@@ -11,6 +11,7 @@ namespace planAndTest.web.Models.SA
     public class articlesViewModel : ViewModelBase
     {
         public string articleId { get; set; }
+        public string articleTitle { get; set; }
         public string parentDirId { get; set; } 
         public string parentDirTitle { get; set; }
         public SortedList<string, string> directories { get; set; }

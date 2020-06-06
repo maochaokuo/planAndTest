@@ -11,7 +11,6 @@ namespace models.SA
     }
     public class articleEditViewModel : Article, IViewModelBase
     {
-        public Article article { get; set; }
         public string parentDirTitle { get; set; }
         public ARTICLE_CHANGE_MODE changeMode { get; set; }
         public string cmd { get; set; }
@@ -19,5 +18,12 @@ namespace models.SA
         public string successMsg { get; set; }
         public int pagesize { get; set; }
         public int pageindex { get; set; }
+        public articleEditViewModel()
+        {
+            ArticleTitle = "";
+            BelongToArticleDirId = null;
+            ProjectId = null;
+            DeleteTime = null;
+        }
     }
 }

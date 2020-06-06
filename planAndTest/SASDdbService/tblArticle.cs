@@ -51,9 +51,9 @@ namespace SASDdbService
                 dirId = art.BelongToArticleDirId.ToString();
             return ret;
         }
-        public SortedList<string, string> directoriesByArticleId(string articleId)
+        public SortedList<string, string> directoriesByParentArticleId(string articleId)
         {
-            SortedList<string, string> ret = null;
+            SortedList<string, string> ret ;
             //var guid = Guid.Parse(articleId);
             string where;
             if (string.IsNullOrWhiteSpace(articleId))
@@ -61,18 +61,16 @@ namespace SASDdbService
             else
                 where = $" where DeleteTime is null and isDir=1 and belongToArticleDirId = '{articleId}'";
             var qry = db.Article.FromSqlRaw($"select * from article {where}");
-            if (!qry.Any())
-            {
-                ret = new SortedList<string, string>();
-                return ret;
-            }
             ret = new SortedList<string, string>();
-            List<Article> articleDirs = qry.ToList();
-            foreach (Article art in articleDirs)
-                ret.Add(art.ArticleId.ToString(), art.ArticleTitle);
+            if (qry.Any())
+            {
+                List<Article> articleDirs = qry.ToList();
+                foreach (Article art in articleDirs)
+                    ret.Add(art.ArticleId.ToString(), art.ArticleTitle);
+            }
             return ret;
         }
-        public SortedList<string, string> subjectsByArticleId(string articleId)
+        public SortedList<string, string> subjectsByParentArticleId(string articleId)
         {
             SortedList<string, string> ret = null;
             //var guid = Guid.Parse(articleId);
