@@ -13,11 +13,11 @@
     <Folder Include="EPL\" />
     <Folder Include="shared\" />
     <Folder Include="SD\" />
-    <Folder Include="SA\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\commonLib\commonLib.csproj" />
+    <ProjectReference Include="..\SASDdb.entity\SASDdb.entity.csproj" />
   </ItemGroup>
 
 </Project>

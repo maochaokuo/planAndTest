@@ -1,5 +1,5 @@
 ﻿@using planAndTest.web.Models.SA
-@model articleEditViewModel
+@model models.SA.articleEditViewModel
 @{
     ViewData["Title"] = "EditArticle";
     Layout = "~/Views/Shared/_LayoutSA.cshtml";
@@ -33,7 +33,9 @@
                 <h6>Parent Directory</h6>
             </div>
             <div class="col-10">
-                <h6>@Model.editingArticle.BelongToArticleDirId</h6>
+                <h6>
+                    @Html.ActionLink(Model.parentDirTitle, "Articls", "SA", new { articleId=Model.BelongToArticleDirId})
+                </h6>
             </div>
         </div>
         <div class="row">
@@ -41,7 +43,7 @@
                 <h6>Subject</h6>
             </div>
             <div class="col-8">
-                @Html.TextBoxFor(m => m.editingArticle.ArticleTitle, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.ArticleTitle, new { @class = "form-control" })
             </div>
             <div class="col-1">
                 <button type="submit" onclick="$('#cmd').val('save'); "
@@ -61,13 +63,13 @@
                 <h6>Content</h6>
             </div>
             <div class="col-1">
-                @Html.RadioButtonFor(m => m.isDir, "1", new { @checked = true, @class = "form-control" })
+                @Html.RadioButtonFor(m => m.IsDir, true, new { @checked = true, @class = "form-control" })
             </div>
             <div class="col-2">
                 Is a Directory
             </div>
             <div class="col-1">
-                @Html.RadioButtonFor(m => m.isDir, "0", new { @checked = true, @class = "form-control" })
+                @Html.RadioButtonFor(m => m.IsDir, false, new { @checked = true, @class = "form-control" })
             </div>
             <div class="col-2">
                 Is an Article
@@ -75,7 +77,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                @Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
+                @Html.TextAreaFor(m => m.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
             </div>
         </div>
     </div>

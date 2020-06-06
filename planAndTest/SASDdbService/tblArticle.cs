@@ -59,7 +59,7 @@ namespace SASDdbService
             if (string.IsNullOrWhiteSpace(articleId))
                 where = " where DeleteTime is null and isDir=1 and belongToArticleDirId is null";
             else
-                where = $" where DeleteTime is null and isDir=1 and belongToArticleDirId = \"{articleId}\"";
+                where = $" where DeleteTime is null and isDir=1 and belongToArticleDirId = '{articleId}'";
             var qry = db.Article.FromSqlRaw($"select * from article {where}");
             if (!qry.Any())
             {
@@ -80,7 +80,7 @@ namespace SASDdbService
             if (string.IsNullOrWhiteSpace(articleId))
                 where = " where DeleteTime is null and isDir=0 and belongToArticleDirId is null";
             else
-                where = $" where DeleteTime is null and isDir=0 and belongToArticleDirId = \"{articleId}\"";
+                where = $" where DeleteTime is null and isDir=0 and belongToArticleDirId = '{articleId}'";
             var qry = db.Article.FromSqlRaw($"select * from article {where}");
             if (!qry.Any())
             {

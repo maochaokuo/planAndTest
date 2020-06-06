@@ -28,7 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\callMission\callMission.csproj" />
     <ProjectReference Include="..\models\models.csproj" />
-    <ProjectReference Include="..\SASDdb.entity\SASDdb.entity.csproj" />
     <ProjectReference Include="..\SASDdbService\SASDdbService.csproj" />
   </ItemGroup>
   <ItemGroup>

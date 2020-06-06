@@ -1,6 +1,7 @@
 ﻿using commonLib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
+using models.SA;
 using planAndTest.web.Helper;
 using planAndTest.web.Models.SA;
 using SASDdb.entity.Models;
@@ -15,18 +16,18 @@ namespace planAndTest.web.Controllers
         {
             return View();
         }
-        public IActionResult Articles(string articleId)
+        public IActionResult Articles(string articleId, string parentDirId)
         {
-            articleEditViewModel viewModel = new articleEditViewModel();
-            string err = loadArticle(articleId, ref viewModel);
+            articlesViewModel viewModel = new articlesViewModel();
+            string err = loadArticle(viewModel.articleId, ref viewModel);
             viewModel.errorMsg = err;
-            viewModel.articleId = articleId;
+            //viewModel.articleId = articleId;
             //todo !!... full text search for articles
 
             //todo !!... special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
             return View(viewModel);
         }
-        private string loadArticle(string articleId, ref articleEditViewModel viewModel)
+        private string loadArticle(string articleId, ref articlesViewModel viewModel)
         {
             string ret = "";
             // load directories
@@ -37,12 +38,13 @@ namespace planAndTest.web.Controllers
             return ret;
         }
         [HttpPost]
-        public IActionResult Articles(articleEditViewModel viewModel)
+        public IActionResult Articles(articlesViewModel viewModel)
         {
             IActionResult ret;
             var selectedArticle = Request.Form["selectedArticle"];
             string err = loadArticle(viewModel.articleId, ref viewModel);
             viewModel.errorMsg = err;
+            articleEditViewModel aevm;
             switch (viewModel.cmd)
             {
                 case "create":
@@ -53,12 +55,15 @@ namespace planAndTest.web.Controllers
                     //    ret = View(viewModel);
                     //    break;
                     //}
-                    string BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId.ToString();
-                    viewModel.editingArticle = new Article();
-                    if (!string.IsNullOrWhiteSpace(BelongToArticleDirId))
-                        viewModel.editingArticle.BelongToArticleDirId = Guid.Parse(BelongToArticleDirId);
-                    ret = RedirectToAction("EditArticle", new { 
-                        BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });
+                    //string BelongToArticleDirId = viewModel.parentDirId;
+                    aevm = new articleEditViewModel();
+                    aevm.BelongToArticleDirId = Guid.Parse( viewModel.parentDirId);
+                    aevm.changeMode = ARTICLE_CHANGE_MODE.CREATE;
+                    TempData["articleEditViewModel"] = jsonUtl.encodeJson( aevm);
+                    //viewModel.editingArticle = new Article();
+                    //if (!string.IsNullOrWhiteSpace(BelongToArticleDirId))
+                    //    viewModel.editingArticle.BelongToArticleDirId = Guid.Parse(BelongToArticleDirId);
+                    ret = RedirectToAction("EditArticle");
                     break;
                 case "edit":
                     //if (viewModel.editingArticle == null ||
@@ -68,14 +73,20 @@ namespace planAndTest.web.Controllers
                     //    ret = View(viewModel);
                     //    break;
                     //}
-                    ret = RedirectToAction("EditArticle", new { 
-                        articleId = viewModel.editingArticle.ArticleId,
-                        BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });
+                    aevm = new articleEditViewModel();
+                    aevm.ArticleId = Guid.Parse( viewModel.articleId);
+                    aevm.BelongToArticleDirId = Guid.Parse(viewModel.parentDirId);
+                    aevm.changeMode = ARTICLE_CHANGE_MODE.EDIT;
+                    TempData["articleEditViewModel"] = jsonUtl.encodeJson(aevm);
+                    ret = RedirectToAction("EditArticle");
                     break;
                 case "replyTo":
-                    //todo !!... create directory
-                    ret = RedirectToAction("EditArticle", new { isDir = 1,
-                        BelongToArticleDirId = viewModel.editingArticle.BelongToArticleDirId });
+                    aevm = new articleEditViewModel();
+                    aevm.ArticleId = Guid.Parse(viewModel.articleId);
+                    aevm.BelongToArticleDirId = Guid.Parse(viewModel.parentDirId);
+                    aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
+                    TempData["articleEditViewModel"] = jsonUtl.encodeJson(aevm);
+                    ret = RedirectToAction("EditArticle");
                     break;
                 case "delete":
                     //todo !!.. delete confirm
@@ -90,23 +101,28 @@ namespace planAndTest.web.Controllers
                     ret = View(viewModel);
                     break;
             }
-            TempData["articleEditViewModel"] =jsonUtl.encodeJson( viewModel);
+            TempData["articlesViewModel"] =jsonUtl.encodeJson( viewModel);
             return ret;
         }
-        public IActionResult EditArticle(string isDir)
+        public IActionResult EditArticle()//string isDir)
         {
-            articleEditViewModel viewModel = new articleEditViewModel();
-            if (!string.IsNullOrWhiteSpace(isDir) && isDir == "1")
-                viewModel.isDir = "1";
+            articleEditViewModel viewModel;
+            var tmpvar = TempData["articleEditViewModel"];
+            if (tmpvar != null)
+                viewModel = jsonUtl.decodeJson<articleEditViewModel>( tmpvar+"");
             else
-                viewModel.isDir = "0";
-            ViewBag.isDir = viewModel.isDir;
+                viewModel = new articleEditViewModel();
+            //if (!string.IsNullOrWhiteSpace(isDir) && isDir == "1")
+            //    viewModel.isDir = 1;
+            //else
+            //    viewModel.isDir = 0;
+            //ViewBag.isDir = viewModel.isDir;
             return View(viewModel);
         }
         private string checkForm(articleEditViewModel viewModel)
         {
             string ret = "";
-            if (string.IsNullOrWhiteSpace(viewModel.editingArticle.ArticleTitle))
+            if (string.IsNullOrWhiteSpace(viewModel.ArticleTitle))
                 ret = "article (or directory) title cannot be empty";
             return ret;
         }
@@ -133,9 +149,9 @@ namespace planAndTest.web.Controllers
                     Article article2add = new Article();
                     article2add.ArticleId = Guid.NewGuid();
                     article2add.ArticleTitle = 
-                        viewModel.editingArticle.ArticleTitle;
+                        viewModel.ArticleTitle;
                     article2add.ArticleHtmlContent = 
-                        viewModel.editingArticle.ArticleHtmlContent;
+                        viewModel.ArticleHtmlContent;
                     string pureText;
                     err = htmlHelper.removeHtmlTags(
                         article2add.ArticleHtmlContent, out pureText);
@@ -146,7 +162,7 @@ namespace planAndTest.web.Controllers
                         break;
                     }
                     article2add.ArticleContent = pureText;
-                    article2add.IsDir = viewModel.isDir=="1";
+                    article2add.IsDir = viewModel.IsDir ;
                     tblArticle tArticle = new tblArticle();
                     err = tArticle.Add(article2add);
                     err += tArticle.SaveChanges();

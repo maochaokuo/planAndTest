@@ -1,11 +1,11 @@
 ﻿@using planAndTest.web.Models.SA
-@model articleEditViewModel
+@model articlesViewModel
 @{
-    ViewData["Title"] = "Acticles";
+    ViewData["Title"] = "Articles";
     Layout = "~/Views/Shared/_LayoutSA.cshtml";
 }
 
-<h1>Acticles</h1>
+<h1>Articles</h1>
 
 @using (Html.BeginForm())
 {
@@ -24,23 +24,24 @@
                 </div>
             </div>
             <div class="row border-top border-primary" style="height:240px;overflow:auto">
-                @foreach (var rec in Model.directories)
-                {
-                    @*@Html.ActionLink(rec.Value, "Articles", "SA", new { articleId = rec.Key })
+                <div class="col-12">
+                    @foreach (var rec in Model.directories)
+                    {
+                        @*@Html.ActionLink(rec.Value, "Articles", "SA", new { articleId = rec.Key })
                     <br />*@
-                    <div class="row">
-                        <div class="col-1">
-                            <input type="checkbox" id="@rec.Key" name="selectedDirectory" value="@rec.Key" class="form-control" />
+                        <div class="row">
+                            <div class="col-1">
+                                <input type="checkbox" id="@rec.Key" name="selectedDirectory" value="@rec.Key" class="form-control" />
+                            </div>
+                            <div class="col-11">
+                                @Html.ActionLink(rec.Value, "Articles", "SA", new { articleId = rec.Key })
+                            </div>
                         </div>
-                        <div class="col-11">
-                            @Html.ActionLink(rec.Value, "Articles", "SA", new { articleId = rec.Key })
-                        </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
-            </div>
-
-            <div class="col-6 border-top border-bottom border-right border-primary" style="height:280px;overflow:auto">
+        </div>
+        <div class="col-6 border-top border-bottom border-right border-primary" style="height:280px;overflow:auto">
             <div class="row">
                 <div class="col-3" style="height:31px">
                     <h6>Subjects</h6>
@@ -94,7 +95,7 @@
             <div class="row border-top border-primary" style="height:410px;overflow:auto">
                 <div class="col-12">
                     @*Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id= "ArticleHtmlContent" })*@
-                    @Html.Raw(Model.editingArticle.ArticleHtmlContent)
+                    @Html.Raw(Model.articleHtmlContent)
                 </div>
                 @*<div class="col-2">
                     </div>*@

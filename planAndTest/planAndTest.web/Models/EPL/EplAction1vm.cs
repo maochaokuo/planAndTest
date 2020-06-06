@@ -1,4 +1,6 @@
-﻿namespace planAndTest.web.Models.EPL
+﻿using models;
+
+namespace planAndTest.web.Models.EPL
 {
     public class EplAction1vm : ViewModelBase
     {
