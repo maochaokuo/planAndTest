@@ -218,14 +218,30 @@ namespace planAndTest.web.Controllers
                     {
                         viewModel.ArticleId = Guid.NewGuid();
                         err = tArticle.Add(viewModel);
+                        err += tArticle.SaveChanges();
                     }
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.EDIT)
+                    {
                         err = tArticle.Update(viewModel);
+                        err += tArticle.SaveChanges();
+                    }
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.REPLY_TO)
                     {
-                        // todo !!... transaction, 1. create replied article 2. change original article to be directory type
+                        // transaction, 1. create replied article 2. change original article to be directory type
+                        SASDdbBase db = new SASDdbBase();
+                        using (var transaction = db.BeginTransaction())
+                        {
+                            viewModel.ArticleId = Guid.NewGuid();
+                            err = tArticle.Add(viewModel);
+                            err += tArticle.SaveChanges();
+                            tblArticle tart = new tblArticle();
+                            Article replied = tart.GetArticleById(viewModel.BelongToArticleDirId.ToString());
+                            replied.IsDir = true;
+                            tart.Update(replied);
+                            tart.SaveChanges();
+                            transaction.Commit();
+                        }
                     }
-                    err += tArticle.SaveChanges();
                     if (err.Length > 0)
                         viewModel.errorMsg = err;
                     else
