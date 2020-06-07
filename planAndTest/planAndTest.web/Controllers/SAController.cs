@@ -117,6 +117,7 @@ namespace planAndTest.web.Controllers
                         Article artParent = ta.GetArticleById(art.BelongToArticleDirId.ToString());
                         aevm.parentDirTitle = artParent.ArticleTitle;
                     }
+                    // undone !!... there is a huge big issue here, if there is image base64, then edit will crash, then crash the whole web project
                     //aevm.ArticleContent = null;
                     //aevm.ArticleHtmlContent = null;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.EDIT;
