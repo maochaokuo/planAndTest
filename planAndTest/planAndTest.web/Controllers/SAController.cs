@@ -127,14 +127,8 @@ namespace planAndTest.web.Controllers
                     break;
                 case "replyTo":
                     aevm = new articleEditViewModel();
-                    aevm.ArticleId = Guid.Parse(viewModel.articleId);
-                    if (!string.IsNullOrWhiteSpace(viewModel.parentDirId))
-                    {
-                        aevm.BelongToArticleDirId = Guid.Parse(viewModel.parentDirId);
-                        ta = new tblArticle();
-                        art = ta.GetArticleById(viewModel.parentDirId);
-                        aevm.parentDirTitle = art.ArticleTitle;
-                    }
+                    aevm.BelongToArticleDirId =new Guid( viewModel.articleId);
+                    aevm.parentDirTitle = viewModel.articleTitle;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
                     TempData["articleEditViewModel"] = jsonUtl.encodeJson(aevm);
                     ret = RedirectToAction("EditArticle");
@@ -173,6 +167,7 @@ namespace planAndTest.web.Controllers
             //ViewBag.isDir = viewModel.isDir;
             if (viewModel.BelongToArticleDirId == null)
                 viewModel.parentDirTitle = EMPTY_PARENT_TITLE;
+            // todo !!... if editing, article/directory cannot be changed
             TempData["articleEditViewModel"] = jsonUtl.encodeJson(viewModel);
             return View(viewModel);
         }
@@ -224,8 +219,12 @@ namespace planAndTest.web.Controllers
                         viewModel.ArticleId = Guid.NewGuid();
                         err = tArticle.Add(viewModel);
                     }
-                    else
+                    else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.EDIT)
                         err = tArticle.Update(viewModel);
+                    else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.REPLY_TO)
+                    {
+                        // todo !!... transaction, 1. create replied article 2. change original article to be directory type
+                    }
                     err += tArticle.SaveChanges();
                     if (err.Length > 0)
                         viewModel.errorMsg = err;

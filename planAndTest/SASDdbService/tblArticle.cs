@@ -109,6 +109,11 @@ namespace SASDdbService
             db.Article.Update(updateArticle);
             return ret;
         }
+        /// <summary>
+        /// delete actually update DeleteTime to now
+        /// </summary>
+        /// <param name="deleteArticle"></param>
+        /// <returns></returns>
         public string Delete(Article deleteArticle)
         {
             string ret = "";
@@ -125,6 +130,10 @@ namespace SASDdbService
             ret = Delete(deleteArticle);
             return ret;
         }
+        /// <summary>
+        /// physically remove files marked deleted 7 days (included) ago
+        /// </summary>
+        /// <returns></returns>
         public string PurgeDeleted()
         {
             string ret = "";
@@ -136,6 +145,12 @@ where DATEDIFF(day, deleteTime, getdate()) >= 7
             int rows = db.Database.ExecuteSqlCommand(sql);
             return ret;
         }
+        /// <summary>
+        /// restore article marked deleted within 7 days, also allowed to change to be under a new parent
+        /// </summary>
+        /// <param name="articleId"></param>
+        /// <param name="newDirId"></param>
+        /// <returns></returns>
         public string RestoreArticle(string articleId, string newDirId="")
         {
             string ret = "";
