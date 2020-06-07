@@ -12,6 +12,7 @@ namespace planAndTest.web.Controllers
 {
     public class SAController : Controller
     {
+        const string EMPTY_PARENT_TITLE = "(root)";
         public IActionResult Index()
         {
             return View();
@@ -69,6 +70,8 @@ namespace planAndTest.web.Controllers
             string err = loadArticle(viewModel.articleId, viewModel.parentDirId, ref viewModel);
             viewModel.errorMsg = err;
             articleEditViewModel aevm;
+            tblArticle ta;
+            Article art=null;
             switch (viewModel.cmd)
             {
                 case "create":
@@ -84,8 +87,8 @@ namespace planAndTest.web.Controllers
                     if (!string.IsNullOrWhiteSpace(viewModel.parentDirId))
                     {
                         aevm.BelongToArticleDirId = Guid.Parse(viewModel.parentDirId);
-                        tblArticle ta = new tblArticle();
-                        Article art = ta.GetArticleById(viewModel.parentDirId);
+                        ta = new tblArticle();
+                        art = ta.GetArticleById(viewModel.parentDirId);
                         aevm.parentDirTitle = art.ArticleTitle;
                     }
                     aevm.changeMode = ARTICLE_CHANGE_MODE.CREATE;
@@ -103,13 +106,22 @@ namespace planAndTest.web.Controllers
                     //    ret = View(viewModel);
                     //    break;
                     //}
-                    tblArticle ta = new tblArticle();
-                    Article art = ta.GetArticleById(viewModel.articleId);
-                    aevm =(articleEditViewModel) art;
-                    Article artParent = ta.GetArticleById(art.BelongToArticleDirId?.ToString());
-                    aevm.parentDirTitle = artParent.ArticleTitle;
+                    ta = new tblArticle();
+                    art = ta.GetArticleById(viewModel.articleId);
+                    aevm = jsonUtl.decodeJson<articleEditViewModel>(jsonUtl.encodeJson(art));
+                    //aevm = new articleEditViewModel();
+                    if (art == null || art.BelongToArticleDirId == null)
+                        aevm.parentDirTitle = EMPTY_PARENT_TITLE;
+                    else
+                    {
+                        Article artParent = ta.GetArticleById(art.BelongToArticleDirId.ToString());
+                        aevm.parentDirTitle = artParent.ArticleTitle;
+                    }
+                    //aevm.ArticleContent = null;
+                    //aevm.ArticleHtmlContent = null;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.EDIT;
-                    TempData["articleEditViewModel"] = jsonUtl.encodeJson(aevm);
+                    string json = jsonUtl.encodeJson(aevm);
+                    TempData["articleEditViewModel"] = json;
                     ret = RedirectToAction("EditArticle");
                     break;
                 case "replyTo":
@@ -118,8 +130,8 @@ namespace planAndTest.web.Controllers
                     if (!string.IsNullOrWhiteSpace(viewModel.parentDirId))
                     {
                         aevm.BelongToArticleDirId = Guid.Parse(viewModel.parentDirId);
-                        tblArticle ta = new tblArticle();
-                        Article art = ta.GetArticleById(viewModel.parentDirId);
+                        ta = new tblArticle();
+                        art = ta.GetArticleById(viewModel.parentDirId);
                         aevm.parentDirTitle = art.ArticleTitle;
                     }
                     aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
@@ -147,7 +159,10 @@ namespace planAndTest.web.Controllers
             articleEditViewModel viewModel;
             var tmpvar = TempData["articleEditViewModel"];
             if (tmpvar != null)
-                viewModel = jsonUtl.decodeJson<articleEditViewModel>( tmpvar+"");
+            {
+                viewModel = jsonUtl.decodeJson<articleEditViewModel>(tmpvar + "");
+                // todo !!... need to reload html content
+            }
             else
                 viewModel = new articleEditViewModel();
             //if (!string.IsNullOrWhiteSpace(isDir) && isDir == "1")
@@ -156,7 +171,7 @@ namespace planAndTest.web.Controllers
             //    viewModel.isDir = 0;
             //ViewBag.isDir = viewModel.isDir;
             if (viewModel.BelongToArticleDirId == null)
-                viewModel.parentDirTitle = "(root)";
+                viewModel.parentDirTitle = EMPTY_PARENT_TITLE;
             TempData["articleEditViewModel"] = jsonUtl.encodeJson(viewModel);
             return View(viewModel);
         }
