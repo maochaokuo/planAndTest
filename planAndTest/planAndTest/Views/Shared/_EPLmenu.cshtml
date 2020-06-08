@@ -1,0 +1,35 @@
+﻿<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="EPL"
+               asp-action="Action1">Action1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="EPL"
+               asp-action="Action2">Action2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="EPL"
+               asp-action="Action3">Action3</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                Jobs
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="Index">Jobs</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Hangfire">Hangfire</a>
+            </div>
+        </li>
+        @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Hangfire"
+               asp-action="Index">Hangfire</a>
+        </li>*@
+    </ul>
+</div>

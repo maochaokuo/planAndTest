@@ -1,0 +1,60 @@
+﻿@model planAndTest.web.Models.Job.jProgress
+@{
+    ViewData["Title"] = "JobProgress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>JobProgress</h1>
+
+@using (Html.BeginForm("JobProgress", "Job", FormMethod.Post,
+                                   new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.cmd)
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button type="submit" onclick="$('#cmd').val('hello');$('form').submit();">run hello test</button>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col">
+                calls in progress
+                <button type="submit" onclick="$('#cmd').val('deleteCalls');$('form').submit();">delete all calls</button><br />
+                <hr />
+                @foreach (string s1 in Model.callIds)
+                {
+                    <div class="row">
+                        @Html.ActionLink(s1, "JobDetail", "Job", routeValues: new { callId=s1})
+                    </div>
+                }
+            </div>
+            <div class="col">
+                calls done
+                <button type="submit" onclick="$('#cmd').val('deleteCalldones');$('form').submit();">delete all calldones</button><br />
+                <hr />
+                @foreach (string s2 in Model.callDoneTodays)
+                {
+                    <div class="row">
+                        @Html.ActionLink(s2, "JobDetail", "Job", routeValues: new { callId = s2 })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+    <script type="text/javascript">
+        // self executing function here
+        (function () {
+            // your page initialization code here
+            // the DOM will be available here
+
+            timedRefresh(1000);
+        })();
+
+        function timedRefresh(timeoutPeriod) {
+            setTimeout(function () {
+                location.reload(true);
+            }, timeoutPeriod);
+        }
+    </script>

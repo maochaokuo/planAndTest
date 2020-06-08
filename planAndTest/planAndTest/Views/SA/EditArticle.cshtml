@@ -1,0 +1,103 @@
+﻿@using planAndTest.web.Models.SA
+@model models.SA.articleEditViewModel
+@{
+    ViewData["Title"] = "EditArticle";
+    Layout = "~/Views/Shared/_LayoutSA.cshtml";
+}
+
+<h1>EditArticle</h1>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "eaform" }))
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.errorMsg, new { id="errorMsg"})
+    @Html.HiddenFor(m => m.successMsg, new { id="successMsg"})
+    @Html.HiddenFor(m=>m.parentDirTitle)
+    @Html.HiddenFor(m=>m.BelongToArticleDirId)
+    @Html.HiddenFor(m=>m.changeMode)
+    @*@Html.TextBoxFor(m => m.cmd, new { id = "cmd" })*@
+    @*<input type="hidden" id="error" value="@ViewBag.Error" />
+    <input type="hidden" id="message" value="@ViewBag.Message" />*@
+    @*@if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.Error
+            </div>
+        }
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.Message
+            </div>
+        }*@
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <h6>Parent Directory</h6>
+            </div>
+            <div class="col-10">
+                <h6>
+                    @Html.ActionLink(Model.parentDirTitle, "Articles", "SA", new { articleId=Model.BelongToArticleDirId })
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h6>Subject</h6>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.ArticleTitle, new { @class = "form-control" })
+            </div>
+            <div class="col-1">
+                <button type="submit" onclick="$('#cmd').val('save'); "
+                        class="form-control btn btn-primary">
+                    Save
+                </button>
+            </div>
+            <div class="col-1">
+                <button type="submit" onclick="$('#cmd').val('delete'); "
+                        class="form-control btn btn-primary">
+                    Delete
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h6>Content</h6>
+            </div>
+            <div class="col-1">
+                @Html.RadioButtonFor(m => m.IsDir, true, new { @checked = true, @class = "form-control" })
+            </div>
+            <div class="col-2">
+                Is a Directory
+            </div>
+            <div class="col-1">
+                @Html.RadioButtonFor(m => m.IsDir, false, new { @checked = true, @class = "form-control" })
+            </div>
+            <div class="col-2">
+                Is an Article
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                @Html.TextAreaFor(m => m.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
+            </div>
+        </div>
+    </div>
+}
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('ArticleHtmlContent');
+    CKEDITOR.config.height = 400;
+    var herror = $('#errorMsg').val();
+    var hmessage = $('#successMsg').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    else
+        console.log(herror);
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
+    else
+        console.log(hmessage);
+</script>
