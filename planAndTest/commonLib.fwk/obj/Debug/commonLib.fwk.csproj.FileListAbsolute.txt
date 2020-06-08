@@ -1,0 +1,9 @@
+C:\zTmp\planAndTest\planAndTest\commonLib.fwk\obj\Debug\commonLib.fwk.csproj.CoreCompileInputs.cache
+C:\zTmp\planAndTest\planAndTest\commonLib.fwk\bin\Debug\commonLib.fwk.dll
+C:\zTmp\planAndTest\planAndTest\commonLib.fwk\bin\Debug\commonLib.fwk.pdb
+C:\zTmp\planAndTest\planAndTest\commonLib.fwk\bin\Debug\Newtonsoft.Json.dll
+C:\zTmp\planAndTest\planAndTest\commonLib.fwk\bin\Debug\Newtonsoft.Json.xml
+C:\zTmp\planAndTest\planAndTest\commonLib.fwk\obj\Debug\commonLib.fwk.csprojAssemblyReference.cache
+C:\zTmp\planAndTest\planAndTest\commonLib.fwk\obj\Debug\commonLib.fwk.csproj.CopyComplete
+C:\zTmp\planAndTest\planAndTest\commonLib.fwk\obj\Debug\commonLib.fwk.dll
+C:\zTmp\planAndTest\planAndTest\commonLib.fwk\obj\Debug\commonLib.fwk.pdb

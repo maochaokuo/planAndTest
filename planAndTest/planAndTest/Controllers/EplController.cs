@@ -1,25 +1,30 @@
 ﻿using callMission;
 using commonLib;
-using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc;
 using models.calls;
 using planAndTest.web.Models.EPL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace planAndTest.web.Controllers
 {
     public class EplController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
-        public IActionResult Action1()
+        public ActionResult Action1()
         {
             EplAction1vm vm = new EplAction1vm();
             return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Action1(EplAction1vm vm)// firstName, string lastName)
+        public ActionResult Action1(EplAction1vm vm)// firstName, string lastName)
         {
             vm.cmdTxt = vm.cmd;
             callExe ce = new callExe();
@@ -31,11 +36,11 @@ namespace planAndTest.web.Controllers
                 , json );
             return View(vm);
         }
-        public IActionResult Action2()
+        public ActionResult Action2()
         {
             return View();
         }
-        public IActionResult Action3()
+        public ActionResult Action3()
         {
             return View();
         }

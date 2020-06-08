@@ -1,23 +1,27 @@
 ﻿using commonLib;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.Language;
+//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Razor.Language;
 using models.SA;
 using planAndTest.web.Helper;
 using planAndTest.web.Models.SA;
 using SASDdb.entity.Models;
 using SASDdbService;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace planAndTest.web.Controllers
 {
     public class SAController : Controller
     {
         const string EMPTY_PARENT_TITLE = "(root)";
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
-        public IActionResult Articles(string articleId, string parentDirId)
+        public ActionResult Articles(string articleId, string parentDirId)
         {
             articlesViewModel viewModel = new articlesViewModel();
             string err = "";
@@ -63,9 +67,9 @@ namespace planAndTest.web.Controllers
             return ret;
         }
         [HttpPost]
-        public IActionResult Articles(articlesViewModel viewModel)
+        public ActionResult Articles(articlesViewModel viewModel)
         {
-            IActionResult ret;
+            ActionResult ret;
             var selectedArticle = Request.Form["selectedArticle"];
             string err = loadArticle(viewModel.articleId, viewModel.parentDirId, ref viewModel);
             viewModel.errorMsg = err;
@@ -149,7 +153,7 @@ namespace planAndTest.web.Controllers
             TempData["articlesViewModel"] =jsonUtl.encodeJson( viewModel);
             return ret;
         }
-        public IActionResult EditArticle()//string isDir)
+        public ActionResult EditArticle()//string isDir)
         {
             articleEditViewModel viewModel;
             var tmpvar = TempData["articleEditViewModel"];
@@ -179,9 +183,9 @@ namespace planAndTest.web.Controllers
             return ret;
         }
         [HttpPost]
-        public IActionResult EditArticle(articleEditViewModel viewModel)
+        public ActionResult EditArticle(articleEditViewModel viewModel)
         {
-            IActionResult ret;
+            ActionResult ret;
             string err;
             //todo !!... edit article
             // articles, ckeditor, paste base64 image

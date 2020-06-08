@@ -4,19 +4,24 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using callMission;
-using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc;
 using planAndTest.web.Helper;
 using planAndTest.web.Models.Job;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace planAndTest.web.Controllers
 {
     public class JobController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
-        public IActionResult JobProgress()
+        public ActionResult JobProgress()
         {
             jProgress viewModel = new jProgress();
             //keep updating running progress
@@ -90,9 +95,9 @@ namespace planAndTest.web.Controllers
             return ret;
         }
         [HttpPost]
-        public IActionResult JobProgress(jProgress viewModel)
+        public ActionResult JobProgress(jProgress viewModel)
         {
-            IActionResult retAct;
+            ActionResult retAct;
             loadJobs(viewModel);
             switch (viewModel.cmd)
             {
@@ -114,7 +119,7 @@ namespace planAndTest.web.Controllers
             }
             return retAct;
         }
-        public IActionResult JobDetail(string callId)
+        public ActionResult JobDetail(string callId)
         {
             //todo !!... just job detail
             return View();

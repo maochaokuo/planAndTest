@@ -1,22 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace planAndTest.web.Controllers
 {
     public class SDController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
-        public IActionResult Action1()
+        public ActionResult Action1()
         {
             return View();
         }
-        public IActionResult Action2()
+        public ActionResult Action2()
         {
             return View();
         }
-        public IActionResult Action3()
+        public ActionResult Action3()
         {
             return View();
         }

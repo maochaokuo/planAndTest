@@ -1,0 +1,12 @@
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\bin\Debug\SASDdb.entity.fwk.dll.config
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\bin\Debug\SASDdb.entity.fwk.dll
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\bin\Debug\SASDdb.entity.fwk.pdb
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\bin\Debug\EntityFramework.dll
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\bin\Debug\EntityFramework.SqlServer.dll
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\bin\Debug\EntityFramework.xml
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\bin\Debug\EntityFramework.SqlServer.xml
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\obj\Debug\SASDdb.entity.fwk.csprojAssemblyReference.cache
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\obj\Debug\SASDdb.entity.fwk.csproj.CoreCompileInputs.cache
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\obj\Debug\SASDdb.entity.fwk.csproj.CopyComplete
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\obj\Debug\SASDdb.entity.fwk.dll
+C:\zTmp\planAndTest\planAndTest\SASDdb.entity.fwk\obj\Debug\SASDdb.entity.fwk.pdb

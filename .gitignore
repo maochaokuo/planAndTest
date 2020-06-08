@@ -25,3 +25,5 @@
 *.jfm
 /planAndTest/SASDdbService/obj
 /planAndTest/SASDdbService/bin
+/planAndTest/planAndTest/bin
+/planAndTest/planAndTest/obj
