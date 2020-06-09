@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70CE3CD9-3579-4273-BA7D-09EBCC1BB2BF}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>callMission.fwk</RootNamespace>
-    <AssemblyName>callMission.fwk</AssemblyName>
+    <ProjectGuid>{205D3FFB-DBF7-4403-A491-E7D34A2D70E8}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>exeMission.fwk</RootNamespace>
+    <AssemblyName>exeMission.fwk</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,15 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="callExe.cs" />
-    <Compile Include="calls\invokeService.cs" />
-    <Compile Include="calls\srvBase.cs" />
-    <Compile Include="calls\srvHelloTest.cs" />
-    <Compile Include="calls\srvMainLoop.cs" />
-    <Compile Include="Icall.cs" />
+    <Compile Include="mainClass.cs" />
+    <Compile Include="mainClass2.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\sql.data\SASDdb.data.sql" />
+    <Content Include="Data\sql.data\SASDdb.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\callMission.fwk\callMission.fwk.csproj">
+      <Project>{70ce3cd9-3579-4273-ba7d-09ebcc1bb2bf}</Project>
+      <Name>callMission.fwk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\commonLib.fwk\commonLib.fwk.csproj">
       <Project>{4762bdf0-9df6-4908-8fa9-cf1f0e7f6067}</Project>
       <Name>commonLib.fwk</Name>

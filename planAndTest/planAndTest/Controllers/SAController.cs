@@ -4,7 +4,8 @@
 using models.SA;
 using planAndTest.web.Helper;
 using planAndTest.web.Models.SA;
-using SASDdb.entity.Models;
+using SASDdb.entity.fwk;
+//using SASDdb.entity.Models;
 using SASDdbService;
 using System;
 using System.Collections.Generic;
@@ -39,13 +40,13 @@ namespace planAndTest.web.Controllers
             string ret = "";
             // load directories
             tblArticle tbart = new tblArticle();
-            Article parent = null;
+            article parent = null;
             if (!string.IsNullOrWhiteSpace(articleId))
             {
-                Article art = tbart.GetArticleById(articleId);
-                viewModel.articleTitle = art.ArticleTitle;
-                viewModel.articleHtmlContent = art.ArticleHtmlContent;
-                parentDirId = art.BelongToArticleDirId.ToString();
+                article art = tbart.GetArticleById(articleId);
+                viewModel.articleTitle = art.articleTitle;
+                viewModel.articleHtmlContent = art.articleHtmlContent;
+                parentDirId = art.belongToArticleDirId.ToString();
             }
             else
                 viewModel.articleTitle = "";
@@ -58,8 +59,8 @@ namespace planAndTest.web.Controllers
             }
             else
             {
-                viewModel.parentDirId = parent.ArticleId.ToString();
-                viewModel.parentDirTitle = parent.ArticleTitle;
+                viewModel.parentDirId = parent.articleId.ToString();
+                viewModel.parentDirTitle = parent.articleTitle;
             }
             viewModel.directories = tbart.directoriesByParentArticleId(parentDirId);
             // load subjects
@@ -75,7 +76,7 @@ namespace planAndTest.web.Controllers
             viewModel.errorMsg = err;
             articleEditViewModel aevm;
             tblArticle ta;
-            Article art=null;
+            article art=null;
             switch (viewModel.cmd)
             {
                 case "create":
@@ -90,14 +91,14 @@ namespace planAndTest.web.Controllers
                     aevm = new articleEditViewModel();
                     if (!string.IsNullOrWhiteSpace(viewModel.parentDirId))
                     {
-                        aevm.BelongToArticleDirId = Guid.Parse(viewModel.parentDirId);
+                        aevm.belongToArticleDirId = Guid.Parse(viewModel.parentDirId);
                         ta = new tblArticle();
                         art = ta.GetArticleById(viewModel.parentDirId);
-                        aevm.parentDirTitle = art.ArticleTitle;
+                        aevm.parentDirTitle = art.articleTitle;
                     }
                     aevm.changeMode = ARTICLE_CHANGE_MODE.CREATE;
                     TempData["articleEditViewModel"] = jsonUtl.encodeJson( aevm);
-                    //viewModel.editingArticle = new Article();
+                    //viewModel.editingArticle = new article();
                     //if (!string.IsNullOrWhiteSpace(BelongToArticleDirId))
                     //    viewModel.editingArticle.BelongToArticleDirId = Guid.Parse(BelongToArticleDirId);
                     ret = RedirectToAction("EditArticle");
@@ -114,12 +115,12 @@ namespace planAndTest.web.Controllers
                     art = ta.GetArticleById(viewModel.articleId);
                     aevm = jsonUtl.decodeJson<articleEditViewModel>(jsonUtl.encodeJson(art));
                     //aevm = new articleEditViewModel();
-                    if (art == null || art.BelongToArticleDirId == null)
+                    if (art == null || art.belongToArticleDirId == null)
                         aevm.parentDirTitle = EMPTY_PARENT_TITLE;
                     else
                     {
-                        Article artParent = ta.GetArticleById(art.BelongToArticleDirId.ToString());
-                        aevm.parentDirTitle = artParent.ArticleTitle;
+                        article artParent = ta.GetArticleById(art.belongToArticleDirId.ToString());
+                        aevm.parentDirTitle = artParent.articleTitle;
                     }
                     // undone !!... there is a huge big issue here, if there is image base64, then edit will crash, then crash the whole web project
                     //aevm.ArticleContent = null;
@@ -131,7 +132,7 @@ namespace planAndTest.web.Controllers
                     break;
                 case "replyTo":
                     aevm = new articleEditViewModel();
-                    aevm.BelongToArticleDirId =new Guid( viewModel.articleId);
+                    aevm.belongToArticleDirId =new Guid( viewModel.articleId);
                     aevm.parentDirTitle = viewModel.articleTitle;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
                     TempData["articleEditViewModel"] = jsonUtl.encodeJson(aevm);
@@ -169,7 +170,7 @@ namespace planAndTest.web.Controllers
             //else
             //    viewModel.isDir = 0;
             //ViewBag.isDir = viewModel.isDir;
-            if (viewModel.BelongToArticleDirId == null)
+            if (viewModel.belongToArticleDirId == null)
                 viewModel.parentDirTitle = EMPTY_PARENT_TITLE;
             // todo !!... if editing, article/directory cannot be changed
             TempData["articleEditViewModel"] = jsonUtl.encodeJson(viewModel);
@@ -178,7 +179,7 @@ namespace planAndTest.web.Controllers
         private string checkForm(articleEditViewModel viewModel)
         {
             string ret = "";
-            if (string.IsNullOrWhiteSpace(viewModel.ArticleTitle))
+            if (string.IsNullOrWhiteSpace(viewModel.articleTitle))
                 ret = "article (or directory) title cannot be empty";
             return ret;
         }
@@ -200,7 +201,7 @@ namespace planAndTest.web.Controllers
                         ret = View(viewModel);
                         break;
                     }
-                    //Article article2add = new Article();
+                    //article article2add = new article();
                     //article2add.ArticleId = Guid.NewGuid();
                     //article2add.ArticleTitle = 
                     //    viewModel.ArticleTitle;
@@ -208,19 +209,19 @@ namespace planAndTest.web.Controllers
                     //    viewModel.ArticleHtmlContent;
                     string pureText;
                     err = htmlHelper.removeHtmlTags(
-                        viewModel.ArticleHtmlContent, out pureText);
+                        viewModel.articleHtmlContent, out pureText);
                     if (err.Length > 0)
                     {
                         viewModel.errorMsg = err;
                         ret = View(viewModel);
                         break;
                     }
-                    viewModel.ArticleContent = pureText;
+                    viewModel.articleContent = pureText;
                     //article2add.IsDir = viewModel.IsDir ;
                     tblArticle tArticle = new tblArticle();
                     if (viewModel.changeMode == ARTICLE_CHANGE_MODE.CREATE)
                     {
-                        viewModel.ArticleId = Guid.NewGuid();
+                        viewModel.articleId = Guid.NewGuid();
                         err = tArticle.Add(viewModel);
                         err += tArticle.SaveChanges();
                     }
@@ -235,12 +236,12 @@ namespace planAndTest.web.Controllers
                         SASDdbBase db = new SASDdbBase();
                         using (var transaction = db.BeginTransaction())
                         {
-                            viewModel.ArticleId = Guid.NewGuid();
+                            viewModel.articleId = Guid.NewGuid();
                             err = tArticle.Add(viewModel);
                             err += tArticle.SaveChanges();
                             tblArticle tart = new tblArticle();
-                            Article replied = tart.GetArticleById(viewModel.BelongToArticleDirId.ToString());
-                            replied.IsDir = true;
+                            article replied = tart.GetArticleById(viewModel.belongToArticleDirId.ToString());
+                            replied.isDir = true;
                             tart.Update(replied);
                             tart.SaveChanges();
                             transaction.Commit();

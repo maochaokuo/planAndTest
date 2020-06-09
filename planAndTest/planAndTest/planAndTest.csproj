@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,6 +46,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -135,15 +145,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EplController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\SAController.cs" />
     <Compile Include="Controllers\SDController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\htmlHelper.cs" />
-    <Compile Include="Helper\remoteCallBridge.cs" />
-    <Compile Include="Helper\remoteCallHelper.cs" />
     <Compile Include="Models\EPL\EplAction1vm.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\Job\jProgress.cs" />
@@ -698,21 +705,29 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\callMission\callMission.csproj">
-      <Project>{c7a35ec1-b36e-4863-a235-285d2696f38b}</Project>
-      <Name>callMission</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\models\models.csproj">
-      <Project>{c38e3107-f707-4a1d-b77b-771b19349db4}</Project>
-      <Name>models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SASDdbService\SASDdbService.csproj">
-      <Project>{abf30e46-2a71-41d3-8b90-02284e6fe2c3}</Project>
-      <Name>SASDdbService</Name>
-    </ProjectReference>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <ProjectReference Include="..\callMission.fwk\callMission.fwk.csproj">
+      <Project>{70ce3cd9-3579-4273-ba7d-09ebcc1bb2bf}</Project>
+      <Name>callMission.fwk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\commonLib.fwk\commonLib.fwk.csproj">
+      <Project>{4762bdf0-9df6-4908-8fa9-cf1f0e7f6067}</Project>
+      <Name>commonLib.fwk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\models.fwk\models.fwk.csproj">
+      <Project>{a02fee03-96db-4a2f-a89d-8569689aa729}</Project>
+      <Name>models.fwk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SASDdb.entity.fwk\SASDdb.entity.fwk.csproj">
+      <Project>{4b2ca7fd-a140-437e-9a56-8dde9281d82d}</Project>
+      <Name>SASDdb.entity.fwk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SASDdbService.fwk\SASDdbService.fwk.csproj">
+      <Project>{0f7c1243-5ad9-4358-8c1a-298963c12256}</Project>
+      <Name>SASDdbService.fwk</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -747,7 +762,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

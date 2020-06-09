@@ -27,3 +27,17 @@
 /planAndTest/SASDdbService/bin
 /planAndTest/planAndTest/bin
 /planAndTest/planAndTest/obj
+/planAndTest/callMission.fwk/obj
+/planAndTest/callMission.fwk/bin
+/planAndTest/callMission.fwk/obj
+/planAndTest/commonLib.fwk/obj
+/planAndTest/commonLib.fwk/bin
+/planAndTest/exeMission.fwk/obj
+/planAndTest/exeMission.fwk/bin
+/planAndTest/models.fwk/obj
+/planAndTest/models.fwk/bin
+/planAndTest/SASDdb.entity.fwk/obj
+/planAndTest/SASDdb.entity.fwk/bin
+/planAndTest/SASDdbService.fwk/obj
+/planAndTest/SASDdbService.fwk/bin
+/planAndTest/packages
