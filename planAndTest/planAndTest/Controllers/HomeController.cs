@@ -16,7 +16,7 @@ namespace planAndTest.Controllers
         }
         public ActionResult Index()
         {
-            return RedirectToAction("Articles", "SA");
+            //return RedirectToAction("Articles", "SA");
             return View();
         }
 

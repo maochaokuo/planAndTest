@@ -143,10 +143,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\SASDPM\Controllers\PMController.cs" />
+    <Compile Include="Areas\SASDPM\Controllers\SDController.cs" />
+    <Compile Include="Areas\SASDPM\SASDPMAreaRegistration.cs" />
     <Compile Include="Controllers\EplController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SAController.cs" />
-    <Compile Include="Controllers\SDController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -643,6 +645,12 @@
     <Content Include="Content\bootstrap-notify-3.1.3\LICENSE" />
     <Content Include="Content\bootstrap-notify-3.1.3\package.json" />
     <Content Include="Content\bootstrap-notify-3.1.3\README.md" />
+    <Content Include="Areas\SASDPM\Views\web.config" />
+    <Content Include="Areas\SASDPM\Views\PM\Index.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SD\Index.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SD\Action1.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SD\Action2.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SD\Action3.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -690,6 +698,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\SASDPM\Data\" />
+    <Folder Include="Areas\SASDPM\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

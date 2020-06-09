@@ -13,16 +13,20 @@
                asp-action="Index">System Analysis</a>
         </li>*@
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="SA"
-               asp-action="Index">System Analysis</a>
+            @*@Html.ActionLink("System Analysis", "Index", "SA", new { area = "SA" }, new { @class = "nav-link text-dark" })*@
+            @Html.ActionLink("System Analysis", "Index", "SA", null, new { @class = "nav-link text-dark" })
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="SA"
+               asp-action="Index">System Analysis</a>*@
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="SD"
-               asp-action="Index">System Design</a>
+            @Html.ActionLink("System Design", "Index", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
+               asp-action="Index">System Design</a>*@
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="EPL"
-               asp-action="Index">EPL</a>
+            @Html.ActionLink("EPL", "Index", "EPL", null, new { @class = "nav-link text-dark" })
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="EPL"
+        asp-action="Index">EPL</a>*@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"

@@ -1,4 +1,7 @@
-﻿<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>
+﻿
+@*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>*@
+@Html.ActionLink("planAndTest.web", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -6,16 +9,19 @@
 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
     <ul class="navbar-nav flex-grow-1">
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="SD"
-               asp-action="Action1">Action1</a>
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
+               asp-action="Action1">Action1</a>*@
+            @Html.ActionLink("Action1", "Action1", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="SD"
-               asp-action="Action2">Action2</a>
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
+               asp-action="Action2">Action2</a>*@
+            @Html.ActionLink("Action2", "Action2", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="SD"
-               asp-action="Action3">Action3</a>
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
+               asp-action="Action3">Action3</a>*@
+            @Html.ActionLink("Action3", "Action3", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
     </ul>
 </div>

@@ -1,4 +1,7 @@
-﻿<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>
+﻿
+@*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>*@
+@Html.ActionLink("planAndTest.web", "Index", "Home", null, new { @class = "navbar-brand" })
+
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -6,12 +9,14 @@
 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
     <ul class="navbar-nav flex-grow-1">
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="SA"
-               asp-action="Index">Index</a>
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="SA"
+               asp-action="Index">Index</a>*@
+            @Html.ActionLink("Index", "Index", "SA", null, new { @class = "nav-link text-dark" })
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="SA"
-               asp-action="Articles">Articles</a>
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="SA"
+               asp-action="Articles">Articles</a>*@
+            @Html.ActionLink("Articles", "Articles", "SA", null, new { @class = "nav-link text-dark" })
         </li>
     </ul>
 </div>
