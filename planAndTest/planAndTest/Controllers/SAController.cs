@@ -31,7 +31,7 @@ namespace planAndTest.Controllers
             //viewModel.articleId = articleId;
             //todo !!... full text search for articles
 
-            //todo !!... special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
+            // special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
             return View(viewModel);
         }
         private string loadArticle(string articleId, string parentDirId
@@ -138,6 +138,9 @@ namespace planAndTest.Controllers
                     TempData["articleEditViewModel"] = jsonUtl.encodeJson(aevm);
                     ret = RedirectToAction("EditArticle");
                     break;
+                case "parentDir":
+                    ret = RedirectToAction("Articles", new { articleId=viewModel.parentDirId });
+                    break;
                 case "delete":
                     //todo !!.. delete confirm
                     ViewBag.confirmDelete = "1";
@@ -184,6 +187,7 @@ namespace planAndTest.Controllers
             return ret;
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditArticle(articleEditViewModel viewModel)
         {
             ActionResult ret;
@@ -222,12 +226,21 @@ namespace planAndTest.Controllers
                     if (viewModel.changeMode == ARTICLE_CHANGE_MODE.CREATE)
                     {
                         viewModel.articleId = Guid.NewGuid();
-                        err = tArticle.Add(viewModel);
+                        //article art = new article();
+                        //art.articleId = viewModel.articleId;
+                        //art.createtime = DateTime.Now;
+                        //art.articleTitle = viewModel.articleTitle;
+                        //art.articleHtmlContent = viewModel.articleHtmlContent;
+                        //art.articleContent = viewModel.articleContent;
+                        //art.isDir = viewModel.isDir;
+                        //art.belongToArticleDirId = viewModel.belongToArticleDirId;
+
+                        err = tArticle.Add(viewModel.GetArticle());// as article);
                         err += tArticle.SaveChanges();
                     }
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.EDIT)
                     {
-                        err = tArticle.Update(viewModel);
+                        err = tArticle.Update(viewModel as article);
                         err += tArticle.SaveChanges();
                     }
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.REPLY_TO)

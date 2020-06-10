@@ -38,7 +38,7 @@
             </div>
             <div class="col-10">
                 <h6>
-                    @Html.ActionLink(Model.parentDirTitle, "Articles", "SA", new { articleId=Model.belongToArticleDirId })
+                    @Html.ActionLink(Model.parentDirTitle, "Articles", "SA", new { parentDirId = Model.belongToArticleDirId }, null)
                 </h6>
             </div>
         </div>
@@ -50,10 +50,10 @@
                 @Html.TextBoxFor(m => m.articleTitle, new { @class = "form-control" })
             </div>
             <div class="col-2">
-                <button type="submit" onclick="$('#cmd').val('delete'); "
+                @*<button type="submit" onclick="$('#cmd').val('delete'); "
                         class="btn btn-primary btn-sm float-right">
                     Delete
-                </button>
+                </button>*@
                 <button type="submit" onclick="$('#cmd').val('save'); "
                         class="btn btn-primary btn-sm float-right">
                     Save

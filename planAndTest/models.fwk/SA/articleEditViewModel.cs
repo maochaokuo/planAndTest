@@ -26,5 +26,24 @@ namespace modelsfwk.SA
             projectId = null;
             deleteTime = null;
         }
+        public article GetArticle()
+        {
+            article ret = new article();
+            ret.articleId = articleId;
+            //ret.createtime = createtime;
+            ret.articleTitle = articleTitle;
+            ret.articleHtmlContent = articleHtmlContent;
+            ret.articleContent = articleContent;
+            ret.isDir = isDir;
+            ret.belongToArticleDirId = belongToArticleDirId;
+            ret.projectId = projectId;
+            ret.articleTitle = articleTitle;
+            ret.articleStatus = articleStatus;
+            ret.priority = priority;
+            //ret.deleteTime = deleteTime;
+            ret.deleteBy = deleteBy;
+            //ret = (article) this.MemberwiseClone();// as article;
+            return ret;
+        }
     }
 }
