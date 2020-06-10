@@ -1,4 +1,4 @@
-﻿namespace models
+﻿namespace modelsfwk
 {
     public interface ImodelPaging
     {

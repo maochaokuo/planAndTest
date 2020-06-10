@@ -1,5 +1,6 @@
-﻿@using planAndTest.web.Models.SA
-@model models.SA.articleEditViewModel
+﻿@using planAndTest.Models.SA
+@using SASDdb.entity.fwk
+@model modelsfwk.SA.articleEditViewModel
 @{
     ViewData["Title"] = "EditArticle";
     Layout = "~/Views/Shared/_LayoutSA.cshtml";
@@ -13,7 +14,7 @@
     @Html.HiddenFor(m => m.errorMsg, new { id="errorMsg"})
     @Html.HiddenFor(m => m.successMsg, new { id="successMsg"})
     @Html.HiddenFor(m=>m.parentDirTitle)
-    @Html.HiddenFor(m=>m.BelongToArticleDirId)
+    @Html.HiddenFor(m=>m.belongToArticleDirId)
     @Html.HiddenFor(m=>m.changeMode)
     @*@Html.TextBoxFor(m => m.cmd, new { id = "cmd" })*@
     @*<input type="hidden" id="error" value="@ViewBag.Error" />
@@ -37,7 +38,7 @@
             </div>
             <div class="col-10">
                 <h6>
-                    @Html.ActionLink(Model.parentDirTitle, "Articles", "SA", new { articleId=Model.BelongToArticleDirId })
+                    @Html.ActionLink(Model.parentDirTitle, "Articles", "SA", new { articleId=Model.belongToArticleDirId })
                 </h6>
             </div>
         </div>
@@ -46,18 +47,16 @@
                 <h6>Subject</h6>
             </div>
             <div class="col-8">
-                @Html.TextBoxFor(m => m.ArticleTitle, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.articleTitle, new { @class = "form-control" })
             </div>
-            <div class="col-1">
-                <button type="submit" onclick="$('#cmd').val('save'); "
-                        class="form-control btn btn-primary">
-                    Save
-                </button>
-            </div>
-            <div class="col-1">
+            <div class="col-2">
                 <button type="submit" onclick="$('#cmd').val('delete'); "
-                        class="form-control btn btn-primary">
+                        class="btn btn-primary btn-sm float-right">
                     Delete
+                </button>
+                <button type="submit" onclick="$('#cmd').val('save'); "
+                        class="btn btn-primary btn-sm float-right">
+                    Save
                 </button>
             </div>
         </div>
@@ -66,13 +65,13 @@
                 <h6>Content</h6>
             </div>
             <div class="col-1">
-                @Html.RadioButtonFor(m => m.IsDir, true, new { @checked = true, @class = "form-control" })
+                @Html.RadioButtonFor(m => m.isDir, true, new { @checked = true, @class = "form-control" })
             </div>
             <div class="col-2">
                 Is a Directory
             </div>
             <div class="col-1">
-                @Html.RadioButtonFor(m => m.IsDir, false, new { @checked = true, @class = "form-control" })
+                @Html.RadioButtonFor(m => m.isDir, false, new { @checked = true, @class = "form-control" })
             </div>
             <div class="col-2">
                 Is an Article
@@ -80,7 +79,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                @Html.TextAreaFor(m => m.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
+                @Html.TextAreaFor(m => m.articleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
             </div>
         </div>
     </div>

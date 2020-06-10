@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace planAndTest.web.Helper
+namespace planAndTest.Helper
 {
     public class htmlHelper
     {

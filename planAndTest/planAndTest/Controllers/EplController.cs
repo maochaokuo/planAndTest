@@ -1,15 +1,15 @@
 ﻿using callMission;
 using commonLib;
 //using Microsoft.AspNetCore.Mvc;
-using models.calls;
-using planAndTest.web.Models.EPL;
+using modelsfwk.calls;
+using planAndTest.Models.EPL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace planAndTest.web.Controllers
+namespace planAndTest.Controllers
 {
     public class EplController : Controller
     {

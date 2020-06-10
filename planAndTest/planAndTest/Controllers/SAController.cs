@@ -1,9 +1,9 @@
 ﻿using commonLib;
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Razor.Language;
-using models.SA;
-using planAndTest.web.Helper;
-using planAndTest.web.Models.SA;
+using modelsfwk.SA;
+using planAndTest.Helper;
+using planAndTest.Models.SA;
 using SASDdb.entity.fwk;
 //using SASDdb.entity.Models;
 using SASDdbService;
@@ -13,7 +13,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace planAndTest.web.Controllers
+namespace planAndTest.Controllers
 {
     public class SAController : Controller
     {

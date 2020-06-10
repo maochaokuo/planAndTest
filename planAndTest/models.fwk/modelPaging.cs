@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace models
+namespace modelsfwk
 {
     public class modelPaging : ImodelPaging
     {

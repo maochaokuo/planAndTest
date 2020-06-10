@@ -1,6 +1,6 @@
-﻿using models;
+﻿using modelsfwk;
 
-namespace planAndTest.web.Models.EPL
+namespace planAndTest.Models.EPL
 {
     public class EplAction1vm : ViewModelBase
     {

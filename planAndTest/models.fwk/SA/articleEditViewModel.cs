@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace models.SA
+namespace modelsfwk.SA
 {
     public enum ARTICLE_CHANGE_MODE
     {

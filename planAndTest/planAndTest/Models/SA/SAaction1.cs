@@ -1,6 +1,6 @@
-﻿using models;
+﻿using modelsfwk;
 
-namespace planAndTest.web.Models.SA
+namespace planAndTest.Models.SA
 {
     public class SAaction1 : ViewModelBase
     {

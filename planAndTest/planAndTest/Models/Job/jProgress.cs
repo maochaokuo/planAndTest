@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace planAndTest.web.Models.Job
+namespace planAndTest.Models.Job
 {
     public class jProgress
     {

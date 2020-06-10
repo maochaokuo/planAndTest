@@ -1,11 +1,11 @@
-﻿using models;
+﻿using modelsfwk;
 //using SASDdb.entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace planAndTest.web.Models.SA
+namespace planAndTest.Models.SA
 {
     [Serializable]
     public class articlesViewModel : ViewModelBase
