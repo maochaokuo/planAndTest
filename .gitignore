@@ -42,3 +42,11 @@
 /planAndTest/SASDdbService.fwk/bin
 /planAndTest/packages
 /planAndTest/packages
+/planAndTest/commonLib.fwk/obj
+/planAndTest/commonLib.fwk/bin
+/planAndTest/models.fwk/bin
+/planAndTest/models.fwk/obj
+/planAndTest/SASDconstants/obj
+/planAndTest/SASDconstants/bin
+/planAndTest/SASDdb.entity.fwk/obj
+/planAndTest/SASDdb.entity.fwk/bin

@@ -30,7 +30,8 @@ namespace planAndTest.Controllers
             viewModel.errorMsg = err;
             //viewModel.articleId = articleId;
             //todo !!... full text search for articles
-
+            //undone !!... when click on a subject in subject list: 1. need to show currently selected subject in content pane
+            //2. need to enable edit/reply to two button (disabled before then)
             // special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
             return View(viewModel);
         }
@@ -65,6 +66,8 @@ namespace planAndTest.Controllers
             viewModel.directories = tbart.directoriesByParentArticleId(parentDirId);
             // load subjects
             viewModel.subjects = tbart.subjectsByParentArticleId(parentDirId);
+            // undone !!... the article of the current directory, should be listed at the top of the subject list
+            // and view its content when click on it
             return ret;
         }
         [HttpPost]
@@ -83,7 +86,7 @@ namespace planAndTest.Controllers
                     //if (viewModel.editingArticle==null ||
                     //    viewModel.editingArticle.BelongToArticleDirId==null)
                     //{
-                    //    //todo !!... show error message
+                    //    // !!... show error message
                     //    ret = View(viewModel);
                     //    break;
                     //}
@@ -107,7 +110,7 @@ namespace planAndTest.Controllers
                     //if (viewModel.editingArticle == null ||
                     //    viewModel.editingArticle.BelongToArticleDirId == null)
                     //{
-                    //    //todo !!... show error message
+                    //    //   !!... show error message
                     //    ret = View(viewModel);
                     //    break;
                     //}
@@ -122,7 +125,6 @@ namespace planAndTest.Controllers
                         article artParent = ta.GetArticleById(art.belongToArticleDirId.ToString());
                         aevm.parentDirTitle = artParent.articleTitle;
                     }
-                    // undone !!... there is a huge big issue here, if there is image base64, then edit will crash, then crash the whole web project
                     //aevm.ArticleContent = null;
                     //aevm.ArticleHtmlContent = null;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.EDIT;
@@ -162,10 +164,7 @@ namespace planAndTest.Controllers
             articleEditViewModel viewModel;
             var tmpvar = TempData["articleEditViewModel"];
             if (tmpvar != null)
-            {
                 viewModel = jsonUtl.decodeJson<articleEditViewModel>(tmpvar + "");
-                // todo !!... need to reload html content
-            }
             else
                 viewModel = new articleEditViewModel();
             //if (!string.IsNullOrWhiteSpace(isDir) && isDir == "1")
@@ -192,9 +191,7 @@ namespace planAndTest.Controllers
         {
             ActionResult ret;
             string err;
-            //todo !!... edit article
             // articles, ckeditor, paste base64 image
-            object obj = Request.Form;
             switch (viewModel.cmd)
             {
                 case "save":
@@ -250,7 +247,6 @@ namespace planAndTest.Controllers
                         SASDdbBase db = new SASDdbBase();
                         using (var transaction = db.BeginTransaction())
                         {
-                            viewModel.belongToArticleDirId = viewModel.articleId;//undone !!... need to assign to currently replied article's id
                             viewModel.articleId = Guid.NewGuid();
                             viewModel.createtime = DateTime.Now;
                             err = tArticle.Add(viewModel.GetArticle());// as article);
@@ -268,7 +264,6 @@ namespace planAndTest.Controllers
                     else
                         viewModel.successMsg = "new article successfully added";
                     //undone !!... notification failed
-                    //todo !!...proceed to save article/directory
                     //ViewBag.Message = "article/directory saved";                    
                     ret = View(viewModel);
                     break;

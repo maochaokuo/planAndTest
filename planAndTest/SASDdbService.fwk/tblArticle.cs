@@ -164,8 +164,7 @@ where DATEDIFF(day, deleteTime, getdate()) >= 7
         public string RestoreArticle(string articleId, string newDirId="")
         {
             string ret = "";
-            //todo !!... get article
-            //todo !!... set deletetime, deleteby to null, belong... to newdirid
+            //todo !!... get article, set deletetime, deleteby to null, belong... to newdirid
             return ret;
         }
         public override string SaveChanges()
