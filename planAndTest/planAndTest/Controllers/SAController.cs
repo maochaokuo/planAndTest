@@ -226,6 +226,7 @@ namespace planAndTest.Controllers
                     if (viewModel.changeMode == ARTICLE_CHANGE_MODE.CREATE)
                     {
                         viewModel.articleId = Guid.NewGuid();
+                        viewModel.createtime = DateTime.Now;
                         //article art = new article();
                         //art.articleId = viewModel.articleId;
                         //art.createtime = DateTime.Now;
@@ -249,14 +250,16 @@ namespace planAndTest.Controllers
                         SASDdbBase db = new SASDdbBase();
                         using (var transaction = db.BeginTransaction())
                         {
+                            viewModel.belongToArticleDirId = viewModel.articleId;//undone !!... need to assign to currently replied article's id
                             viewModel.articleId = Guid.NewGuid();
-                            err = tArticle.Add(viewModel);
+                            viewModel.createtime = DateTime.Now;
+                            err = tArticle.Add(viewModel.GetArticle());// as article);
                             err += tArticle.SaveChanges();
                             tblArticle tart = new tblArticle();
                             article replied = tart.GetArticleById(viewModel.belongToArticleDirId.ToString());
                             replied.isDir = true;
-                            tart.Update(replied);
-                            tart.SaveChanges();
+                            err += tart.Update(replied);
+                            err += tart.SaveChanges();
                             transaction.Commit();
                         }
                     }
