@@ -1,4 +1,5 @@
 ﻿//using Microsoft.EntityFrameworkCore;
+using commonLib;
 using SASDdb.entity.fwk;
 //using SASDdb.entity.Models;
 using System;
@@ -108,7 +109,14 @@ namespace SASDdbService
         public string Update(article updateArticle)
         {
             string ret = "";
-            db.Entry(updateArticle).State = EntityState.Modified;// .article.Update(updateArticle);
+            var anArticle = db.article.SingleOrDefault(x => x.articleId == updateArticle.articleId);
+            if (anArticle != null)
+            {
+                anArticle = reflectionUtl.assign<article, article>(anArticle, updateArticle);
+                db.Entry(anArticle).State = EntityState.Modified;// .article.Update(updateArticle);
+            }
+            else
+                throw new Exception($"article {updateArticle.articleId} not found!");
             return ret;
         }
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace commonLib
@@ -12,6 +13,49 @@ namespace commonLib
             ret = typeof(T).Name;
             //ret = typeof(T).FullName;
             return ret;
+        }
+        public static T assign<T, T2>(T recordTarget, T2 recordSource)
+        {
+            string ret = "";
+            //Record record = new Record();
+
+            PropertyInfo[] properties = typeof(T).GetProperties();
+            PropertyInfo[] properties2 = typeof(T2).GetProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                Type tp = property.PropertyType;
+                //string tyName = tp.Name;
+                //if (tyName == "String")
+                {
+                    string name = property.Name;
+                    try
+                    {
+                        bool found = false;
+                        foreach(PropertyInfo property2 in properties2)
+                        {
+                            Type tp2 = property2.PropertyType;
+                            string name2 = property2.Name;
+                            if (name==name2)
+                            {
+                                String objStr = property2.GetValue(recordSource) + "";
+                                property.SetValue(recordTarget, objStr);
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found)
+                            throw new Exception($"property {name} not found ");
+                    }
+                    catch (Exception ex)
+                    {
+                        Exception innerEx = ex;
+                        while (innerEx.InnerException != null)
+                            innerEx = innerEx.InnerException;
+                        dbg.o(innerEx.Message);
+                    }
+                }
+            }
+            return recordTarget;
         }
         //public ApiResult<object> Input(JsonRequest<object> inObj)
         //{

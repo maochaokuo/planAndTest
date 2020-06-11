@@ -59,6 +59,10 @@
     <Compile Include="tblArticle.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\commonLib.fwk\commonLib.fwk.csproj">
+      <Project>{4762bdf0-9df6-4908-8fa9-cf1f0e7f6067}</Project>
+      <Name>commonLib.fwk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\models.fwk\models.fwk.csproj">
       <Project>{a02fee03-96db-4a2f-a89d-8569689aa729}</Project>
       <Name>models.fwk</Name>
