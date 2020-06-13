@@ -181,6 +181,7 @@ namespace planAndTest.Controllers
             _itemType.Add(new SelectListItem() { Text = "Question", Value = "Question", Selected = false });
             _itemType.Add(new SelectListItem() { Text = "Answer", Value = "Answer", Selected = false });
             _itemType.Add(new SelectListItem() { Text = "Task", Value = "Task", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Bug", Value = "Bug", Selected = false });
             return new SelectList(_itemType, "Value", "Text", null);
         }
         private SelectList articleStatusOption()
