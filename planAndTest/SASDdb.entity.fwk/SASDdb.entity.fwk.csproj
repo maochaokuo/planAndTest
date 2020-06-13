@@ -54,6 +54,7 @@
     <Compile Include="articleLinks.cs" />
     <Compile Include="articleRelation.cs" />
     <Compile Include="project.cs" />
+    <Compile Include="projectMemberUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SASDdbContext.cs" />
     <Compile Include="user.cs" />

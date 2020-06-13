@@ -45,5 +45,8 @@ namespace SASDdb.entity.fwk
 
         [StringLength(33)]
         public string assignToUserId { get; set; }
+
+        [StringLength(33)]
+        public string authorUserId { get; set; }
     }
 }

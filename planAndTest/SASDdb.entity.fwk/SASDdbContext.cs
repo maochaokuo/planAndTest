@@ -16,6 +16,7 @@ namespace SASDdb.entity.fwk
         public virtual DbSet<articleLinks> articleLinks { get; set; }
         public virtual DbSet<articleRelation> articleRelation { get; set; }
         public virtual DbSet<project> project { get; set; }
+        public virtual DbSet<projectMemberUser> projectMemberUser { get; set; }
         public virtual DbSet<user> user { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -36,6 +37,10 @@ namespace SASDdb.entity.fwk
                 .Property(e => e.assignToUserId)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<article>()
+                .Property(e => e.authorUserId)
+                .IsUnicode(false);
+
             modelBuilder.Entity<articleLinks>()
                 .Property(e => e.linkurl)
                 .IsUnicode(false);
@@ -46,6 +51,10 @@ namespace SASDdb.entity.fwk
 
             modelBuilder.Entity<project>()
                 .Property(e => e.ownUserId)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<projectMemberUser>()
+                .Property(e => e.userId)
                 .IsUnicode(false);
 
             modelBuilder.Entity<user>()

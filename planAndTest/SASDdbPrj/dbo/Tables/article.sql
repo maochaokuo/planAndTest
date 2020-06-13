@@ -13,8 +13,11 @@
     [deleteTime]           DATETIME2 (7)    NULL,
     [deleteBy]             VARCHAR (33)     NULL,
     [assignToUserId]       VARCHAR (33)     NULL,
+    [authorUserId]         VARCHAR (33)     NULL,
     CONSTRAINT [PK_article] PRIMARY KEY CLUSTERED ([articleId] ASC)
 );
+
+
 
 
 
