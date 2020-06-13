@@ -35,13 +35,17 @@
                     <br />*@
                         <div class="row">
                             <div class="col-1">
-                                <input type="checkbox" id="@rec.Key" name="selectedDirectory" value="@rec.Key" class="form-control"  />
+                                <input type="checkbox" id="@rec.articleId" name="selectedDirectory" value="@rec.articleId" class="form-control"  />
                             </div>
                             <div class="col-1">
-                                <img src="~/Content/image/R.png"  style="width:35px;height:35px;"/>
+                                @if (!string.IsNullOrWhiteSpace(rec.articleType) && rec.articleType.ToUpper().Substring(0, 1) != "G")
+                                {
+                                    var tmp = rec.articleType.Substring(0, 1)+".png";
+                                    <img src="~/Content/image/@tmp"  style="width:35px;height:35px;"/>
+                                }
                             </div>
                             <div class="col-10">
-                                @Html.ActionLink(rec.Value, "Articles", "SA", new { parentDirId = rec.Key }, null)
+                                @Html.ActionLink(rec.articleTitle, "Articles", "SA", new { parentDirId = rec.articleId }, null)
                             </div>
                         </div>
                     }
@@ -64,15 +68,22 @@
                 <div class="col-12">
                     @foreach (var rec in Model.subjects)
                     {
-                        <div class="row">
-                            <div class="col-1">
-                                @*Html.CheckBox("selectedArticle", false) @ * todo no idea about mutiple selection *@
-                                <input type="checkbox" id="@rec.Key" name="selectedArticle" value="@rec.Key" class="form-control" />
-                            </div>
-                            <div class="col-11">
-                                @Html.ActionLink(rec.Value, "Articles", "SA", new { articleId = rec.Key }, null)
-                            </div>
+                    <div class="row">
+                        <div class="col-1">
+                            @*Html.CheckBox("selectedArticle", false) @ * todo no idea about mutiple selection *@
+                            <input type="checkbox" id="@rec.articleId" name="selectedArticle" value="@rec.articleId" class="form-control" />
                         </div>
+                        <div class="col-1">
+                            @if (!string.IsNullOrWhiteSpace(rec.articleType) && rec.articleType.ToUpper().Substring(0, 1) != "G")
+                            {
+                                var tmp = rec.articleType.Substring(0, 1) + ".png";
+                                <img src="~/Content/image/@tmp" style="width:35px;height:35px;" />
+                            }
+                        </div>
+                        <div class="col-10">
+                            @Html.ActionLink(rec.articleTitle, "Articles", "SA", new { articleId = rec.articleId }, null)
+                        </div>
+                    </div>
                     }
                 </div>
             </div>

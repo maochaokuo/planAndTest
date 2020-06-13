@@ -54,9 +54,9 @@ namespace SASDdbService
                 dirId = art.belongToArticleDirId.ToString();
             return ret;
         }
-        public SortedList<string, string> directoriesByParentArticleId(string articleId)
+        public List< article> directoriesByParentArticleId(string articleId)
         {
-            SortedList<string, string> ret ;
+            List< article> ret ;
             //var guid = Guid.Parse(articleId);
             string where;
             if (string.IsNullOrWhiteSpace(articleId))
@@ -64,18 +64,22 @@ namespace SASDdbService
             else
                 where = $" where DeleteTime is null and isDir=1 and belongToArticleDirId = '{articleId}'";
             var qry = db.Database.SqlQuery<article>($"select * from article {where}");
-            ret = new SortedList<string, string>();
+            ret = new List< article>();
             if (qry.Any())
             {
                 List<article> articleDirs = qry.ToList();
                 foreach (article art in articleDirs)
-                    ret.Add(art.articleId.ToString(), art.articleTitle);
+                    ret.Add( art);
+                ret.Sort(delegate (article x, article y)
+                {
+                    return x.articleTitle.CompareTo(y.articleTitle);
+                });
             }
             return ret;
         }
-        public SortedList<string, string> subjectsByParentArticleId(string articleId)
+        public List<article> subjectsByParentArticleId(string articleId)
         {
-            SortedList<string, string> ret = null;
+            List<article> ret = null;
             //var guid = Guid.Parse(articleId);
             string where;
             if (string.IsNullOrWhiteSpace(articleId))
@@ -85,13 +89,17 @@ namespace SASDdbService
             var qry = db.Database.SqlQuery<article>($"select * from article {where}");
             if (!qry.Any())
             {
-                ret = new SortedList<string, string>();
+                ret = new List<article>();
                 return ret;
             }
-            ret = new SortedList<string, string>();
+            ret = new List<article>();
             List<article> articleDirs = qry.ToList();
             foreach (article art in articleDirs)
-                ret.Add(art.articleId.ToString(), art.articleTitle);
+                ret.Add( art);
+            ret.Sort(delegate(article x, article y)
+            {
+                return x.articleTitle.CompareTo(y.articleTitle);
+            });
             return ret;
         }
         public List<article> FulltextSearch(string keywords, int pagesize=0, int pageIndex=0)

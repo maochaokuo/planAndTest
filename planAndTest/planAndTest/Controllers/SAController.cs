@@ -35,6 +35,8 @@ namespace planAndTest.Controllers
             // special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
             return View(viewModel);
         }
+
+
         private string loadArticle(string articleId, string parentDirId
             , ref articlesViewModel viewModel)
         {
