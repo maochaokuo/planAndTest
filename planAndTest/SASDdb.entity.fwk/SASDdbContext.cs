@@ -32,6 +32,10 @@ namespace SASDdb.entity.fwk
                 .Property(e => e.deleteBy)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<article>()
+                .Property(e => e.assignToUserId)
+                .IsUnicode(false);
+
             modelBuilder.Entity<articleLinks>()
                 .Property(e => e.linkurl)
                 .IsUnicode(false);

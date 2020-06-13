@@ -11,6 +11,7 @@ namespace SASDdb.entity.fwk
     {
         public Guid articleId { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime createtime { get; set; }
 
         [StringLength(999)]
@@ -26,17 +27,23 @@ namespace SASDdb.entity.fwk
 
         public Guid? projectId { get; set; }
 
+        [Required]
         [StringLength(33)]
         public string articleType { get; set; }
 
+        [Required]
         [StringLength(33)]
         public string articleStatus { get; set; }
 
-        public short? priority { get; set; }
+        public short priority { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime? deleteTime { get; set; }
 
         [StringLength(33)]
         public string deleteBy { get; set; }
+
+        [StringLength(33)]
+        public string assignToUserId { get; set; }
     }
 }

@@ -6,6 +6,10 @@
     [userCommentsPrivate] NVARCHAR (99) NULL,
     [lastLoginTime]       DATETIME      NULL,
     [modifytime]          DATETIME      CONSTRAINT [DF_user_modifytime] DEFAULT (getdate()) NOT NULL,
+    [hintQuestion]        NVARCHAR (99) NULL,
+    [hintAnswer]          NVARCHAR (99) NULL,
     CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED ([userId] ASC)
 );
+
+
 

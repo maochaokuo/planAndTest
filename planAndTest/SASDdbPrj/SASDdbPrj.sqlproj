@@ -67,5 +67,6 @@
     <Build Include="dbo\Tables\articleRelation.sql" />
     <Build Include="dbo\Tables\user.sql" />
     <Build Include="dbo\Tables\project.sql" />
+    <Build Include="dbo\Tables\articleLinks.sql" />
   </ItemGroup>
 </Project>

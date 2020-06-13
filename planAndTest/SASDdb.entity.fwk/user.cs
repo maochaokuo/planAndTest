@@ -26,5 +26,11 @@ namespace SASDdb.entity.fwk
         public DateTime? lastLoginTime { get; set; }
 
         public DateTime modifytime { get; set; }
+
+        [StringLength(99)]
+        public string hintQuestion { get; set; }
+
+        [StringLength(99)]
+        public string hintAnswer { get; set; }
     }
 }
