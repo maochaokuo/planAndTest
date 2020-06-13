@@ -17,6 +17,7 @@ namespace planAndTest.Models.SA
         public string parentDirTitle { get; set; }
         public List< article> directories = null;
         public List< article> subjects = null;
+        public string articleType { get; set; }
         public string articleHtmlContent { get; set; }
         public List<string> selectedArticleId { get; set; }
         public List<string> selectedDirId { get; set; }

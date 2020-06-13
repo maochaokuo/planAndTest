@@ -81,7 +81,7 @@
                             }
                         </div>
                         <div class="col-10">
-                            @Html.ActionLink(rec.articleTitle, "Articles", "SA", new { articleId = rec.articleId }, null)
+                            @Html.ActionLink(rec.articleTitle, "Articles", "SA", new { articleId = rec.articleId, parentDirId=rec.belongToArticleDirId }, null)
                         </div>
                     </div>
                     }
@@ -95,10 +95,17 @@
                 <div class="col-2">
                     <h6>Content</h6>
                 </div>
+                <div class="col-1">
+                    @if (!string.IsNullOrWhiteSpace(Model.articleType) && Model.articleType.ToUpper().Substring(0, 1) != "G")
+                    {
+                        var tmp = Model.articleType.Substring(0, 1) + ".png";
+                        <img src="~/Content/image/@tmp" style="width:35px;height:35px;" />
+                    }
+                </div>
                 <div class="col-5">
                     @Model.articleTitle
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                     @if (string.IsNullOrWhiteSpace(Model.articleTitle))
                     {
                         <button type="submit" onclick="$('#cmd').val('replyTo'); $('form').submit();"

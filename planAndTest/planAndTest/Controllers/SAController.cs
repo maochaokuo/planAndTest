@@ -44,18 +44,21 @@ namespace planAndTest.Controllers
             // load directories
             tblArticle tbart = new tblArticle();
             article parent = null;
+            viewModel.subjects = new List<article>();
             if (!string.IsNullOrWhiteSpace(articleId))
             {
                 article art = tbart.GetArticleById(articleId);
                 viewModel.articleTitle = art.articleTitle;
+                viewModel.articleType = art.articleType;
                 viewModel.articleHtmlContent = art.articleHtmlContent;
-                parentDirId = art.belongToArticleDirId.ToString();
+                if (string.IsNullOrWhiteSpace(parentDirId))
+                    parentDirId = art.belongToArticleDirId.ToString();
             }
             else
             {
                 viewModel.articleTitle = "";
+                viewModel.articleType = "";
                 viewModel.articleHtmlContent = "";
-                parentDirId = "";
             }
             if (!string.IsNullOrWhiteSpace(parentDirId))
                 parent = tbart.GetArticleById(parentDirId);
@@ -68,11 +71,13 @@ namespace planAndTest.Controllers
             {
                 viewModel.parentDirId = parent.articleId.ToString();
                 viewModel.parentDirTitle = parent.articleTitle;
+                parent.belongToArticleDirId = parent.articleId;
+                viewModel.subjects.Add(parent);
             }
             viewModel.directories = tbart.directoriesByParentArticleId(parentDirId);
             // load subjects
-            viewModel.subjects = tbart.subjectsByParentArticleId(parentDirId);
-            // undone !!...(1) the article of the current directory, should be listed at the top of the subject list
+            viewModel.subjects.AddRange( tbart.subjectsByParentArticleId(parentDirId));
+            // the article of the current directory, should be listed at the top of the subject list
             // and view its content when click on it
             return ret;
         }
