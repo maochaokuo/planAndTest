@@ -38,7 +38,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SASDdbService.fwk", "SASDdb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exeMission.fwk", "exeMission.fwk\exeMission.fwk.csproj", "{205D3FFB-DBF7-4403-A491-E7D34A2D70E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SASDconstants", "SASDconstants\SASDconstants.csproj", "{B52E588A-0EDE-464F-BA7B-74E646FCD19A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SASDconstants", "SASDconstants\SASDconstants.csproj", "{B52E588A-0EDE-464F-BA7B-74E646FCD19A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "planAndTest.web", "planAndTest.web\planAndTest.web.csproj", "{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +90,10 @@ Global
 		{B52E588A-0EDE-464F-BA7B-74E646FCD19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B52E588A-0EDE-464F-BA7B-74E646FCD19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B52E588A-0EDE-464F-BA7B-74E646FCD19A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{0F7C1243-5AD9-4358-8C1A-298963C12256} = {592E4ACF-1802-4280-8829-AE81B2AB51F2}
 		{205D3FFB-DBF7-4403-A491-E7D34A2D70E8} = {336C9973-FA8F-495E-B68F-3131DDC29CF3}
 		{B52E588A-0EDE-464F-BA7B-74E646FCD19A} = {C9E09E22-F4B8-4722-9B4F-F573D99B4C4C}
+		{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED} = {E4E421A4-938D-41CD-B053-4DBBE6495F5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD1ABD13-4AD5-4B5E-A668-82B0034FA5EC}

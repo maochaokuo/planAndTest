@@ -319,10 +319,10 @@ namespace planAndTest.Controllers
                         }
                     }
                     if (err.Length > 0)
-                        viewModel.errorMsg = err;
+                        viewModel.errorMsg = "error: "+ err;
                     else
                         viewModel.successMsg = "new article successfully added";
-                    //undone !!...(1) notification failed
+                    // notification failed, so, should use pure hidden field rather than html helped 
                     //ViewBag.Message = "article/directory saved";                    
                     ret = View(viewModel);
                     break;
