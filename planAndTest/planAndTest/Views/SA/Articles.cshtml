@@ -35,9 +35,12 @@
                     <br />*@
                         <div class="row">
                             <div class="col-1">
-                                <input type="checkbox" id="@rec.Key" name="selectedDirectory" value="@rec.Key" class="form-control" />
+                                <input type="checkbox" id="@rec.Key" name="selectedDirectory" value="@rec.Key" class="form-control"  />
                             </div>
-                            <div class="col-11">
+                            <div class="col-1">
+                                <img src="~/Content/image/R.png"  style="width:35px;height:35px;"/>
+                            </div>
+                            <div class="col-10">
                                 @Html.ActionLink(rec.Value, "Articles", "SA", new { parentDirId = rec.Key }, null)
                             </div>
                         </div>
@@ -78,18 +81,35 @@
     <div class="row">
         <div class="col-10 border-left border-right border-bottom border-primary" style="height:450px;overflow:auto">
             <div class="row">
-                <div class="col-5">
+                <div class="col-2">
                     <h6>Content</h6>
                 </div>
-                <div class="col-7">
-                    <button type="submit" onclick="$('#cmd').val('replyTo'); $('form').submit();"
-                            class="btn btn-primary btn-sm float-right">
-                        Reply To
-                    </button>
-                    <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
-                            class="btn btn-primary btn-sm float-right">
-                        Edit
-                    </button>
+                <div class="col-5">
+                    @Model.articleTitle
+                </div>
+                <div class="col-5">
+                    @if (string.IsNullOrWhiteSpace(Model.articleTitle))
+                    {
+                        <button type="submit" onclick="$('#cmd').val('replyTo'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right disabled" disabled="disabled">
+                            Reply To
+                        </button>
+                        <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right disabled" disabled="disabled">
+                            Edit
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="$('#cmd').val('replyTo'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right">
+                            Reply To
+                        </button>
+                        <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right">
+                            Edit
+                        </button>
+                    }
                     <button type="submit" onclick="$('#cmd').val('create'); $('form').submit();"
                             class="btn btn-primary btn-sm float-right">
                         Create

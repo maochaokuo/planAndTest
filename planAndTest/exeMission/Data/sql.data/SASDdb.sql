@@ -2,11 +2,13 @@ use SASDdb
 
 select *
 --update article set priority=9
---update article set articleType='GENERAL'
---update article set articleStatus='NEW'
+--update article set articleType='General'
+--update article set articleStatus='New'
+-- delete
 from article
-order by createtime desc
+--where belongToArticleDirId='00000000-0000-0000-0000-000000000000'
 --where DATEDIFF(day, deleteTime, getdate()) >= 7
+order by createtime desc
 
 /*
 select *

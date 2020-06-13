@@ -29,8 +29,8 @@ namespace planAndTest.Controllers
             err = loadArticle(articleId, parentDirId, ref viewModel);
             viewModel.errorMsg = err;
             //viewModel.articleId = articleId;
-            //todo !!... full text search for articles
-            //undone !!... when click on a subject in subject list: 1. need to show currently selected subject in content pane
+            //todo !!...(5) full text search for articles
+            //(1) when click on a subject in subject list: 1. need to show currently selected subject in content pane
             //2. need to enable edit/reply to two button (disabled before then)
             // special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
             return View(viewModel);
@@ -50,7 +50,11 @@ namespace planAndTest.Controllers
                 parentDirId = art.belongToArticleDirId.ToString();
             }
             else
+            {
                 viewModel.articleTitle = "";
+                viewModel.articleHtmlContent = "";
+                parentDirId = "";
+            }
             if (!string.IsNullOrWhiteSpace(parentDirId))
                 parent = tbart.GetArticleById(parentDirId);
             if (parent==null)
@@ -66,7 +70,7 @@ namespace planAndTest.Controllers
             viewModel.directories = tbart.directoriesByParentArticleId(parentDirId);
             // load subjects
             viewModel.subjects = tbart.subjectsByParentArticleId(parentDirId);
-            // undone !!... the article of the current directory, should be listed at the top of the subject list
+            // undone !!...(1) the article of the current directory, should be listed at the top of the subject list
             // and view its content when click on it
             return ret;
         }
@@ -144,12 +148,12 @@ namespace planAndTest.Controllers
                     ret = RedirectToAction("Articles", new { articleId=viewModel.parentDirId });
                     break;
                 case "delete":
-                    //todo !!.. delete confirm
+                    //todo !!..(2) delete confirm
                     ViewBag.confirmDelete = "1";
                     ret = View(viewModel);
                     break;
                 case "realDelete":
-                    //todo !!.. to real delete 
+                    //todo !!..(2) to real delete 
                     ret = View(viewModel);
                     break;
                 default:
@@ -159,6 +163,44 @@ namespace planAndTest.Controllers
             TempData["articlesViewModel"] =jsonUtl.encodeJson( viewModel);
             return ret;
         }
+
+        private SelectList articleTypeOption()
+        {
+            List<SelectListItem> _itemType = new List<SelectListItem>();
+            _itemType.Add(new SelectListItem() { Text = "General", Value = "General", Selected = true });
+            _itemType.Add(new SelectListItem() { Text = "Requirement", Value = "Requirement", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Solution", Value = "Solution", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Issue", Value = "Issue", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Question", Value = "Question", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Answer", Value = "Answer", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Task", Value = "Task", Selected = false });
+            return new SelectList(_itemType, "Value", "Text", null);
+        }
+        private SelectList articleStatusOption()
+        {
+            List<SelectListItem> _itemType = new List<SelectListItem>();
+            _itemType.Add(new SelectListItem() { Text = "New", Value = "New", Selected = true });
+            _itemType.Add(new SelectListItem() { Text = "Open", Value = "Open", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Assigned", Value = "Assigned", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Resolved", Value = "Resolved", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Closed", Value = "Closed", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Removed", Value = "Removed", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Suspended", Value = "Suspended", Selected = false });
+            return new SelectList(_itemType, "Value", "Text", null);
+        }
+        private SelectList articlePriorityOption()
+        {
+            List<SelectListItem> _itemType = new List<SelectListItem>();
+            for (int i = 1; i <= 9; i++)
+            {
+                if (i==5)
+                    _itemType.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = true });
+                else
+                    _itemType.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = false });
+            }
+            return new SelectList(_itemType, "Value", "Text", null);
+        }
+
         public ActionResult EditArticle()//string isDir)
         {
             articleEditViewModel viewModel;
@@ -166,7 +208,10 @@ namespace planAndTest.Controllers
             if (tmpvar != null)
                 viewModel = jsonUtl.decodeJson<articleEditViewModel>(tmpvar + "");
             else
+            {
                 viewModel = new articleEditViewModel();
+                viewModel.priority = 5;
+            }
             //if (!string.IsNullOrWhiteSpace(isDir) && isDir == "1")
             //    viewModel.isDir = 1;
             //else
@@ -174,7 +219,10 @@ namespace planAndTest.Controllers
             //ViewBag.isDir = viewModel.isDir;
             if (viewModel.belongToArticleDirId == null)
                 viewModel.parentDirTitle = EMPTY_PARENT_TITLE;
-            // todo !!... if editing, article/directory cannot be changed
+            // if editing, article/directory cannot be changed
+            ViewBag.articleTypeOption = articleTypeOption();
+            ViewBag.articleStatusOption = articleStatusOption();
+            ViewBag.articlePriorityOption = articlePriorityOption();
             TempData["articleEditViewModel"] = jsonUtl.encodeJson(viewModel);
             return View(viewModel);
         }
@@ -190,6 +238,9 @@ namespace planAndTest.Controllers
         public ActionResult EditArticle(articleEditViewModel viewModel)
         {
             ActionResult ret;
+            ViewBag.articleTypeOption = articleTypeOption();
+            ViewBag.articleStatusOption = articleStatusOption();
+            ViewBag.articlePriorityOption = articlePriorityOption();
             string err;
             // articles, ckeditor, paste base64 image
             switch (viewModel.cmd)
@@ -263,7 +314,7 @@ namespace planAndTest.Controllers
                         viewModel.errorMsg = err;
                     else
                         viewModel.successMsg = "new article successfully added";
-                    //undone !!... notification failed
+                    //undone !!...(1) notification failed
                     //ViewBag.Message = "article/directory saved";                    
                     ret = View(viewModel);
                     break;

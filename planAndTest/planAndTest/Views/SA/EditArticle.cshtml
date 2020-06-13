@@ -1,6 +1,7 @@
 ﻿@using planAndTest.Models.SA
 @using SASDdb.entity.fwk
-@model modelsfwk.SA.articleEditViewModel
+@using modelsfwk.SA
+@model articleEditViewModel
 @{
     ViewData["Title"] = "EditArticle";
     Layout = "~/Views/Shared/_LayoutSA.cshtml";
@@ -63,16 +64,50 @@
         </div>
         <div class="row">
             <div class="col-2">
+                Article Type
+            </div>
+            <div class="col-2">
+                @Html.DropDownListFor(m => m.articleType, (SelectList)ViewBag.articleTypeOption,  new { @class = "custom-select" })
+            </div>
+            <div class="col-2">
+                Article Status
+            </div>
+            <div class="col-2">
+                @Html.DropDownListFor(m => m.articleStatus, (SelectList)ViewBag.articleStatusOption,  new { @class = "custom-select" })
+            </div>
+            <div class="col-2">
+                Article Priority
+            </div>
+            <div class="col-2">
+                @Html.DropDownListFor(m => m.priority, (SelectList)ViewBag.articlePriorityOption,  new { @class = "custom-select" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
                 <h6>Content</h6>
             </div>
             <div class="col-1">
-                @Html.RadioButtonFor(m => m.isDir, true, new { @checked = true, @class = "form-control" })
+                @if (Model.changeMode == ARTICLE_CHANGE_MODE.CREATE)
+                {
+                    @Html.RadioButtonFor(m => m.isDir, true, new { @checked = true, @class = "form-control" })
+                }
+                else
+                {
+                    @Html.RadioButtonFor(m => m.isDir, true, new { @checked = true, @class = "form-control disabled", disabled = "disabled" })
+                }
             </div>
             <div class="col-2">
                 Is a Directory
             </div>
             <div class="col-1">
-                @Html.RadioButtonFor(m => m.isDir, false, new { @checked = true, @class = "form-control" })
+                @if (Model.changeMode == ARTICLE_CHANGE_MODE.CREATE)
+                {
+                    @Html.RadioButtonFor(m => m.isDir, false, new { @checked = true, @class = "form-control" })
+                }
+                else
+                {
+                    @Html.RadioButtonFor(m => m.isDir, false, new { @checked = true, @class = "form-control disabled", disabled="disabled"})
+                }
             </div>
             <div class="col-2">
                 Is an Article

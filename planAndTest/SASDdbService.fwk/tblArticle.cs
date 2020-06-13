@@ -97,7 +97,7 @@ namespace SASDdbService
         public List<article> FulltextSearch(string keywords, int pagesize=0, int pageIndex=0)
         {
             List<article> ret = null;
-            //todo !!... fulltext search
+            //todo !!...(5) fulltext search
             return ret;
         }
         public string Add(article newArticle)
@@ -164,7 +164,7 @@ where DATEDIFF(day, deleteTime, getdate()) >= 7
         public string RestoreArticle(string articleId, string newDirId="")
         {
             string ret = "";
-            //todo !!... get article, set deletetime, deleteby to null, belong... to newdirid
+            //todo !!...(7) get article, set deletetime, deleteby to null, belong... to newdirid
             return ret;
         }
         public override string SaveChanges()
