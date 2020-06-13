@@ -7,11 +7,9 @@
 
 <h1>Articles</h1>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "eaform" }))
 {
     @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
-    @Html.HiddenFor(m => m.errorMsg, new { id = "errorMsg" })
-    @Html.HiddenFor(m => m.successMsg, new { id = "successMsg" })
     <div class="row">
         <div class="col-6 border border-primary" style="height:280px;overflow:auto">
             <div class="row">
@@ -19,7 +17,7 @@
                     <h6>Directories</h6>
                 </div>
                 <div class="col-9">
-                    <button type="submit" onclick="$('#cmd').val('deleteDir'); $('form').submit();"
+                    <button type="submit" onclick="$('#cmd').val('delete'); $('form').submit();"
                             class="btn btn-primary btn-sm float-right">
                         Delete
                     </button>
@@ -37,7 +35,8 @@
                             <br />*@
                         <div class="row">
                             <div class="col-1">
-                                <input type="checkbox" id="@rec.articleId" name="selectedDirectory" value="@rec.articleId" class="form-control" />
+                                <input type="checkbox" id="@rec.articleId" name="selectedDirectory" value="@rec.articleId"
+                                       class="form-control" />
                             </div>
                             <div class="col-1">
                                 @if (!string.IsNullOrWhiteSpace(rec.articleType) && rec.articleType.ToUpper().Substring(0, 1) != "G")
@@ -73,7 +72,8 @@
                         <div class="row">
                             <div class="col-1">
                                 @*Html.CheckBox("selectedArticle", false) @ * todo no idea about mutiple selection *@
-                                <input type="checkbox" id="@rec.articleId" name="selectedArticle" value="@rec.articleId" class="form-control" />
+                                <input type="checkbox" id="@rec.articleId" name="selectedArticle" value="@rec.articleId"
+                                       class="form-control" />
                             </div>
                             <div class="col-1">
                                 @if (!string.IsNullOrWhiteSpace(rec.articleType) && rec.articleType.ToUpper().Substring(0, 1) != "G")
@@ -147,33 +147,36 @@
         </div>
         <div class="col-2 border-right border-bottom border-primary" style="height:450px;overflow:auto">
             <div class="row">
-                5<br />
-                6<br />
-                7<br />
-                8<br />
-                6<br />
-                7<br />
-                8<br />
-                6<br />
-                7<br />
-                8<br />
-                6<br />
-                7<br />
-                8<br />
-                6<br />
-                7<br />
-                8<br />
-                6<br />
-                7<br />
-                8<br />
-                6<br />
-                7<br />
-                8<br />
-                9<br />
+                @*5<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    9<br />*@
             </div>
         </div>
     </div>
     <input type="hidden" id="confirmDelete" value="@ViewBag.confirmDelete" />
+
+    <input type="hidden" id="errorMsg" name="errorMsg" value="@Model.errorMsg" />
+    <input type="hidden" id="successMsg" name="successMsg" value="@Model.successMsg" />
 }
 
 @Html.Partial("confirmDeleteView")

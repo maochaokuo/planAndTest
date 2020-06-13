@@ -16,6 +16,10 @@ namespace SASDdbService
         {
             db = new SASDdbContext();
         }
+        public SASDdbBase(SASDdbContext db)
+        {
+            this.db = db;
+        }
         public DbContextTransaction BeginTransaction()
         {
             DbContextTransaction ret = 

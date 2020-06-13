@@ -9,6 +9,7 @@ using SASDdb.entity.fwk;
 using SASDdbService;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -85,23 +86,38 @@ namespace planAndTest.Controllers
         public ActionResult Articles(articlesViewModel viewModel)
         {
             ActionResult ret;
+            var selectedDirectory = Request.Form["selectedDirectory"];
             var selectedArticle = Request.Form["selectedArticle"];
+            if (!string.IsNullOrWhiteSpace(selectedDirectory))
+            {
+                string[] dirs = selectedDirectory.Split(',');
+                viewModel.selectedDirId =new List<string>(dirs);
+            }
+            if (!string.IsNullOrWhiteSpace(selectedArticle))
+            {
+                string[] arts = selectedArticle.Split(',');
+                viewModel.selectedArticleId =new List<string>( arts);
+            }
+            var confirmDelete = TempData["confirmDelete"];
+            var tmpVM = TempData["articlesViewModel"];
+            articlesViewModel tmpViewModel = null;
+            if (tmpVM != null)
+            { 
+                tmpViewModel = (articlesViewModel) tmpVM;
+                if (confirmDelete != null && (int)confirmDelete == 1)
+                {
+                    viewModel.selectedDirId = tmpViewModel.selectedDirId;
+                    viewModel.selectedArticleId = tmpViewModel.selectedArticleId;
+                }
+            }
             string err = loadArticle(viewModel.articleId, viewModel.parentDirId, ref viewModel);
             viewModel.errorMsg = err;
             articleEditViewModel aevm;
             tblArticle ta;
-            article art=null;
+            article art;
             switch (viewModel.cmd)
             {
                 case "create":
-                    //if (viewModel.editingArticle==null ||
-                    //    viewModel.editingArticle.BelongToArticleDirId==null)
-                    //{
-                    //    // !!... show error message
-                    //    ret = View(viewModel);
-                    //    break;
-                    //}
-                    //string BelongToArticleDirId = viewModel.parentDirId;
                     aevm = new articleEditViewModel();
                     if (!string.IsNullOrWhiteSpace(viewModel.parentDirId))
                     {
@@ -111,20 +127,10 @@ namespace planAndTest.Controllers
                         aevm.parentDirTitle = art.articleTitle;
                     }
                     aevm.changeMode = ARTICLE_CHANGE_MODE.CREATE;
-                    TempData["articleEditViewModel"] = jsonUtl.encodeJson( aevm);
-                    //viewModel.editingArticle = new article();
-                    //if (!string.IsNullOrWhiteSpace(BelongToArticleDirId))
-                    //    viewModel.editingArticle.BelongToArticleDirId = Guid.Parse(BelongToArticleDirId);
+                    TempData["articleEditViewModel"] =  aevm;
                     ret = RedirectToAction("EditArticle");
                     break;
                 case "edit":
-                    //if (viewModel.editingArticle == null ||
-                    //    viewModel.editingArticle.BelongToArticleDirId == null)
-                    //{
-                    //    //   !!... show error message
-                    //    ret = View(viewModel);
-                    //    break;
-                    //}
                     ta = new tblArticle();
                     art = ta.GetArticleById(viewModel.articleId);
                     aevm = jsonUtl.decodeJson<articleEditViewModel>(jsonUtl.encodeJson(art));
@@ -136,38 +142,72 @@ namespace planAndTest.Controllers
                         article artParent = ta.GetArticleById(art.belongToArticleDirId.ToString());
                         aevm.parentDirTitle = artParent.articleTitle;
                     }
-                    //aevm.ArticleContent = null;
-                    //aevm.ArticleHtmlContent = null;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.EDIT;
-                    string json = jsonUtl.encodeJson(aevm);
-                    TempData["articleEditViewModel"] = json;
+                    TempData["articleEditViewModel"] = aevm;
                     ret = RedirectToAction("EditArticle");
                     break;
                 case "replyTo":
                     aevm = new articleEditViewModel();
-                    aevm.belongToArticleDirId =new Guid( viewModel.articleId);
+                    aevm.belongToArticleDirId = new Guid( viewModel.articleId ); // undone !!...(1) reply to crash again
                     aevm.parentDirTitle = viewModel.articleTitle;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
-                    TempData["articleEditViewModel"] = jsonUtl.encodeJson(aevm);
+                    TempData["articleEditViewModel"] = aevm;
                     ret = RedirectToAction("EditArticle");
                     break;
                 case "parentDir":
                     ret = RedirectToAction("Articles", new { articleId=viewModel.parentDirId });
                     break;
                 case "delete":
-                    //todo !!..(2) delete confirm
-                    ViewBag.confirmDelete = "1";
+                    // delete confirm
+                    if (viewModel.selectedDirId.Count > 0 || viewModel.selectedArticleId.Count > 0)
+                    {
+                        ViewBag.confirmDelete = "1";
+                        TempData["confirmDelete"] = 1;
+                    }
                     ret = View(viewModel);
                     break;
                 case "realDelete":
-                    //todo !!..(2) to real delete 
+                    // to real delete 
+                    //SASDdbBase db = new SASDdbBase();
+                    string err1 = "";
+                    tblArticle tart = new tblArticle();
+                    DbContextTransaction transaction = tart.BeginTransaction();
+                    try
+                    {
+                        foreach (string articleId in viewModel.selectedDirId)
+                        {
+                            err1 = tart.DeleteArticleOrDir(articleId);
+                            if (err1.Length > 0)
+                                throw new Exception(err1);
+                        }
+                        foreach (string articleId in viewModel.selectedArticleId)
+                        {
+                            err1 = tart.DeleteArticleOrDir(articleId);
+                            if (err1.Length > 0)
+                                throw new Exception(err1);
+                        }
+                        tart.SaveChanges();
+                        transaction.Commit();
+                        viewModel.successMsg = "selected directory(s) or article(s) successfully deleted";
+                    }
+                    catch(Exception ex)
+                    {
+                        transaction.Rollback();
+                        viewModel.errorMsg += ex.Message;
+                        viewModel.successMsg = "";
+                    }
+                    err = loadArticle(viewModel.articleId, viewModel.parentDirId, ref viewModel);
+                    viewModel.errorMsg += err;
+                    // at last no matter what result, clear selection
+                    viewModel.selectedDirId.Clear();
+                    viewModel.selectedArticleId.Clear();
                     ret = View(viewModel);
                     break;
                 default:
                     ret = View(viewModel);
                     break;
             }
-            TempData["articlesViewModel"] =jsonUtl.encodeJson( viewModel);
+            TempData["articlesViewModel"] = viewModel;
             return ret;
         }
 
@@ -214,7 +254,7 @@ namespace planAndTest.Controllers
             articleEditViewModel viewModel;
             var tmpvar = TempData["articleEditViewModel"];
             if (tmpvar != null)
-                viewModel = jsonUtl.decodeJson<articleEditViewModel>(tmpvar + "");
+                viewModel = (articleEditViewModel)tmpvar ;
             else
             {
                 viewModel = new articleEditViewModel();
@@ -231,7 +271,7 @@ namespace planAndTest.Controllers
             ViewBag.articleTypeOption = articleTypeOption();
             ViewBag.articleStatusOption = articleStatusOption();
             ViewBag.articlePriorityOption = articlePriorityOption();
-            TempData["articleEditViewModel"] = jsonUtl.encodeJson(viewModel);
+            TempData["articleEditViewModel"] = viewModel;
             return View(viewModel);
         }
         private string checkForm(articleEditViewModel viewModel)
@@ -303,19 +343,23 @@ namespace planAndTest.Controllers
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.REPLY_TO)
                     {
                         // transaction, 1. create replied article 2. change original article to be directory type
+                        string err1 = "";
                         SASDdbBase db = new SASDdbBase();
                         using (var transaction = db.BeginTransaction())
                         {
                             viewModel.articleId = Guid.NewGuid();
                             viewModel.createtime = DateTime.Now;
-                            err = tArticle.Add(viewModel.GetArticle());// as article);
-                            err += tArticle.SaveChanges();
+                            err1 = tArticle.Add(viewModel.GetArticle());// as article);
+                            err1 += tArticle.SaveChanges();
                             tblArticle tart = new tblArticle();
                             article replied = tart.GetArticleById(viewModel.belongToArticleDirId.ToString());
                             replied.isDir = true;
-                            err += tart.Update(replied);
-                            err += tart.SaveChanges();
-                            transaction.Commit();
+                            err1 += tart.Update(replied);
+                            err1 += tart.SaveChanges();
+                            if (err1.Length == 0)
+                                transaction.Commit();
+                            else
+                                err += err1;
                         }
                     }
                     if (err.Length > 0)
@@ -330,7 +374,7 @@ namespace planAndTest.Controllers
                     ret = View(viewModel);
                     break;
             }
-            TempData["articleEditViewModel"] = jsonUtl.encodeJson(viewModel);
+            TempData["articleEditViewModel"] = viewModel;
             return ret;
         }
     }

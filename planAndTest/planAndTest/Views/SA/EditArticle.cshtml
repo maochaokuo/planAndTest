@@ -126,17 +126,9 @@
     CKEDITOR.replace('ArticleHtmlContent');
     CKEDITOR.config.height = 400;
     var herror = $('#errorMsg').val();
-    console.log('herror');
-    console.log(herror);
     var hmessage = $('#successMsg').val();
-    console.log('hmessage');
-    console.log(hmessage);
     if (typeof (herror) !== 'undefined' && herror.length > 0)
         $.notify({ message: herror }, { type: 'danger' });
-    else
-        console.log(herror);
     if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
         $.notify({ message: hmessage }, { type: 'success' });
-    else
-        console.log(hmessage);
 </script>

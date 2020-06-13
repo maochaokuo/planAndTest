@@ -12,7 +12,10 @@ namespace SASDdbService
 {
     public class tblArticle : SASDdbBase
     {
-        public tblArticle()
+        public tblArticle() : base()
+        {
+        }
+        public tblArticle(SASDdbContext db) : base(db)
         {
         }
         public article GetArticleById(string articleId)
@@ -38,23 +41,23 @@ namespace SASDdbService
             isDir = art.isDir;
             return ret;
         }
-        public string GetDirectoryIdByArticleId(string articleId, out string dirId)
-        {
-            string ret = "";
-            dirId = "";
-            article art = GetArticleById(articleId);
-            if (art==null)
-            {
-                ret = "not found";
-                return ret;
-            }
-            if (art.isDir)
-                dirId = articleId;
-            else
-                dirId = art.belongToArticleDirId.ToString();
-            return ret;
-        }
-        public List< article> directoriesByParentArticleId(string articleId)
+        //public string GetDirectoryIdByArticleId(string articleId, out string dirId)
+        //{
+        //    string ret = "";
+        //    dirId = "";
+        //    article art = GetArticleById(articleId);
+        //    if (art==null)
+        //    {
+        //        ret = "not found";
+        //        return ret;
+        //    }
+        //    if (art.isDir)
+        //        dirId = articleId;
+        //    else
+        //        dirId = art.belongToArticleDirId.ToString();
+        //    return ret;
+        //}
+        public List<article> directoriesByParentArticleId(string articleId)
         {
             List< article> ret ;
             //var guid = Guid.Parse(articleId);
@@ -132,7 +135,7 @@ namespace SASDdbService
         /// </summary>
         /// <param name="deleteArticle"></param>
         /// <returns></returns>
-        public string Delete(article deleteArticle)
+        protected string Delete(article deleteArticle)
         {
             string ret = "";
             //db.article.Remove(deleteArticle);
@@ -140,12 +143,36 @@ namespace SASDdbService
             ret = Update(deleteArticle);
             return ret;
         }
+
         public string Delete(string articleId, string byUserId="")
         {
             string ret = "";
             article deleteArticle = GetArticleById(articleId);
             deleteArticle.deleteBy = byUserId;
             ret = Delete(deleteArticle);
+            return ret;
+        }
+        public string DeleteArticleOrDir(string articleId, string byUserId = "")
+        {
+            string ret = "";
+            article articleOrDir = GetArticleById(articleId);
+            if (articleOrDir.isDir)
+            {
+                List<article> dirs = directoriesByParentArticleId(articleId);
+                if (dirs.Count > 0)
+                    ret = $"directory {articleId} '{articleOrDir.articleTitle}' is not empty";
+                else
+                {
+                    List<article> subj = subjectsByParentArticleId(articleId);
+                    if (subj.Count>0)
+                        ret = $"directory {articleId} '{articleOrDir.articleTitle}' is not empty";
+                }
+            }
+            if (ret.Length==0)
+            {
+                articleOrDir.deleteBy = byUserId;
+                ret = Delete(articleOrDir);
+            }
             return ret;
         }
         /// <summary>

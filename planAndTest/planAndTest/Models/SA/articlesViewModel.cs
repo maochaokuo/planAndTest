@@ -19,12 +19,13 @@ namespace planAndTest.Models.SA
         public List< article> subjects = null;
         public string articleType { get; set; }
         public string articleHtmlContent { get; set; }
-        public List<string> selectedArticleId { get; set; }
         public List<string> selectedDirId { get; set; }
+        public List<string> selectedArticleId { get; set; }
         public articlesViewModel()
         {
             //directories = new SortedList<string, article>(new articleNameComparer());
             //subjects = new SortedList<string, article>(new articleNameComparer());
+            selectedDirId = new List<string>();
             selectedArticleId = new List<string>();
         }
         //create comparer
