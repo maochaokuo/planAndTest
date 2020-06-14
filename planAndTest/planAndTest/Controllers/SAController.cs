@@ -148,7 +148,7 @@ namespace planAndTest.Controllers
                     break;
                 case "replyTo":
                     aevm = new articleEditViewModel();
-                    aevm.belongToArticleDirId = new Guid( viewModel.articleId ); // undone !!...(1) reply to crash again
+                    aevm.belongToArticleDirId = new Guid( viewModel.articleId ); 
                     aevm.parentDirTitle = viewModel.articleTitle;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
                     TempData["articleEditViewModel"] = aevm;

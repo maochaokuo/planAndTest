@@ -10,6 +10,7 @@
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "eaform" }))
 {
     @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m=>m.articleId)
     <div class="row">
         <div class="col-6 border border-primary" style="height:280px;overflow:auto">
             <div class="row">
