@@ -9,7 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace planAndTest.Controllers
+namespace planAndTest.Areas.EPL.Controllers
 {
     public class EplController : Controller
     {

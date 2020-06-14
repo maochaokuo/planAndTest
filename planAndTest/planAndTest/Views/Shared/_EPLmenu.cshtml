@@ -1,6 +1,6 @@
 ﻿
 @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>*@
-@Html.ActionLink("planAndTest.web", "Index", "Home", null, new { @class = "navbar-brand" })
+@Html.ActionLink("planAndTest.web", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
@@ -11,17 +11,17 @@
         <li class="nav-item">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="EPL"
                 asp-action="Action1">Action1</a>*@
-            @Html.ActionLink("Action1", "Action1", "EPL", null, new { @class = "nav-link text-dark" })
+            @Html.ActionLink("Action1", "Action1", "EPL", new { area = "EPL" }, new { @class = "nav-link text-dark" })
         </li>
         <li class="nav-item">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="EPL"
                asp-action="Action2">Action2</a>*@
-            @Html.ActionLink("Action2", "Action2", "EPL", null, new { @class = "nav-link text-dark" })
+            @Html.ActionLink("Action2", "Action2", "EPL", new { area = "EPL" }, new { @class = "nav-link text-dark" })
         </li>
         <li class="nav-item">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="EPL"
                asp-action="Action3">Action3</a>*@
-            @Html.ActionLink("Action3", "Action3", "EPL", null, new { @class = "nav-link text-dark" })
+            @Html.ActionLink("Action3", "Action3", "EPL", new { area = "EPL" }, new { @class = "nav-link text-dark" })
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"

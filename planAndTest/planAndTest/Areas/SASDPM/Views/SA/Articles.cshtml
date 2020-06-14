@@ -1,0 +1,220 @@
+﻿@using planAndTest.Models.SA
+@model articlesViewModel
+@{
+    ViewData["Title"] = "Articles";
+    Layout = "~/Views/Shared/_LayoutSA.cshtml";
+}
+
+<h1>Articles</h1>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "eaform" }))
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.articleId)
+    <div class="row">
+        <div class="col-6 border border-primary" style="height:280px;overflow:auto">
+            <div class="row">
+                <div class="col-3" style="height:31px">
+                    <h6>Directories</h6>
+                </div>
+                <div class="col-9">
+                    <button type="submit" onclick="$('#cmd').val('delete'); $('form').submit();"
+                            class="btn btn-primary btn-sm float-right">
+                        Delete
+                    </button>
+                    <button type="submit" onclick="$('#cmd').val('parentDir'); $('form').submit();"
+                            class="btn btn-primary btn-sm float-right">
+                        Back to Parent
+                    </button>
+                </div>
+            </div>
+            <div class="row border-top border-primary" style="height:240px;overflow:auto">
+                <div class="col-12">
+                    @foreach (var rec in Model.directories)
+                    {
+                        @*@Html.ActionLink(rec.Value, "Articles", "SA", new { articleId = rec.Key })
+                            <br />*@
+                        <div class="row">
+                            <div class="col-1">
+                                <input type="checkbox" id="@rec.articleId" name="selectedDirectory" value="@rec.articleId"
+                                       class="form-control" />
+                            </div>
+                            <div class="col-1">
+                                @if (!string.IsNullOrWhiteSpace(rec.articleType) && rec.articleType.ToUpper().Substring(0, 1) != "G")
+                                {
+                                    var tmp = rec.articleType.Substring(0, 1) + ".png";
+                                    <img src="~/Content/image/@tmp" style="width:35px;height:35px;" />
+                                }
+                            </div>
+                            <div class="col-10">
+                                @Html.ActionLink(rec.articleTitle, "Articles", "SA", new { parentDirId = rec.articleId }, null)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-6 border-top border-bottom border-right border-primary" style="height:280px;overflow:auto">
+            <div class="row">
+                <div class="col-3" style="height:31px">
+                    <h6>Subjects</h6>
+                </div>
+                <div class="col-9">
+                    <button type="submit" onclick="$('#cmd').val('delete'); $('form').submit();"
+                            class="btn btn-primary btn-sm float-right">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div class="row border-top border-primary" style="height:240px;overflow:auto">
+                <div class="col-12">
+                    @foreach (var rec in Model.subjects)
+                    {
+                        <div class="row">
+                            <div class="col-1">
+                                @*Html.CheckBox("selectedArticle", false) @ * todo no idea about mutiple selection *@
+                                <input type="checkbox" id="@rec.articleId" name="selectedArticle" value="@rec.articleId"
+                                       class="form-control" />
+                            </div>
+                            <div class="col-1">
+                                @if (!string.IsNullOrWhiteSpace(rec.articleType) && rec.articleType.ToUpper().Substring(0, 1) != "G")
+                                {
+                                    var tmp = rec.articleType.Substring(0, 1) + ".png";
+                                    <img src="~/Content/image/@tmp" style="width:35px;height:35px;" />
+                                }
+                            </div>
+                            <div class="col-10">
+                                @Html.ActionLink(rec.articleTitle, "Articles", "SA", new { articleId = rec.articleId, parentDirId = rec.belongToArticleDirId }, null)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 border-left border-right border-bottom border-primary" style="height:450px;overflow:auto">
+            <div class="row">
+                <div class="col-2">
+                    <h6>Content</h6>
+                </div>
+                <div class="col-1">
+                    @if (!string.IsNullOrWhiteSpace(Model.articleType) && Model.articleType.ToUpper().Substring(0, 1) != "G")
+                    {
+                        var tmp = Model.articleType.Substring(0, 1) + ".png";
+                        <img src="~/Content/image/@tmp" style="width:35px;height:35px;" />
+                    }
+                </div>
+                <div class="col-5">
+                    @Model.articleTitle
+                </div>
+                <div class="col-4">
+                    @if (string.IsNullOrWhiteSpace(Model.articleTitle))
+                    {
+                        <button type="submit" onclick="$('#cmd').val('replyTo'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right disabled" disabled="disabled">
+                            Reply To
+                        </button>
+                        <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right disabled" disabled="disabled">
+                            Edit
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="$('#cmd').val('replyTo'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right">
+                            Reply To
+                        </button>
+                        <button type="submit" onclick="$('#cmd').val('edit'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right">
+                            Edit
+                        </button>
+                    }
+                    <button type="submit" onclick="$('#cmd').val('create'); $('form').submit();"
+                            class="btn btn-primary btn-sm float-right">
+                        Create
+                    </button>
+                </div>
+            </div>
+            <div class="row border-top border-primary" style="height:410px;overflow:auto">
+                <div class="col-12">
+                    @*Html.TextAreaFor(m => m.editingArticle.ArticleHtmlContent, new { @class = "form-control", @rows = "10", id= "ArticleHtmlContent" })*@
+                    @Html.Raw(Model.articleHtmlContent)
+                </div>
+                @*<div class="col-2">
+                    </div>*@
+            </div>
+        </div>
+        <div class="col-2 border-right border-bottom border-primary" style="height:450px;overflow:auto">
+            <div class="row">
+                @*5<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    6<br />
+                    7<br />
+                    8<br />
+                    9<br />*@
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="confirmDelete" value="@ViewBag.confirmDelete" />
+
+    <input type="hidden" id="errorMsg" name="errorMsg" value="@Model.errorMsg" />
+    <input type="hidden" id="successMsg" name="successMsg" value="@Model.successMsg" />
+}
+
+@Html.Partial("confirmDeleteView")
+
+<script>
+    var herror = $('#errorMsg').val();
+    var hmessage = $('#successMsg').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
+
+    var confirmDelete = $('#confirmDelete').val();
+    console.log('confirmDelete');
+    console.log(confirmDelete);
+    if (typeof (confirmDelete) !== 'undefined' && confirmDelete == '1') {
+        $('#delete-file-modal').modal('show');
+        $('#delete-file-modal .modal-footer button').on('click', function (event) {
+            var $button = $(event.target);
+
+            $(this).closest('.modal').one('hidden.bs.modal', function () {
+                if ($button[0].id == 'confirm-delete-button') {
+                    $('#cmd').val('realDelete');
+                    var cmd = $('#cmd').val();
+                    if (typeof (cmd) === 'undefined' || cmd.length <= 0)
+                        console.log('cmd null');
+                    else
+                        console.log(cmd);
+                    //$('form').submit();
+                    console.log('delete clicked');
+                    console.log($('#eaform'));
+                    $('#eaform').submit();
+                }
+                else {
+                    console.log('cancel clicked');
+                }
+            });
+        });
+    }
+</script>

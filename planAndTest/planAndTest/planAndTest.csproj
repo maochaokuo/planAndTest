@@ -143,12 +143,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\EPL\EPLAreaRegistration.cs" />
     <Compile Include="Areas\SASDPM\Controllers\PMController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SDController.cs" />
     <Compile Include="Areas\SASDPM\SASDPMAreaRegistration.cs" />
-    <Compile Include="Controllers\EplController.cs" />
+    <Compile Include="Areas\SASDPM\Controllers\SAController.cs" />
+    <Compile Include="Areas\EPL\Controllers\EplController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SAController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -658,6 +659,11 @@
     <Content Include="Areas\SASDPM\Views\SD\Action1.cshtml" />
     <Content Include="Areas\SASDPM\Views\SD\Action2.cshtml" />
     <Content Include="Areas\SASDPM\Views\SD\Action3.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SA\Index.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SA\Articles.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SA\EditArticle.cshtml" />
+    <Content Include="Areas\EPL\Views\web.config" />
+    <Content Include="Areas\SASDPM\Views\PM\Action1.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -669,6 +675,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Shared\_LayoutSD.cshtml" />
+    <Content Include="Views\Shared\_SDmenu.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -686,25 +694,20 @@
     <Content Include="Views\Shared\confirmDeleteView.cshtml" />
     <Content Include="Views\Shared\_LayoutEPL.cshtml" />
     <Content Include="Views\Shared\_LayoutSA.cshtml" />
-    <Content Include="Views\Shared\_LayoutSD.cshtml" />
     <Content Include="Views\Shared\_SAmenu.cshtml" />
-    <Content Include="Views\Shared\_SDmenu.cshtml" />
-    <Content Include="Views\SD\Action1.cshtml" />
-    <Content Include="Views\SD\Action2.cshtml" />
-    <Content Include="Views\SD\Action3.cshtml" />
-    <Content Include="Views\SD\Index.cshtml" />
-    <Content Include="Views\SA\Articles.cshtml" />
-    <Content Include="Views\SA\EditArticle.cshtml" />
-    <Content Include="Views\SA\Index.cshtml" />
     <Content Include="Views\Job\Index.cshtml" />
     <Content Include="Views\Job\JobProgress.cshtml" />
-    <Content Include="Views\Epl\Action1.cshtml" />
-    <Content Include="Views\Epl\Action2.cshtml" />
-    <Content Include="Views\Epl\Action3.cshtml" />
-    <Content Include="Views\Epl\Index.cshtml" />
+    <Content Include="Areas\EPL\Views\Epl\Action1.cshtml" />
+    <Content Include="Areas\EPL\Views\Epl\Action2.cshtml" />
+    <Content Include="Areas\EPL\Views\Epl\Action3.cshtml" />
+    <Content Include="Areas\EPL\Views\Epl\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutPM.cshtml" />
+    <Content Include="Views\Shared\_PMmenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\EPL\Data\" />
+    <Folder Include="Areas\EPL\Views\Shared\" />
     <Folder Include="Areas\SASDPM\Data\" />
     <Folder Include="Areas\SASDPM\Views\Shared\" />
   </ItemGroup>

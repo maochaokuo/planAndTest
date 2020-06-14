@@ -13,5 +13,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             return View();
         }
+        public ActionResult Action1()
+        {
+            return View();
+        }
     }
 }

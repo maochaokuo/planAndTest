@@ -1,0 +1,134 @@
+﻿@using planAndTest.Models.SA
+@using SASDdb.entity.fwk
+@using modelsfwk.SA
+@model articleEditViewModel
+@{
+    ViewData["Title"] = "EditArticle";
+    Layout = "~/Views/Shared/_LayoutSA.cshtml";
+}
+
+<h1>EditArticle</h1>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "eaform" }))
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.parentDirTitle)
+    @Html.HiddenFor(m => m.belongToArticleDirId)
+    @Html.HiddenFor(m => m.articleId)
+    @Html.HiddenFor(m => m.changeMode)
+    @*@Html.TextBoxFor(m => m.cmd, new { id = "cmd" })*@
+    @*<input type="hidden" id="error" value="@ViewBag.Error" />
+        <input type="hidden" id="message" value="@ViewBag.Message" />*@
+    @*@if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.Error
+            </div>
+        }
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.Message
+            </div>
+        }*@
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <h6>Parent Directory</h6>
+            </div>
+            <div class="col-10">
+                <h6>
+                    @Html.ActionLink(Model.parentDirTitle, "Articles", "SA", new { parentDirId = Model.belongToArticleDirId }, null)
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h6>Subject</h6>
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(m => m.articleTitle, new { @class = "form-control" })
+            </div>
+            <div class="col-2">
+                @*<button type="submit" onclick="$('#cmd').val('delete'); "
+                            class="btn btn-primary btn-sm float-right">
+                        Delete
+                    </button>*@
+                <button type="submit" onclick="$('#cmd').val('save'); "
+                        class="btn btn-primary btn-sm float-right">
+                    Save
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                Article Type
+            </div>
+            <div class="col-2">
+                @Html.DropDownListFor(m => m.articleType, (SelectList)ViewBag.articleTypeOption, new { @class = "custom-select" })
+            </div>
+            <div class="col-2">
+                Article Status
+            </div>
+            <div class="col-2">
+                @Html.DropDownListFor(m => m.articleStatus, (SelectList)ViewBag.articleStatusOption, new { @class = "custom-select" })
+            </div>
+            <div class="col-2">
+                Article Priority
+            </div>
+            <div class="col-2">
+                @Html.DropDownListFor(m => m.priority, (SelectList)ViewBag.articlePriorityOption, new { @class = "custom-select" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h6>Content</h6>
+            </div>
+            <div class="col-1">
+                @if (Model.changeMode == ARTICLE_CHANGE_MODE.CREATE)
+                {
+                    @Html.RadioButtonFor(m => m.isDir, true, new { @checked = true, @class = "form-control" })
+                }
+                else
+                {
+                    @Html.RadioButtonFor(m => m.isDir, true, new { @checked = true, @class = "form-control disabled", disabled = "disabled" })
+                }
+            </div>
+            <div class="col-2">
+                Is a Directory
+            </div>
+            <div class="col-1">
+                @if (Model.changeMode == ARTICLE_CHANGE_MODE.CREATE)
+                {
+                    @Html.RadioButtonFor(m => m.isDir, false, new { @checked = true, @class = "form-control" })
+                }
+                else
+                {
+                    @Html.RadioButtonFor(m => m.isDir, false, new { @checked = true, @class = "form-control disabled", disabled = "disabled" })
+                }
+            </div>
+            <div class="col-2">
+                Is an Article
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                @Html.TextAreaFor(m => m.articleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="errorMsg" name="errorMsg" value="@Model.errorMsg" />
+    <input type="hidden" id="successMsg" name="successMsg" value="@Model.successMsg" />
+}
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('ArticleHtmlContent');
+    CKEDITOR.config.height = 400;
+    var herror = $('#errorMsg').val();
+    var hmessage = $('#successMsg').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
+</script>

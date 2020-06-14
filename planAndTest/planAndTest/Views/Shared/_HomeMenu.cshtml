@@ -14,19 +14,24 @@
         </li>*@
         <li class="nav-item">
             @*@Html.ActionLink("System Analysis", "Index", "SA", new { area = "SA" }, new { @class = "nav-link text-dark" })*@
-            @Html.ActionLink("System Analysis", "Index", "SA", null, new { @class = "nav-link text-dark" })
+            @Html.ActionLink("System Analysis", "Index", "SA", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SA"
-               asp-action="Index">System Analysis</a>*@
+            asp-action="Index">System Analysis</a>*@
         </li>
         <li class="nav-item">
             @Html.ActionLink("System Design", "Index", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
-               asp-action="Index">System Design</a>*@
+            asp-action="Index">System Design</a>*@
         </li>
         <li class="nav-item">
-            @Html.ActionLink("EPL", "Index", "EPL", null, new { @class = "nav-link text-dark" })
+            @Html.ActionLink("Project Management", "Index", "PM", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
+            asp-action="Index">System Design</a>*@
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("EPL", "Index", "EPL", new { area = "EPL" }, new { @class = "nav-link text-dark" })
             @*<a class="nav-link text-dark" asp-area="" asp-controller="EPL"
-        asp-action="Index">EPL</a>*@
+            asp-action="Index">EPL</a>*@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"

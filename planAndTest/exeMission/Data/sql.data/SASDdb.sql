@@ -8,6 +8,7 @@ select *
 from article
 --where belongToArticleDirId='00000000-0000-0000-0000-000000000000'
 --where DATEDIFF(day, deleteTime, getdate()) >= 7
+where deleteTime is null
 order by createtime desc
 
 /*
