@@ -69,5 +69,23 @@
     <Build Include="dbo\Tables\project.sql" />
     <Build Include="dbo\Tables\articleLinks.sql" />
     <Build Include="dbo\Tables\projectMemberUser.sql" />
+    <Build Include="dbo\Tables\systemTemplate.sql" />
+    <Build Include="dbo\Tables\systems.sql" />
+    <Build Include="dbo\Tables\systemLocation.sql" />
+    <Build Include="dbo\Tables\systemInterface.sql" />
+    <Build Include="dbo\Tables\systemEntity.sql" />
+    <Build Include="dbo\Tables\servers.sql" />
+    <Build Include="dbo\Tables\projectVersion.sql" />
+    <Build Include="dbo\Tables\networkServiceSource.sql" />
+    <Build Include="dbo\Tables\interfaceProperty.sql" />
+    <Build Include="dbo\Tables\interfaceParameter.sql" />
+    <Build Include="dbo\Tables\fileRepository.sql" />
+    <Build Include="dbo\Tables\entityClass.sql" />
+    <Build Include="dbo\Tables\stateMachineState.sql" />
+    <Build Include="dbo\Tables\stateMachineEvent2State.sql" />
+    <Build Include="dbo\Tables\stateMachine.sql" />
+    <Build Include="dbo\Tables\entityClassVariable.sql" />
+    <Build Include="dbo\Tables\domainCase.sql" />
+    <Build Include="dbo\Tables\domain.sql" />
   </ItemGroup>
 </Project>

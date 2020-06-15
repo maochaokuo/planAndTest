@@ -1,5 +1,6 @@
 use SASDdb
 
+/*
 select *
 --update article set priority=9
 --update article set articleType='General'
@@ -11,7 +12,6 @@ from article
 where deleteTime is null
 order by createtime desc
 
-/*
 select *
 -- delete
 from article

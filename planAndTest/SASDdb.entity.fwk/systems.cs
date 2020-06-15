@@ -6,23 +6,23 @@ namespace SASDdb.entity.fwk
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class articleLinks
+    public partial class systems
     {
         [Key]
-        [Column(Order = 0)]
-        public Guid articleId { get; set; }
+        public Guid systemId { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [StringLength(800)]
-        public string linkurl { get; set; }
+        public int? projectVersionId { get; set; }
 
         public DateTime createtime { get; set; }
 
+        [Required]
+        [StringLength(33)]
+        public string systemName { get; set; }
+
         [StringLength(999)]
-        public string linkDesc { get; set; }
+        public string systemDescription { get; set; }
 
         [StringLength(99)]
-        public string linkType { get; set; }
+        public string systemType { get; set; }
     }
 }

@@ -53,10 +53,28 @@
     <Compile Include="article.cs" />
     <Compile Include="articleLinks.cs" />
     <Compile Include="articleRelation.cs" />
+    <Compile Include="domain.cs" />
+    <Compile Include="domainCase.cs" />
+    <Compile Include="entityClass.cs" />
+    <Compile Include="entityClassVariable.cs" />
+    <Compile Include="fileRepository.cs" />
+    <Compile Include="interfaceParameter.cs" />
+    <Compile Include="interfaceProperty.cs" />
+    <Compile Include="networkServiceSource.cs" />
     <Compile Include="project.cs" />
     <Compile Include="projectMemberUser.cs" />
+    <Compile Include="projectVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SASDdbContext.cs" />
+    <Compile Include="servers.cs" />
+    <Compile Include="stateMachine.cs" />
+    <Compile Include="stateMachineEvent2State.cs" />
+    <Compile Include="stateMachineState.cs" />
+    <Compile Include="systemEntity.cs" />
+    <Compile Include="systemInterface.cs" />
+    <Compile Include="systemLocation.cs" />
+    <Compile Include="systems.cs" />
+    <Compile Include="systemTemplate.cs" />
     <Compile Include="user.cs" />
   </ItemGroup>
   <ItemGroup>
