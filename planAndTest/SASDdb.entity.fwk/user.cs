@@ -32,5 +32,11 @@ namespace SASDdb.entity.fwk
 
         [StringLength(99)]
         public string hintAnswer { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime? deleteTime { get; set; }
+
+        [StringLength(33)]
+        public string deleteBy { get; set; }
     }
 }

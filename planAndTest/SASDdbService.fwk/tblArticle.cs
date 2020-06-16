@@ -135,7 +135,7 @@ namespace SASDdbService
         /// </summary>
         /// <param name="deleteArticle"></param>
         /// <returns></returns>
-        protected string Delete(article deleteArticle)
+        public string Delete(article deleteArticle)
         {
             string ret = "";
             //db.article.Remove(deleteArticle);

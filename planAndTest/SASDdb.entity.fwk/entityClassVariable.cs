@@ -22,5 +22,7 @@ namespace SASDdb.entity.fwk
         [Required]
         [StringLength(33)]
         public string variableType { get; set; }
+
+        public int? typeClassId { get; set; }
     }
 }

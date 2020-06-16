@@ -170,6 +170,10 @@ namespace SASDdb.entity.fwk
             modelBuilder.Entity<user>()
                 .Property(e => e.userPassword)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<user>()
+                .Property(e => e.deleteBy)
+                .IsUnicode(false);
         }
     }
 }
