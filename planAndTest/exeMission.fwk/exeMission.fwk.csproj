@@ -52,8 +52,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\sql.data\SASDdb.data.sql" />
-    <Content Include="Data\sql.data\SASDdb.sql" />
+    <Content Include="Data\sql\SASDdb.data.sql" />
+    <Content Include="Data\sql\SASDdb.sql" />
+    <Content Include="Data\sql\SASD資料庫文件.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\callMission.fwk\callMission.fwk.csproj">

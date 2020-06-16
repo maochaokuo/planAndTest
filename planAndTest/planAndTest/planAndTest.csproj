@@ -154,9 +154,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\htmlHelper.cs" />
+    <Compile Include="Helper\SA\SAdropdownOptions.cs" />
     <Compile Include="Models\EPL\EplAction1vm.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\Job\jProgress.cs" />
+    <Compile Include="Models\PM\usersViewModel.cs" />
     <Compile Include="Models\SA\articlesViewModel.cs" />
     <Compile Include="Models\SA\SAaction1.cs" />
     <Compile Include="Models\SD\SDaction1.cs" />
@@ -663,7 +665,6 @@
     <Content Include="Areas\SASDPM\Views\SA\Articles.cshtml" />
     <Content Include="Areas\SASDPM\Views\SA\EditArticle.cshtml" />
     <Content Include="Areas\EPL\Views\web.config" />
-    <Content Include="Areas\SASDPM\Views\PM\Action1.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -710,6 +711,7 @@
     <Folder Include="Areas\EPL\Views\Shared\" />
     <Folder Include="Areas\SASDPM\Data\" />
     <Folder Include="Areas\SASDPM\Views\Shared\" />
+    <Folder Include="Helper\PM\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

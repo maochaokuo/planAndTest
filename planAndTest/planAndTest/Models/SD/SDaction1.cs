@@ -2,7 +2,7 @@
 
 namespace planAndTest.web.Models.SD
 {
-    public class SDaction1 : ViewModelBase
+    public class SDaction1 //: IViewModelBase
     {
     }
 }

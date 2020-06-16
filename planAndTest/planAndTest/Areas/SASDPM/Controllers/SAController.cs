@@ -3,6 +3,7 @@
 //using Microsoft.AspNetCore.Razor.Language;
 using modelsfwk.SA;
 using planAndTest.Helper;
+using planAndTest.Helper.SA;
 using planAndTest.Models.SA;
 using SASDdb.entity.fwk;
 //using SASDdb.entity.Models;
@@ -213,44 +214,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
             return ret;
         }
 
-        private SelectList articleTypeOption()
-        {
-            List<SelectListItem> _itemType = new List<SelectListItem>();
-            _itemType.Add(new SelectListItem() { Text = "General", Value = "General", Selected = true });
-            _itemType.Add(new SelectListItem() { Text = "Requirement", Value = "Requirement", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Solution", Value = "Solution", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Issue", Value = "Issue", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Question", Value = "Question", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Answer", Value = "Answer", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Task", Value = "Task", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Bug", Value = "Bug", Selected = false });
-            return new SelectList(_itemType, "Value", "Text", null);
-        }
-        private SelectList articleStatusOption()
-        {
-            List<SelectListItem> _itemType = new List<SelectListItem>();
-            _itemType.Add(new SelectListItem() { Text = "New", Value = "New", Selected = true });
-            _itemType.Add(new SelectListItem() { Text = "Open", Value = "Open", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Assigned", Value = "Assigned", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Resolved", Value = "Resolved", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Closed", Value = "Closed", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Removed", Value = "Removed", Selected = false });
-            _itemType.Add(new SelectListItem() { Text = "Suspended", Value = "Suspended", Selected = false });
-            return new SelectList(_itemType, "Value", "Text", null);
-        }
-        private SelectList articlePriorityOption()
-        {
-            List<SelectListItem> _itemType = new List<SelectListItem>();
-            for (int i = 1; i <= 9; i++)
-            {
-                if (i == 5)
-                    _itemType.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = true });
-                else
-                    _itemType.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = false });
-            }
-            return new SelectList(_itemType, "Value", "Text", null);
-        }
-
         public ActionResult EditArticle()//string isDir)
         {
             articleEditViewModel viewModel;
@@ -270,9 +233,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
             if (viewModel.belongToArticleDirId == null)
                 viewModel.parentDirTitle = EMPTY_PARENT_TITLE;
             // if editing, article/directory cannot be changed
-            ViewBag.articleTypeOption = articleTypeOption();
-            ViewBag.articleStatusOption = articleStatusOption();
-            ViewBag.articlePriorityOption = articlePriorityOption();
+            ViewBag.articleTypeOption = SAdropdownOptions.articleTypeOption();
+            ViewBag.articleStatusOption = SAdropdownOptions.articleStatusOption();
+            ViewBag.articlePriorityOption = SAdropdownOptions.articlePriorityOption();
             TempData["articleEditViewModel"] = viewModel;
             return View(viewModel);
         }
@@ -288,9 +251,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult EditArticle(articleEditViewModel viewModel)
         {
             ActionResult ret;
-            ViewBag.articleTypeOption = articleTypeOption();
-            ViewBag.articleStatusOption = articleStatusOption();
-            ViewBag.articlePriorityOption = articlePriorityOption();
+            ViewBag.articleTypeOption = SAdropdownOptions.articleTypeOption();
+            ViewBag.articleStatusOption = SAdropdownOptions.articleStatusOption();
+            ViewBag.articlePriorityOption = SAdropdownOptions.articlePriorityOption();
             string err;
             // articles, ckeditor, paste base64 image
             switch (viewModel.cmd)

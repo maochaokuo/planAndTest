@@ -2,7 +2,7 @@
 
 namespace planAndTest.Models.SA
 {
-    public class SAaction1 : ViewModelBase
+    public class SAaction1 //: IViewModelBase
     {
     }
 }

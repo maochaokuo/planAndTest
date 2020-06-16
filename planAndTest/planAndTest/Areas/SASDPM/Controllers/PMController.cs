@@ -13,7 +13,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             return View();
         }
-        public ActionResult Action1()
+        public ActionResult Users()
         {
             return View();
         }
