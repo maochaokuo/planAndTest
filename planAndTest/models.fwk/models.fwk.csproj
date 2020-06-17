@@ -50,7 +50,6 @@
     <Compile Include="calls\clsMainLoopInput.cs" />
     <Compile Include="ImodelPaging.cs" />
     <Compile Include="Iuser.cs" />
-    <Compile Include="IViewModelBase.cs" />
     <Compile Include="modelPaging.cs" />
     <Compile Include="PM\userEditViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

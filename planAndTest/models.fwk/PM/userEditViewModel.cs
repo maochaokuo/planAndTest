@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace models.fwk.PM
 {
-    public class userEditViewModel : user, IViewModelBase
+    public class userEditViewModel : ViewModelBase
     {
-        public string cmd { get; set; }
-        public string errorMsg { get; set; }
-        public string successMsg { get; set; }
+        public user editModel { get; set; }
         public userEditViewModel()
         {
-
+            editModel = new user();
         }
     }
 }

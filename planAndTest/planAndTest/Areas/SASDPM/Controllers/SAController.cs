@@ -124,7 +124,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     aevm = new articleEditViewModel();
                     if (!string.IsNullOrWhiteSpace(viewModel.parentDirId))
                     {
-                        aevm.belongToArticleDirId = Guid.Parse(viewModel.parentDirId);
+                        aevm.editModel.belongToArticleDirId = Guid.Parse(viewModel.parentDirId);
                         ta = new tblArticle();
                         art = ta.GetArticleById(viewModel.parentDirId);
                         aevm.parentDirTitle = art.articleTitle;
@@ -151,7 +151,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     break;
                 case "replyTo":
                     aevm = new articleEditViewModel();
-                    aevm.belongToArticleDirId = new Guid(viewModel.articleId);
+                    aevm.editModel.belongToArticleDirId = new Guid(viewModel.articleId);
                     aevm.parentDirTitle = viewModel.articleTitle;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
                     TempData["articleEditViewModel"] = aevm;
@@ -223,14 +223,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
             else
             {
                 viewModel = new articleEditViewModel();
-                viewModel.priority = 5;
+                viewModel.editModel.priority = 5;
             }
             //if (!string.IsNullOrWhiteSpace(isDir) && isDir == "1")
             //    viewModel.isDir = 1;
             //else
             //    viewModel.isDir = 0;
             //ViewBag.isDir = viewModel.isDir;
-            if (viewModel.belongToArticleDirId == null)
+            if (viewModel.editModel.belongToArticleDirId == null)
                 viewModel.parentDirTitle = EMPTY_PARENT_TITLE;
             // if editing, article/directory cannot be changed
             ViewBag.articleTypeOption = SAdropdownOptions.articleTypeOption();
@@ -242,7 +242,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
         private string checkForm(articleEditViewModel viewModel)
         {
             string ret = "";
-            if (string.IsNullOrWhiteSpace(viewModel.articleTitle))
+            if (string.IsNullOrWhiteSpace(viewModel.editModel.articleTitle))
                 ret = "article (or directory) title cannot be empty";
             return ret;
         }
@@ -274,20 +274,20 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     //    viewModel.ArticleHtmlContent;
                     string pureText;
                     err = htmlHelper.removeHtmlTags(
-                        viewModel.articleHtmlContent, out pureText);
+                        viewModel.editModel.articleHtmlContent, out pureText);
                     if (err.Length > 0)
                     {
                         viewModel.errorMsg = err;
                         ret = View(viewModel);
                         break;
                     }
-                    viewModel.articleContent = pureText;
+                    viewModel.editModel.articleContent = pureText;
                     //article2add.IsDir = viewModel.IsDir ;
                     tblArticle tArticle = new tblArticle();
                     if (viewModel.changeMode == ARTICLE_CHANGE_MODE.CREATE)
                     {
-                        viewModel.articleId = Guid.NewGuid();
-                        viewModel.createtime = DateTime.Now;
+                        viewModel.editModel.articleId = Guid.NewGuid();
+                        viewModel.editModel.createtime = DateTime.Now;
                         //article art = new article();
                         //art.articleId = viewModel.articleId;
                         //art.createtime = DateTime.Now;
@@ -302,7 +302,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     }
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.EDIT)
                     {
-                        err = tArticle.Update(viewModel as article);
+                        err = tArticle.Update(viewModel.editModel);
                         err += tArticle.SaveChanges();
                     }
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.REPLY_TO)
@@ -312,12 +312,12 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         SASDdbBase db = new SASDdbBase();
                         using (var transaction = db.BeginTransaction())
                         {
-                            viewModel.articleId = Guid.NewGuid();
-                            viewModel.createtime = DateTime.Now;
+                            viewModel.editModel.articleId = Guid.NewGuid();
+                            viewModel.editModel.createtime = DateTime.Now;
                             err1 = tArticle.Add(viewModel.GetArticle());// as article);
                             err1 += tArticle.SaveChanges();
                             tblArticle tart = new tblArticle();
-                            article replied = tart.GetArticleById(viewModel.belongToArticleDirId.ToString());
+                            article replied = tart.GetArticleById(viewModel.editModel.belongToArticleDirId.ToString());
                             replied.isDir = true;
                             err1 += tart.Update(replied);
                             err1 += tart.SaveChanges();

@@ -11,21 +11,19 @@ namespace modelsfwk.SA
     {
         CREATE, EDIT, REPLY_TO
     }
-    public class articleEditViewModel : article, IViewModelBase
+    public class articleEditViewModel : ViewModelBase
     {
+        public article editModel { get; set; }
         public string parentDirTitle { get; set; }
         public ARTICLE_CHANGE_MODE changeMode { get; set; }
-        public string cmd { get; set; }
-        public string errorMsg { get; set; }
-        public string successMsg { get; set; }
-        public int pagesize { get; set; }
-        public int pageindex { get; set; }
+
         public articleEditViewModel()
         {
-            articleTitle = "";
-            belongToArticleDirId = null;
-            projectId = null;
-            deleteTime = null;
+            editModel = new article();
+            editModel.articleTitle = "";
+            editModel.belongToArticleDirId = null;
+            editModel.projectId = null;
+            editModel.deleteTime = null;
         }
         public article GetArticle()
         {

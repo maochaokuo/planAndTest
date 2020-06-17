@@ -7,13 +7,11 @@ using System.Web;
 
 namespace planAndTest.Models.PM
 {
-    public class usersViewModel :user, IViewModelBase
+    public class usersViewModel : ViewModelBase
     {
         public string userId { get; set; }
+        public string userCommentsPublic { get; set; }
         public List<user> users {get ;set;}
-        public string cmd { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string errorMsg { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string successMsg { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public usersViewModel()
         {
