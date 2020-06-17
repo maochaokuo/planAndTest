@@ -666,6 +666,7 @@
     <Content Include="Areas\SASDPM\Views\SA\EditArticle.cshtml" />
     <Content Include="Areas\EPL\Views\web.config" />
     <Content Include="Areas\SASDPM\Views\PM\Users.cshtml" />
+    <Content Include="Areas\SASDPM\Views\PM\AddUpdateUser.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

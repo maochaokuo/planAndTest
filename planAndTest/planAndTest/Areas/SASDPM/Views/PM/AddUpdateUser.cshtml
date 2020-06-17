@@ -1,0 +1,49 @@
+﻿@model models.fwk.PM.userEditViewModel
+
+@{
+    ViewBag.Title = "AddUpdateUser";
+    Layout = "~/Views/Shared/_LayoutPM.cshtml";
+}
+
+<h2>AddUpdateUser</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "auuform" }))
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            userId
+        </div>
+        <div class="col-4">
+            @Html.TextBoxFor(m => m.editModel.userId)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            userPassword
+        </div>
+        <div class="col-4">
+            @Html.PasswordFor(m => m.editModel.userPassword)
+        </div>
+        <div class="col-2">
+            confirm userPassword
+        </div>
+        <div class="col-4">
+            @Html.PasswordFor(m => m.confirmPassword)
+        </div>
+    </div>
+    <div class="row">
+        bla bla bla ...
+    </div>
+</div>
+}
+
+<script>
+    var herror = $('#errorMsg').val();
+    var hmessage = $('#successMsg').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
+</script>

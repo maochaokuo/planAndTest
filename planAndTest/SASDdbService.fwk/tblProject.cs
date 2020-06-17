@@ -21,6 +21,7 @@ namespace SASDdbService.fwk
         {
             List<project> ret;
             var qry = (from a in db.project
+                       where a.deleteTime == null
                        select a).AsQueryable();
             if (qry.Any())
                 ret = qry.ToList();
@@ -32,7 +33,7 @@ namespace SASDdbService.fwk
         {
             project ret;
             var qry = (from a in db.project
-                       where a.projectId ==new Guid( projectId )
+                       where a.projectId ==new Guid( projectId ) && a.deleteTime==null
                        select a).FirstOrDefault();
             if (qry == null)
                 ret = null;

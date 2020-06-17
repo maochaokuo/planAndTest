@@ -13,8 +13,8 @@
 {
     @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
     @Html.HiddenFor(m => m.parentDirTitle)
-    @Html.HiddenFor(m => m.belongToArticleDirId)
-    @Html.HiddenFor(m => m.articleId)
+    @Html.HiddenFor(m => m.editModel.belongToArticleDirId)
+    @Html.HiddenFor(m => m.editModel.articleId)
     @Html.HiddenFor(m => m.changeMode)
     @*@Html.TextBoxFor(m => m.cmd, new { id = "cmd" })*@
     @*<input type="hidden" id="error" value="@ViewBag.Error" />
@@ -38,7 +38,7 @@
             </div>
             <div class="col-10">
                 <h6>
-                    @Html.ActionLink(Model.parentDirTitle, "Articles", "SA", new { parentDirId = Model.belongToArticleDirId }, null)
+                    @Html.ActionLink(Model.parentDirTitle, "Articles", "SA", new { parentDirId = Model.editModel.belongToArticleDirId }, null)
                 </h6>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 <h6>Subject</h6>
             </div>
             <div class="col-8">
-                @Html.TextBoxFor(m => m.articleTitle, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.editModel.articleTitle, new { @class = "form-control" })
             </div>
             <div class="col-2">
                 @*<button type="submit" onclick="$('#cmd').val('delete'); "
@@ -65,19 +65,19 @@
                 Article Type
             </div>
             <div class="col-2">
-                @Html.DropDownListFor(m => m.articleType, (SelectList)ViewBag.articleTypeOption, new { @class = "custom-select" })
+                @Html.DropDownListFor(m => m.editModel.articleType, (SelectList)ViewBag.articleTypeOption, new { @class = "custom-select" })
             </div>
             <div class="col-2">
                 Article Status
             </div>
             <div class="col-2">
-                @Html.DropDownListFor(m => m.articleStatus, (SelectList)ViewBag.articleStatusOption, new { @class = "custom-select" })
+                @Html.DropDownListFor(m => m.editModel.articleStatus, (SelectList)ViewBag.articleStatusOption, new { @class = "custom-select" })
             </div>
             <div class="col-2">
                 Article Priority
             </div>
             <div class="col-2">
-                @Html.DropDownListFor(m => m.priority, (SelectList)ViewBag.articlePriorityOption, new { @class = "custom-select" })
+                @Html.DropDownListFor(m => m.editModel.priority, (SelectList)ViewBag.articlePriorityOption, new { @class = "custom-select" })
             </div>
         </div>
         <div class="row">
@@ -87,11 +87,11 @@
             <div class="col-1">
                 @if (Model.changeMode == ARTICLE_CHANGE_MODE.CREATE)
                 {
-                    @Html.RadioButtonFor(m => m.isDir, true, new { @checked = true, @class = "form-control" })
+                    @Html.RadioButtonFor(m => m.editModel.isDir, true, new { @checked = true, @class = "form-control" })
                 }
                 else
                 {
-                    @Html.RadioButtonFor(m => m.isDir, true, new { @checked = true, @class = "form-control disabled", disabled = "disabled" })
+                    @Html.RadioButtonFor(m => m.editModel.isDir, true, new { @checked = true, @class = "form-control disabled", disabled = "disabled" })
                 }
             </div>
             <div class="col-2">
@@ -100,11 +100,11 @@
             <div class="col-1">
                 @if (Model.changeMode == ARTICLE_CHANGE_MODE.CREATE)
                 {
-                    @Html.RadioButtonFor(m => m.isDir, false, new { @checked = true, @class = "form-control" })
+                    @Html.RadioButtonFor(m => m.editModel.isDir, false, new { @checked = true, @class = "form-control" })
                 }
                 else
                 {
-                    @Html.RadioButtonFor(m => m.isDir, false, new { @checked = true, @class = "form-control disabled", disabled = "disabled" })
+                    @Html.RadioButtonFor(m => m.editModel.isDir, false, new { @checked = true, @class = "form-control disabled", disabled = "disabled" })
                 }
             </div>
             <div class="col-2">
@@ -113,7 +113,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                @Html.TextAreaFor(m => m.articleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
+                @Html.TextAreaFor(m => m.editModel.articleHtmlContent, new { @class = "form-control", @rows = "10", id = "ArticleHtmlContent" })
             </div>
         </div>
     </div>

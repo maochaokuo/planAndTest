@@ -1,4 +1,5 @@
-﻿using planAndTest.Models.PM;
+﻿using models.fwk.PM;
+using planAndTest.Models.PM;
 using SASDdb.entity.fwk;
 using SASDdbService.fwk;
 using System;
@@ -19,7 +20,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult Users()
         {
             usersViewModel viewModel = new usersViewModel();
-            viewModel.errorMsg = loadUsers(ref viewModel);
+            //viewModel.errorMsg = loadUsers(ref viewModel);
             return View();
         }
         protected string loadUsers(ref usersViewModel viewModel)
@@ -36,20 +37,40 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult Users(usersViewModel viewModel)
         {
             ActionResult ar;
-            viewModel.errorMsg = loadUsers(ref viewModel);
+            var multiSelect = Request.Form["multiSelect"];
             // todo !!... (2) multi select not working
             switch (viewModel.cmd)
             {
                 case "query":
+                    viewModel.errorMsg = loadUsers(ref viewModel);
                     ar = View(viewModel);
                     break;
                 case "add":
-                    ar = View(viewModel);
+                    ar = RedirectToAction("AddUpdateUser");
                     break; 
                 case "update":
                     ar = View(viewModel);
                     break;
                 case "delete":
+                    ar = View(viewModel);
+                    break;
+                default:
+                    ar = View(viewModel);
+                    break;
+            }
+            return ar;
+        }
+        public ActionResult AddUpdateUser()
+        {
+            userEditViewModel viewModel = new userEditViewModel();
+            return View(viewModel);
+        }
+        public ActionResult AddUpdateUser(userEditViewModel viewModel)
+        {
+            ActionResult ar;
+            switch(viewModel.cmd)
+            {
+                case "save":
                     ar = View(viewModel);
                     break;
                 default:

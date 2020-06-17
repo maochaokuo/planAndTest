@@ -11,6 +11,7 @@ namespace models.fwk.PM
     public class userEditViewModel : ViewModelBase
     {
         public user editModel { get; set; }
+        public string confirmPassword { get; set; }
         public userEditViewModel()
         {
             editModel = new user();

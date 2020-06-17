@@ -119,6 +119,10 @@ namespace SASDdb.entity.fwk
                 .Property(e => e.ownUserId)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<project>()
+                .Property(e => e.deleteBy)
+                .IsUnicode(false);
+
             modelBuilder.Entity<projectMemberUser>()
                 .Property(e => e.userId)
                 .IsUnicode(false);

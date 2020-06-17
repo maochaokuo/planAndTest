@@ -4,8 +4,12 @@
     [createtime]         DATETIME         CONSTRAINT [DF_project_createtime] DEFAULT (getdate()) NOT NULL,
     [ownUserId]          VARCHAR (33)     NOT NULL,
     [projectDescription] NVARCHAR (999)   NULL,
+    [deleteTime]         DATETIME2 (7)    NULL,
+    [deleteBy]           VARCHAR (33)     NULL,
     CONSTRAINT [PK_project] PRIMARY KEY CLUSTERED ([projectId] ASC)
 );
+
+
 
 
 
