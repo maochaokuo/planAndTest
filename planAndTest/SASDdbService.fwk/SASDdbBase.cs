@@ -29,7 +29,14 @@ namespace SASDdbService
         public virtual string SaveChanges()
         {
             string ret = "";
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                ret = ex.Message;
+            }
             return ret;
         }
     }

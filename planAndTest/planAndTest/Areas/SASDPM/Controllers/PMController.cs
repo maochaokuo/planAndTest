@@ -1,4 +1,5 @@
 ﻿using models.fwk.PM;
+using modelsfwk;
 using planAndTest.Models.PM;
 using SASDdb.entity.fwk;
 using SASDdbService.fwk;
@@ -46,9 +47,25 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = View(viewModel);
                     break;
                 case "add":
+                    userEditViewModel tmpVMa = new userEditViewModel();
+                    tmpVMa.pageStatus = PAGE_STATUS.ADD;
+                    TempData["userEditViewModel"] = tmpVMa;
                     ar = RedirectToAction("AddUpdateUser");
                     break; 
                 case "update":
+                    tblUser tu = new tblUser();
+                    user u = tu.getById(viewModel.singleSelect);
+                    if (u != null)
+                    {
+                        userEditViewModel tmpVM = new userEditViewModel();
+                        tmpVM.editModel = u;
+                        tmpVM.pageStatus = PAGE_STATUS.EDIT;
+                        TempData["userEditViewModel"] = tmpVM;
+                        ar = RedirectToAction("AddUpdateUser");
+                        break;
+                    }
+                    else
+                        viewModel.errorMsg = "error reading this user";
                     ar = View(viewModel);
                     break;
                 case "delete":
@@ -62,15 +79,69 @@ namespace planAndTest.Areas.SASDPM.Controllers
         }
         public ActionResult AddUpdateUser()
         {
-            userEditViewModel viewModel = new userEditViewModel();
+            userEditViewModel viewModel;
+            var tmpVM = TempData["userEditViewModel"] ;
+            if (tmpVM == null)
+                viewModel = new userEditViewModel();
+            else
+                viewModel =(userEditViewModel) tmpVM;
             return View(viewModel);
         }
+        protected string checkForm(userEditViewModel viewModel)
+        {
+            string ret = "";
+            if (string.IsNullOrWhiteSpace(viewModel.editModel.userId))
+                ret = "userId cannot be empty";
+            else if (viewModel.editModel.userPassword.Length<8)
+                ret = "userPassword has to be at least 8 in length";
+            else if (viewModel.editModel.userPassword.CompareTo(
+                    viewModel.confirmPassword)!=0)
+                ret = "userPassword is different from confirm password";
+            if (string.IsNullOrWhiteSpace(viewModel.editModel.hintQuestion))
+                ret = "hintQuestion cannot be empty";
+            if (string.IsNullOrWhiteSpace(viewModel.editModel.hintAnswer))
+                ret = "hintAnswer cannot be empty";
+            return ret;
+        }
+        [HttpPost]
         public ActionResult AddUpdateUser(userEditViewModel viewModel)
         {
             ActionResult ar;
+            string err = "";
             switch(viewModel.cmd)
             {
                 case "save":
+                    err = checkForm(viewModel);
+                    if (err.Length>0)
+                    {
+                        viewModel.errorMsg = err;
+                        ar = View(viewModel);
+                        break;
+                    }
+                    tblUser tu = new tblUser();
+                    if (viewModel.pageStatus == PAGE_STATUS.ADD)
+                    {
+                        viewModel.editModel.createtime = DateTime.Now;
+                        viewModel.editModel.modifytime = DateTime.Now;
+                        err += tu.Add(viewModel.editModel);
+                        err += tu.SaveChanges();
+                        if (err.Length == 0)
+                            viewModel.successMsg = "new user saved";
+                        else
+                            viewModel.errorMsg = err;
+                    }
+                    else if (viewModel.pageStatus == PAGE_STATUS.EDIT)
+                    {
+                        viewModel.editModel.modifytime = DateTime.Now;
+                        err += tu.Update(viewModel.editModel);
+                        err += tu.SaveChanges();
+                        if (err.Length == 0)
+                            viewModel.successMsg = "user updated";
+                        else
+                            viewModel.errorMsg = err;
+                    }
+                    else
+                        viewModel.errorMsg = "wrong page status " + viewModel.pageStatus;
                     ar = View(viewModel);
                     break;
                 default:
