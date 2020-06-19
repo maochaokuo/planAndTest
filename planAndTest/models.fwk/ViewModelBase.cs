@@ -7,7 +7,7 @@ namespace modelsfwk
         ADD=2,
         EDIT=1,
         SAVED=0,
-        ADDSAVED=-1
+        ADDSAVED = -1
     }
     public class ViewModelBase 
     {
@@ -22,6 +22,11 @@ namespace modelsfwk
         public ViewModelBase()
         {
             pageStatus = PAGE_STATUS.SAVED;
+        }
+        public void clearMsg()
+        {
+            errorMsg = "";
+            successMsg = "";
         }
     }
 }

@@ -40,6 +40,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
             ActionResult ar;
             var multiSelect = Request.Form["multiSelect"];
             // todo !!... (2) multi select not working
+            tblUser tu = new tblUser();
+            viewModel.clearMsg();
             switch (viewModel.cmd)
             {
                 case "query":
@@ -53,7 +55,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = RedirectToAction("AddUpdateUser");
                     break; 
                 case "update":
-                    tblUser tu = new tblUser();
                     user u = tu.getById(viewModel.singleSelect);
                     if (u != null)
                     {
@@ -69,6 +70,18 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = View(viewModel);
                     break;
                 case "delete":
+                    if (string.IsNullOrWhiteSpace(multiSelect))
+                        viewModel.errorMsg = "please select user(s) to delete";
+                    else
+                    {
+                        string[] selected = multiSelect.Split(',');
+                        foreach(string userId in selected.ToList())
+                            viewModel.errorMsg += tu.Delete(userId);
+                        tu.SaveChanges();
+                        if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                            viewModel.successMsg = "successfully deleted";
+                    }
+                    loadUsers(ref viewModel);
                     ar = View(viewModel);
                     break;
                 default:
@@ -97,9 +110,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
             else if (viewModel.editModel.userPassword.CompareTo(
                     viewModel.confirmPassword)!=0)
                 ret = "userPassword is different from confirm password";
-            if (string.IsNullOrWhiteSpace(viewModel.editModel.hintQuestion))
+            else if (string.IsNullOrWhiteSpace(viewModel.editModel.hintQuestion))
                 ret = "hintQuestion cannot be empty";
-            if (string.IsNullOrWhiteSpace(viewModel.editModel.hintAnswer))
+            else if (string.IsNullOrWhiteSpace(viewModel.editModel.hintAnswer))
                 ret = "hintAnswer cannot be empty";
             return ret;
         }
@@ -126,7 +139,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         err += tu.Add(viewModel.editModel);
                         err += tu.SaveChanges();
                         if (err.Length == 0)
+                        {
                             viewModel.successMsg = "new user saved";
+                            viewModel.pageStatus = PAGE_STATUS.ADDSAVED;
+                        }
                         else
                             viewModel.errorMsg = err;
                     }
@@ -136,13 +152,22 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         err += tu.Update(viewModel.editModel);
                         err += tu.SaveChanges();
                         if (err.Length == 0)
+                        {
                             viewModel.successMsg = "user updated";
+                            viewModel.pageStatus = PAGE_STATUS.SAVED;
+                        }
                         else
                             viewModel.errorMsg = err;
                     }
                     else
                         viewModel.errorMsg = "wrong page status " + viewModel.pageStatus;
                     ar = View(viewModel);
+                    break;
+                case "addNew":
+                    userEditViewModel tmpVMa = new userEditViewModel();
+                    tmpVMa.pageStatus = PAGE_STATUS.ADD;
+                    TempData["userEditViewModel"] = tmpVMa;
+                    ar = RedirectToAction("AddUpdateUser");
                     break;
                 default:
                     ar = View(viewModel);
