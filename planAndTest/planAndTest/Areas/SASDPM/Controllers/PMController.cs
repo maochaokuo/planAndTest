@@ -39,7 +39,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             ActionResult ar;
             var multiSelect = Request.Form["multiSelect"];
-            // todo !!... (2) multi select not working
+            // multi select 
             tblUser tu = new tblUser();
             viewModel.clearMsg();
             switch (viewModel.cmd)
@@ -168,6 +168,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpVMa.pageStatus = PAGE_STATUS.ADD;
                     TempData["userEditViewModel"] = tmpVMa;
                     ar = RedirectToAction("AddUpdateUser");
+                    break;
+                case "query":
+                    ar = RedirectToAction("Users");
                     break;
                 default:
                     ar = View(viewModel);

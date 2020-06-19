@@ -3,6 +3,7 @@
 //using Microsoft.AspNetCore.Razor.Language;
 using modelsfwk.SA;
 using planAndTest.Helper;
+using planAndTest.Helper.PM;
 using planAndTest.Helper.SA;
 using planAndTest.Models.SA;
 using SASDdb.entity.fwk;
@@ -39,7 +40,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
             // special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
             return View(viewModel);
         }
-
 
         private string loadArticle(string articleId, string parentDirId
             , ref articlesViewModel viewModel)
@@ -236,6 +236,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             ViewBag.articleTypeOption = SAdropdownOptions.articleTypeOption();
             ViewBag.articleStatusOption = SAdropdownOptions.articleStatusOption();
             ViewBag.articlePriorityOption = SAdropdownOptions.articlePriorityOption();
+            ViewBag.userList = PMdropdownOption.userList();
             TempData["articleEditViewModel"] = viewModel;
             return View(viewModel);
         }
@@ -254,11 +255,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
             ViewBag.articleTypeOption = SAdropdownOptions.articleTypeOption();
             ViewBag.articleStatusOption = SAdropdownOptions.articleStatusOption();
             ViewBag.articlePriorityOption = SAdropdownOptions.articlePriorityOption();
+            ViewBag.userList = PMdropdownOption.userList();
             string err;
             // articles, ckeditor, paste base64 image
             switch (viewModel.cmd)
             {
                 case "save":
+                    // todo !!... (1) create/edit with author assign to cannot save
+                    // todo !!... (2) edit article won't carry the artible content to edit
                     err = checkForm(viewModel);
                     if (err.Length > 0)
                     {

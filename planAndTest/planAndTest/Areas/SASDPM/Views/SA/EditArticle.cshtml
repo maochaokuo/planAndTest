@@ -44,6 +44,16 @@
         </div>
         <div class="row">
             <div class="col-2">
+                <h6>articleId</h6>
+            </div>
+            <div class="col-10">
+                <h6>
+                    @Html.TextBoxFor(m => m.editModel.articleId, new { @class = "form-control disabled", @readonly = "readonly" })
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
                 <h6>Subject</h6>
             </div>
             <div class="col-8">
@@ -78,6 +88,20 @@
             </div>
             <div class="col-2">
                 @Html.DropDownListFor(m => m.editModel.priority, (SelectList)ViewBag.articlePriorityOption, new { @class = "custom-select" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                author
+            </div>
+            <div class="col-4">
+                @Html.DropDownListFor(m => m.editModel.authorUserId, (SelectList)ViewBag.userList, new { @class = "custom-select" })
+            </div>
+            <div class="col-2">
+                assign to
+            </div>
+            <div class="col-4">
+                @Html.DropDownListFor(m => m.editModel.assignToUserId, (SelectList)ViewBag.userList, new { @class = "custom-select" })
             </div>
         </div>
         <div class="row">

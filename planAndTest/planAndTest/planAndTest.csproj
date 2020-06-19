@@ -154,6 +154,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\htmlHelper.cs" />
+    <Compile Include="Helper\PM\PMdropdownOption.cs" />
     <Compile Include="Helper\SA\SAdropdownOptions.cs" />
     <Compile Include="Models\EPL\EplAction1vm.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
@@ -713,7 +714,6 @@
     <Folder Include="Areas\EPL\Views\Shared\" />
     <Folder Include="Areas\SASDPM\Data\" />
     <Folder Include="Areas\SASDPM\Views\Shared\" />
-    <Folder Include="Helper\PM\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

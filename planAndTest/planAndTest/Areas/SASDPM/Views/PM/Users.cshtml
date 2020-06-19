@@ -46,7 +46,7 @@
         @if (Model != null && Model.users != null && Model.users.Count > 0)
         {
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover table-sm">
                     <thead>
                         <tr>
                             <th></th>
@@ -69,7 +69,7 @@
                                 <td>@(rec.lastLoginTime?.ToString("yyyy/MM/dd HH:mm:ss"))</td>
                                 <td>@rec.modifytime.ToString("yyyy/MM/dd HH:mm:ss")</td>
                                 <td>
-                                    <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.userId');$('form').submit()" class="btn btn-default">Update</button>
+                                    <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.userId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
                                 </td>
                             </tr>
                         </tbody>
