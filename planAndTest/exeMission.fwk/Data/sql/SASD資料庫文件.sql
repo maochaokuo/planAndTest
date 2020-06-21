@@ -32,9 +32,9 @@ select
 		--st.name in ('tbl_VIP_DP_Membership')
 		--st.name in ('tbl_CM_PR63_Transaction')
 		--st.name in ('tbl_VIP_DP_Transaction')
-		--st.name in ('tbl_AT_Daily_Report')
-		--st.name in ('tbl_AT_Month_Report_Temp','tbl_AT_Month_Report')
-		st.name in ('user')
+		st.name in ('project')
+		--st.name in ('article')
+		--st.name in ('user')
 		--st.name in ('tbl_CM_Role_List')
 		--st.name in ('tbl_CM_Function_List', 'tbl_CM_Role_In_Function')
 	order by st.name, sc.column_id

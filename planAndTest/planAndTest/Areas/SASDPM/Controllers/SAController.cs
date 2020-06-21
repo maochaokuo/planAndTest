@@ -130,14 +130,16 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         aevm.parentDirTitle = art.articleTitle;
                     }
                     aevm.changeMode = ARTICLE_CHANGE_MODE.CREATE;
+                    aevm.pageStatus = modelsfwk.PAGE_STATUS.ADD;
                     TempData["articleEditViewModel"] = aevm;
                     ret = RedirectToAction("EditArticle");
                     break;
                 case "edit":
                     ta = new tblArticle();
                     art = ta.GetArticleById(viewModel.articleId);
-                    aevm = jsonUtl.decodeJson<articleEditViewModel>(jsonUtl.encodeJson(art));
-                    //aevm = new articleEditViewModel();
+                    //aevm = jsonUtl.decodeJson<articleEditViewModel>(jsonUtl.encodeJson(art));
+                    aevm = new articleEditViewModel();
+                    aevm.editModel = art;
                     if (art == null || art.belongToArticleDirId == null)
                         aevm.parentDirTitle = EMPTY_PARENT_TITLE;
                     else
@@ -146,6 +148,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         aevm.parentDirTitle = artParent.articleTitle;
                     }
                     aevm.changeMode = ARTICLE_CHANGE_MODE.EDIT;
+                    aevm.pageStatus = modelsfwk.PAGE_STATUS.EDIT;
                     TempData["articleEditViewModel"] = aevm;
                     ret = RedirectToAction("EditArticle");
                     break;
@@ -154,6 +157,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     aevm.editModel.belongToArticleDirId = new Guid(viewModel.articleId);
                     aevm.parentDirTitle = viewModel.articleTitle;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
+                    aevm.pageStatus = modelsfwk.PAGE_STATUS.ADD;
                     TempData["articleEditViewModel"] = aevm;
                     ret = RedirectToAction("EditArticle");
                     break;
@@ -261,8 +265,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
             switch (viewModel.cmd)
             {
                 case "save":
-                    // todo !!... (1) create/edit with author assign to cannot save
-                    // todo !!... (2) edit article won't carry the artible content to edit
                     err = checkForm(viewModel);
                     if (err.Length > 0)
                     {
@@ -301,7 +303,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         //art.isDir = viewModel.isDir;
                         //art.belongToArticleDirId = viewModel.belongToArticleDirId;
 
-                        err = tArticle.Add(viewModel.GetArticle());// as article);
+                        err = tArticle.Add(viewModel.editModel);// as article);
                         err += tArticle.SaveChanges();
                     }
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.EDIT)
@@ -318,7 +320,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         {
                             viewModel.editModel.articleId = Guid.NewGuid();
                             viewModel.editModel.createtime = DateTime.Now;
-                            err1 = tArticle.Add(viewModel.GetArticle());// as article);
+                            err1 = tArticle.Add(viewModel.editModel);// as article);
                             err1 += tArticle.SaveChanges();
                             tblArticle tart = new tblArticle();
                             article replied = tart.GetArticleById(viewModel.editModel.belongToArticleDirId.ToString());
@@ -334,7 +336,13 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     if (err.Length > 0)
                         viewModel.errorMsg = "error: " + err;
                     else
+                    {
                         viewModel.successMsg = "new article successfully added";
+                        if (viewModel.pageStatus == modelsfwk.PAGE_STATUS.ADD)
+                            viewModel.pageStatus = modelsfwk.PAGE_STATUS.ADDSAVED;
+                        else if (viewModel.pageStatus == modelsfwk.PAGE_STATUS.EDIT)
+                            viewModel.pageStatus = modelsfwk.PAGE_STATUS.SAVED;
+                    }
                     // notification failed, so, should use pure hidden field rather than html helped 
                     //ViewBag.Message = "article/directory saved";                    
                     ret = View(viewModel);

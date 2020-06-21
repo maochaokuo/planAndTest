@@ -11,14 +11,10 @@ using System.Web.Mvc;
 
 namespace planAndTest.Areas.SASDPM.Controllers
 {
-    public class PMController : Controller
+    public class UserController : Controller
     {
-        // GET: SASDPM/PM
+        // GET: SASDPM/User
         public ActionResult Index()
-        {
-            return View();
-        }
-        public ActionResult Users()
         {
             usersViewModel viewModel = new usersViewModel();
             //viewModel.errorMsg = loadUsers(ref viewModel);
@@ -35,7 +31,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             return ret;
         }
         [HttpPost]
-        public ActionResult Users(usersViewModel viewModel)
+        public ActionResult Index(usersViewModel viewModel)
         {
             ActionResult ar;
             var multiSelect = Request.Form["multiSelect"];
@@ -53,7 +49,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpVMa.pageStatus = PAGE_STATUS.ADD;
                     TempData["userEditViewModel"] = tmpVMa;
                     ar = RedirectToAction("AddUpdateUser");
-                    break; 
+                    break;
                 case "update":
                     user u = tu.getById(viewModel.singleSelect);
                     if (u != null)
@@ -75,7 +71,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     else
                     {
                         string[] selected = multiSelect.Split(',');
-                        foreach(string userId in selected.ToList())
+                        foreach (string userId in selected.ToList())
                             viewModel.errorMsg += tu.Delete(userId);
                         tu.SaveChanges();
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
@@ -93,11 +89,11 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult AddUpdateUser()
         {
             userEditViewModel viewModel;
-            var tmpVM = TempData["userEditViewModel"] ;
+            var tmpVM = TempData["userEditViewModel"];
             if (tmpVM == null)
                 viewModel = new userEditViewModel();
             else
-                viewModel =(userEditViewModel) tmpVM;
+                viewModel = (userEditViewModel)tmpVM;
             return View(viewModel);
         }
         protected string checkForm(userEditViewModel viewModel)
@@ -105,10 +101,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
             string ret = "";
             if (string.IsNullOrWhiteSpace(viewModel.editModel.userId))
                 ret = "userId cannot be empty";
-            else if (viewModel.editModel.userPassword.Length<8)
+            else if (viewModel.editModel.userPassword.Length < 8)
                 ret = "userPassword has to be at least 8 in length";
             else if (viewModel.editModel.userPassword.CompareTo(
-                    viewModel.confirmPassword)!=0)
+                    viewModel.confirmPassword) != 0)
                 ret = "userPassword is different from confirm password";
             else if (string.IsNullOrWhiteSpace(viewModel.editModel.hintQuestion))
                 ret = "hintQuestion cannot be empty";
@@ -121,11 +117,11 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             ActionResult ar;
             string err = "";
-            switch(viewModel.cmd)
+            switch (viewModel.cmd)
             {
                 case "save":
                     err = checkForm(viewModel);
-                    if (err.Length>0)
+                    if (err.Length > 0)
                     {
                         viewModel.errorMsg = err;
                         ar = View(viewModel);

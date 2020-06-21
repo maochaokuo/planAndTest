@@ -1,0 +1,77 @@
+﻿@model planAndTest.Models.PM.projectsViewModel
+
+@{
+    ViewBag.Title = "Projects";
+    Layout = "~/Views/Shared/_LayoutPM.cshtml";
+}
+
+<h2>Projects</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.singleSelect, new { id = "singleSelect" })
+    <div class="container">
+        <div class="row">
+            <div class="col-12">&nbsp; </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                userId
+            </div>
+            <div class="col-4">
+                @Html.TextBoxFor(m => m.projectId, new { @class = "form-control" })
+            </div>
+            <div class="col-2">
+                userCommentsPublic
+            </div>
+            <div class="col-4">
+                @Html.TextBoxFor(m => m.projectName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">&nbsp; </div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+                <button onclick="$('#cmd').val('query');$('form').submit()" class="btn btn-primary">Query</button>
+                <button onclick="$('#cmd').val('add');$('form').submit()" class="btn btn-primary">Add</button>
+                <button onclick="$('#cmd').val('delete');$('form').submit()" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">&nbsp; </div>
+        </div>
+        @if (Model != null && Model.projects != null && Model.projects.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>projectId</th>
+                            <th>createtime</th>
+                            <th>projectName</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (var rec in Model.projects)
+                    {
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" id="@rec.projectId" name="multiSelect" value="@rec.projectId" class="form-control-lg" /></td>
+                                <td>@rec.projectId</td>
+                                <td>@rec.createtime.ToString("yyyy/MM/dd HH:mm:ss")</td>
+                                <td>@rec.projectName</td>
+                                <td>
+                                    <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.projectId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+}

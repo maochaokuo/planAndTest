@@ -1,5 +1,4 @@
-﻿
-@*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>*@
+﻿@*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>*@
 @Html.ActionLink("planAndTest.web", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -10,12 +9,12 @@
     <ul class="navbar-nav flex-grow-1">
         <li class="nav-item">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SA"
-               asp-action="Index">Index</a>*@
+                asp-action="Index">Index</a>*@
             @Html.ActionLink("Index", "Index", "SA", null, new { @class = "nav-link text-dark" })
         </li>
         <li class="nav-item">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SA"
-               asp-action="Articles">Articles</a>*@
+                asp-action="Articles">Articles</a>*@
             @Html.ActionLink("Articles", "Articles", "SA", null, new { @class = "nav-link text-dark" })
         </li>
     </ul>

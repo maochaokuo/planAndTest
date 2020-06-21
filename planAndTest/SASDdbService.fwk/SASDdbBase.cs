@@ -5,6 +5,7 @@ using SASDdb.entity.fwk;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Text;
 
 namespace SASDdbService
@@ -33,7 +34,20 @@ namespace SASDdbService
             {
                 db.SaveChanges();
             }
-            catch(Exception ex)
+            catch(DbEntityValidationException ex0)
+            {
+                foreach(var eve in ex0.EntityValidationErrors)
+                {
+                    ret += string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        ret += string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+            catch (Exception ex)
             {
                 ret = ex.Message;
             }

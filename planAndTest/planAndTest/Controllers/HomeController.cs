@@ -16,7 +16,8 @@ namespace planAndTest.Controllers
         }
         public ActionResult Index()
         {
-            //return RedirectToAction("Articles", "SA");
+            //return RedirectToAction("Articles", "SA", new { area = "SASDPM" });
+            //return RedirectToAction("Users", "PM", new { area = "SASDPM" });
             return View();
         }
 

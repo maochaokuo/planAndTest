@@ -1,9 +1,16 @@
 use SASDdb
 
 select *
-from [user]
+from project
 
 /*
+select *
+from article
+order by createtime desc
+
+select *
+from [user]
+
 select *
 --update article set priority=9
 --update article set articleType='General'

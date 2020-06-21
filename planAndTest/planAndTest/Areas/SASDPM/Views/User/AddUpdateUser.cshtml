@@ -1,0 +1,136 @@
+﻿@model models.fwk.PM.userEditViewModel
+
+@{
+    ViewBag.Title = "AddUpdateUser";
+    Layout = "~/Views/Shared/_LayoutPM.cshtml";
+}
+
+<h2>AddUpdateUser</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "auuform" }))
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.pageStatus)
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                userId
+            </div>
+            <div class="col-4">
+                @if (Model.pageStatus == modelsfwk.PAGE_STATUS.ADD)
+                {
+                    @Html.TextBoxFor(m => m.editModel.userId, new { @class = "form-control" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(m => m.editModel.userId, new { @class = "form-control disabled", @readonly = "readonly" })
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                userPassword
+            </div>
+            <div class="col-4">
+                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                {
+                    @Html.PasswordFor(m => m.editModel.userPassword, new { @class = "form-control disabled", @readonly = "readonly" })
+                }
+                else
+                {
+                    @Html.PasswordFor(m => m.editModel.userPassword, new { @class = "form-control" })
+                }
+            </div>
+            @if (Model.pageStatus > modelsfwk.PAGE_STATUS.SAVED)
+            {
+                <div class="col-2">
+                    confirm userPassword
+                </div>
+                <div class="col-4">
+                    @Html.PasswordFor(m => m.confirmPassword, new { @class = "form-control" })
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-2">
+                userCommentsPublic
+            </div>
+            <div class="col-4">
+                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                {
+                    @Html.TextBoxFor(m => m.editModel.userCommentsPublic, new { @class = "form-control disabled", @readonly = "readonly" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(m => m.editModel.userCommentsPublic, new { @class = "form-control" })
+                }
+            </div>
+            <div class="col-2">
+                userCommentsPrivate
+            </div>
+            <div class="col-4">
+                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                {
+                    @Html.TextBoxFor(m => m.editModel.userCommentsPrivate, new { @class = "form-control disabled", @readonly = "readonly" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(m => m.editModel.userCommentsPrivate, new { @class = "form-control" })
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                hintQuestion
+            </div>
+            <div class="col-4">
+                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                {
+                    @Html.TextBoxFor(m => m.editModel.hintQuestion, new { @class = "form-control disabled", @readonly = "readonly" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(m => m.editModel.hintQuestion, new { @class = "form-control" })
+                }
+            </div>
+            <div class="col-2">
+                hintAnswer
+            </div>
+            <div class="col-4">
+                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                {
+                    @Html.PasswordFor(m => m.editModel.hintAnswer, new { @class = "form-control disabled", @readonly = "readonly" })
+                }
+                else
+                {
+                    @Html.PasswordFor(m => m.editModel.hintAnswer, new { @class = "form-control" })
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+                @if (Model.pageStatus > modelsfwk.PAGE_STATUS.SAVED)
+                {
+                    <button class="btn btn-primary" onclick="$('#cmd').val('save');$('form').submit()">Save</button>
+                }
+                @if (Model.pageStatus == modelsfwk.PAGE_STATUS.ADDSAVED)
+                {
+                    <button class="btn btn-primary" onclick="$('#cmd').val('addNew');$('form').submit()">Add Next</button>
+                }
+                <button class="btn btn-primary" onclick="$('#cmd').val('query');$('form').submit()">Query</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="errorMsg" name="errorMsg" value="@Model.errorMsg" />
+    <input type="hidden" id="successMsg" name="successMsg" value="@Model.successMsg" />
+}
+
+<script>
+    var herror = $('#errorMsg').val();
+    var hmessage = $('#successMsg').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
+</script>

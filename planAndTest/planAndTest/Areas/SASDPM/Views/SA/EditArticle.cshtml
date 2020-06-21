@@ -48,7 +48,10 @@
             </div>
             <div class="col-10">
                 <h6>
+                    @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.EDIT)
+                    {
                     @Html.TextBoxFor(m => m.editModel.articleId, new { @class = "form-control disabled", @readonly = "readonly" })
+                    }
                 </h6>
             </div>
         </div>

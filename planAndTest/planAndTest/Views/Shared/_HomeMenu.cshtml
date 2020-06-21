@@ -1,4 +1,6 @@
-﻿<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>
+﻿@*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">planAndTest.web</a>*@
+@Html.ActionLink("planAndTest.web", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -6,32 +8,32 @@
 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
     <ul class="navbar-nav flex-grow-1">
         @*<li class="nav-item">
-            @Html.ActionLink("System Analysis", "Index", "SaHome", new { area = "SA" }, new { @class = "nav-link text-dark" })
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="SA" asp-controller="SaHome"
-               asp-action="Index">System Analysis</a>
-        </li>*@
+                @Html.ActionLink("System Analysis", "Index", "SaHome", new { area = "SA" }, new { @class = "nav-link text-dark" })
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="SA" asp-controller="SaHome"
+                   asp-action="Index">System Analysis</a>
+            </li>*@
         <li class="nav-item">
             @*@Html.ActionLink("System Analysis", "Index", "SA", new { area = "SA" }, new { @class = "nav-link text-dark" })*@
             @Html.ActionLink("System Analysis", "Index", "SA", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SA"
-            asp-action="Index">System Analysis</a>*@
+                asp-action="Index">System Analysis</a>*@
         </li>
         <li class="nav-item">
             @Html.ActionLink("System Design", "Index", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
-            asp-action="Index">System Design</a>*@
+                asp-action="Index">System Design</a>*@
         </li>
         <li class="nav-item">
             @Html.ActionLink("Project Management", "Index", "PM", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
-            asp-action="Index">System Design</a>*@
+                asp-action="Index">System Design</a>*@
         </li>
         <li class="nav-item">
             @Html.ActionLink("EPL", "Index", "EPL", new { area = "EPL" }, new { @class = "nav-link text-dark" })
             @*<a class="nav-link text-dark" asp-area="" asp-controller="EPL"
-            asp-action="Index">EPL</a>*@
+                asp-action="Index">EPL</a>*@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -45,8 +47,8 @@
             </div>
         </li>
         @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Hangfire"
-               asp-action="Index">Hangfire</a>
-        </li>*@
+                <a class="nav-link text-dark" asp-area="" asp-controller="Hangfire"
+                   asp-action="Index">Hangfire</a>
+            </li>*@
     </ul>
 </div>
