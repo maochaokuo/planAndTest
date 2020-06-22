@@ -63,7 +63,9 @@ namespace SASDdbService.fwk
         public string Delete(project deleteProject)
         {
             string ret = "";
-            db.Entry(deleteProject).State = EntityState.Deleted;
+            //db.Entry(deleteProject).State = EntityState.Deleted;
+            deleteProject.deleteTime = DateTime.Now;
+            ret = Update(deleteProject);
             // need save changes
             return ret;
         }

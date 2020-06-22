@@ -9,9 +9,9 @@ namespace planAndTest.Models.PM
 {
     public class projectsViewModel : ViewModelBase
     {
-        public string projectId { get; set; }
-
         public string projectName { get; set; }
+        public string projectDescription { get; set; }
+
         public List<project> projects { get; set; }
         public projectsViewModel()
         {

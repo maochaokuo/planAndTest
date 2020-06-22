@@ -26,8 +26,11 @@ namespace planAndTest.Areas.SASDPM.Controllers
             tblUser tu = new tblUser();
             viewModel.users.Clear();
             List<user> users = tu.getAll();
-            foreach (user rec in users)
-                viewModel.users.Add(rec);
+            if (users != null)
+            {
+                foreach (user rec in users)
+                    viewModel.users.Add(rec);
+            }
             return ret;
         }
         [HttpPost]
@@ -116,7 +119,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult AddUpdateUser(userEditViewModel viewModel)
         {
             ActionResult ar;
-            string err = "";
+            string err ;
             switch (viewModel.cmd)
             {
                 case "save":
@@ -166,7 +169,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = RedirectToAction("AddUpdateUser");
                     break;
                 case "query":
-                    ar = RedirectToAction("Users");
+                    ar = RedirectToAction("Index");
                     break;
                 default:
                     ar = View(viewModel);
@@ -174,5 +177,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
             }
             return ar;
         }
+
     }
 }

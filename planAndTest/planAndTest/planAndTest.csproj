@@ -594,6 +594,7 @@
     <Content Include="Content\image\A.png" />
     <Content Include="Content\image\B.png" />
     <Content Include="Content\image\I.png" />
+    <Content Include="Content\image\P.png" />
     <Content Include="Content\image\Q.png" />
     <Content Include="Content\image\R.png" />
     <Content Include="Content\image\S.png" />
@@ -674,6 +675,7 @@
     <Content Include="Areas\SASDPM\Views\User\Index.cshtml" />
     <Content Include="Areas\SASDPM\Views\User\AddUpdateUser.cshtml" />
     <Content Include="Areas\SASDPM\Views\Project\Index.cshtml" />
+    <Content Include="Areas\SASDPM\Views\Project\AddUpdateProject.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
