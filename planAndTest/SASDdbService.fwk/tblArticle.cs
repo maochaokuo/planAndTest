@@ -109,6 +109,7 @@ namespace SASDdbService
         {
             List<article> ret = null;
             //todo !!...(5) fulltext search
+            //todo !!...(6) paging
             return ret;
         }
         public string Add(article newArticle)
@@ -199,7 +200,7 @@ where DATEDIFF(day, deleteTime, getdate()) >= 7
         public string RestoreArticle(string articleId, string newDirId="")
         {
             string ret = "";
-            //todo !!...(7) get article, set deletetime, deleteby to null, belong... to newdirid
+            //todo !!...(7) RestoreArticle get article, set deletetime, deleteby to null, belong... to newdirid
             return ret;
         }
         public override string SaveChanges()
