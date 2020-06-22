@@ -6,28 +6,27 @@ namespace SASDdb.entity.fwk
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("systemEntity")]
-    public partial class systemEntity
+    [Table("templateEntity")]
+    public partial class templateEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int systemEntityId { get; set; }
+        public int templateEntityId { get; set; }
 
         public DateTime createtime { get; set; }
 
         [Key]
         [Column(Order = 0)]
-        [StringLength(33)]
-        public string entityName { get; set; }
-
-        [StringLength(999)]
-        public string entityDescription { get; set; }
-
-        public int? systemTemplateId { get; set; }
-
-        public int? parentEntityId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int systemTemplateId { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        public Guid systemId { get; set; }
+        [StringLength(33)]
+        public string templateEntityName { get; set; }
+
+        [StringLength(999)]
+        public string templateEntityDescription { get; set; }
+
+        public int? parentTemplateEntityId { get; set; }
     }
 }

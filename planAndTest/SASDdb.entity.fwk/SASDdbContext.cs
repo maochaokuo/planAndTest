@@ -35,6 +35,7 @@ namespace SASDdb.entity.fwk
         public virtual DbSet<systemLocation> systemLocation { get; set; }
         public virtual DbSet<systems> systems { get; set; }
         public virtual DbSet<systemTemplate> systemTemplate { get; set; }
+        public virtual DbSet<templateEntity> templateEntity { get; set; }
         public virtual DbSet<user> user { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -8,14 +8,12 @@ namespace SASDdb.entity.fwk
 
     public partial class systems
     {
-        [Key]
         public Guid systemId { get; set; }
-
-        public int? projectVersionId { get; set; }
 
         public DateTime createtime { get; set; }
 
-        [Required]
+        [Key]
+        [Column(Order = 0)]
         [StringLength(33)]
         public string systemName { get; set; }
 
@@ -24,5 +22,9 @@ namespace SASDdb.entity.fwk
 
         [StringLength(99)]
         public string systemType { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        public Guid projectId { get; set; }
     }
 }

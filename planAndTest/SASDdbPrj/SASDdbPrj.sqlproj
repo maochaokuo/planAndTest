@@ -87,5 +87,6 @@
     <Build Include="dbo\Tables\entityClassVariable.sql" />
     <Build Include="dbo\Tables\domainCase.sql" />
     <Build Include="dbo\Tables\domain.sql" />
+    <Build Include="dbo\Tables\templateEntity.sql" />
   </ItemGroup>
 </Project>

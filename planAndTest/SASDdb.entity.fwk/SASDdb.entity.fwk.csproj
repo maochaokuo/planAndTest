@@ -75,6 +75,7 @@
     <Compile Include="systemLocation.cs" />
     <Compile Include="systems.cs" />
     <Compile Include="systemTemplate.cs" />
+    <Compile Include="templateEntity.cs" />
     <Compile Include="user.cs" />
   </ItemGroup>
   <ItemGroup>

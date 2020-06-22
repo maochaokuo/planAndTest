@@ -6,3 +6,10 @@
     CONSTRAINT [PK_systemTemplate] PRIMARY KEY CLUSTERED ([systemTemplateId] ASC)
 );
 
+
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_systemTemplate]
+    ON [dbo].[systemTemplate]([templateName] ASC);
+

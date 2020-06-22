@@ -14,7 +14,11 @@
 
 
 
+
+
 GO
-CREATE NONCLUSTERED INDEX [IX_project]
-    ON [dbo].[project]([ownUserId] ASC);
+CREATE UNIQUE NONCLUSTERED INDEX [IX_project]
+    ON [dbo].[project]([projectName] ASC);
+
+
 
