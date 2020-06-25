@@ -58,6 +58,7 @@
     <Compile Include="SASDdbBase.cs" />
     <Compile Include="tblArticle.cs" />
     <Compile Include="tblProject.cs" />
+    <Compile Include="tblProjectVersion.cs" />
     <Compile Include="tblUser.cs" />
   </ItemGroup>
   <ItemGroup>

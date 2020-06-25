@@ -30,8 +30,8 @@ select
     where 
 		--st.name in ('tbl_CM_Service_Count_Log')
 		--st.name in ('tbl_VIP_DP_Membership')
-		--st.name in ('tbl_CM_PR63_Transaction')
-		st.name in ('systemEntity', 'systems', 'systemTemplate')
+		st.name in ('projectVersion')
+		--st.name in ('systemEntity', 'systems', 'systemTemplate')
 		--st.name in ('project')
 		--st.name in ('article')
 		--st.name in ('user')

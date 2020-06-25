@@ -146,6 +146,7 @@
     <Compile Include="Areas\EPL\EPLAreaRegistration.cs" />
     <Compile Include="Areas\SASDPM\Controllers\PMController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\ProjectController.cs" />
+    <Compile Include="Areas\SASDPM\Controllers\ProjectVersionController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SDController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\UserController.cs" />
     <Compile Include="Areas\SASDPM\SASDPMAreaRegistration.cs" />
@@ -721,6 +722,7 @@
     <Folder Include="Areas\EPL\Data\" />
     <Folder Include="Areas\EPL\Views\Shared\" />
     <Folder Include="Areas\SASDPM\Data\" />
+    <Folder Include="Areas\SASDPM\Views\ProjectVersion\" />
     <Folder Include="Areas\SASDPM\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
