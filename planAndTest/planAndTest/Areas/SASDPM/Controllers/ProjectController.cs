@@ -126,8 +126,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                 , viewModel.editModel.projectName
                 , viewModel.editModel.projectDescription);
             pa.isDir = true;
-            pa.articleType = ARTICLE_TYPE.PROJECT.ToString();
-            pa.articleStatus = ARTICLE_STATUS.NEW.ToString();
+            pa.articleType = ARTICLE_TYPE.Project.ToString();
+            pa.articleStatus = articleStatus.New.ToString();
             pa.priority = 1;
             pa.projectId = viewModel.editModel.projectId;
             ret = ta.Add(pa);

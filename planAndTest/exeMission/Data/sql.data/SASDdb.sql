@@ -1,15 +1,19 @@
 use SASDdb
 
 select *
-from projectVersion
+-- delete
+from project
+--where projectName='System Design Project'
+
+select *
+-- delete
+from article
+--where articleTitle = 'System Design Project'
+order by createtime desc
 
 /*
 select *
-from project
-
-select *
-from article
-order by createtime desc
+from projectVersion
 
 select *
 from [user]

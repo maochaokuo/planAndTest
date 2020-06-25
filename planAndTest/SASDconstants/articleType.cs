@@ -9,14 +9,14 @@ namespace SASDconstants
     //}
     public enum ARTICLE_TYPE
     {
-        GENERAL=0,
-        REQUIREMENT=1,
-        SOLUTION=2,
-        ISSUE=3,
-        QUESTION=4,
-        ANSWER=5,
-        TASK=6,
-        BUG=7,
-        PROJECT=8
+        General = 0,
+        Requirement = 1,
+        Solution = 2,
+        Issue = 3,
+        Question = 4,
+        Answer = 5,
+        Task = 6,
+        Bug = 7,
+        Project = 8
     }
 }

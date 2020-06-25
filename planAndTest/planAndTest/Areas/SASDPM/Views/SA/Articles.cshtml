@@ -131,10 +131,20 @@
                             Edit
                         </button>
                     }
-                    <button type="submit" onclick="$('#cmd').val('create'); $('form').submit();"
-                            class="btn btn-primary btn-sm float-right">
-                        Create
-                    </button>
+                    @if (string.IsNullOrWhiteSpace(Model.parentDirId))
+                    {
+                        <button type="submit" onclick="$('#cmd').val('create'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right disabled" disabled="disabled">
+                            Create
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="$('#cmd').val('create'); $('form').submit();"
+                                class="btn btn-primary btn-sm float-right">
+                            Create
+                        </button>
+                    }
                 </div>
             </div>
             <div class="row border-top border-primary" style="height:410px;overflow:auto">

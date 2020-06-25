@@ -22,6 +22,7 @@ namespace planAndTest.Helper.SA
             _itemType.Add(new SelectListItem() { Text = "Answer", Value = "Answer", Selected = false });
             _itemType.Add(new SelectListItem() { Text = "Task", Value = "Task", Selected = false });
             _itemType.Add(new SelectListItem() { Text = "Bug", Value = "Bug", Selected = false });
+            _itemType.Add(new SelectListItem() { Text = "Project", Value = "Project", Selected = false });
             return new SelectList(_itemType, "Value", "Text", null);
         }
         public static SelectList articleStatusOption()

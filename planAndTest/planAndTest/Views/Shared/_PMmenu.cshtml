@@ -9,13 +9,16 @@
     <ul class="navbar-nav flex-grow-1">
         <li class="nav-item">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
-                @Html.ActionLink("Users", "Users", "PM", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
-                   asp-action="Action1">Action1</a>*@
+            @Html.ActionLink("Users", "Users", "PM", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
+               asp-action="Action1">Action1</a>*@
             @Html.ActionLink("Project Management", "Index", "PM", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
         <li class="nav-item">
+            @Html.ActionLink("Projects", "Index", "Project", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
+        </li>
+        <li class="nav-item">
             @*@Html.ActionLink("Users", "Users", "PM", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })*@
-            @Html.ActionLink("Users", "Users", "Users", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
+            @Html.ActionLink("Users", "Index", "User", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
     </ul>
 </div>
