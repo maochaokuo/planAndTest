@@ -12,6 +12,18 @@
 {
     @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
     @Html.HiddenFor(m => m.pageStatus)
+    if (!string.IsNullOrWhiteSpace(Model.errorMsg))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.errorMsg
+        </div>
+    }
+    if (!string.IsNullOrWhiteSpace(Model.successMsg))
+    {
+        <div class="alert alert-success" role="alert">
+            @Model.successMsg
+        </div>
+    }
     <div class="container">
         <div class="row">
             <div class="col-2">

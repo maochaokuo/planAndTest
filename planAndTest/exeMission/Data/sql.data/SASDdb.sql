@@ -1,9 +1,12 @@
 use SASDdb
 
 select *
-from project
+from projectVersion
 
 /*
+select *
+from project
+
 select *
 from article
 order by createtime desc

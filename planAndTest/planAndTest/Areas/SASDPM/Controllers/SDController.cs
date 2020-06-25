@@ -13,8 +13,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
         // systems, systemTemplate, systemEntity, 
         // entityClass, entityClassVariable
         // stateMachine, stateMachineState, stateMachineEvent2State
-        // domain, domainCase
         // todo !!... (2) further later
+        // domain, domainCase
         // systemInterface, interfaceParameter, interfaceProperty, systemLocation
         public ActionResult Index()
         {

@@ -752,6 +752,10 @@
       <Project>{a02fee03-96db-4a2f-a89d-8569689aa729}</Project>
       <Name>models.fwk</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SASDconstants\SASDconstants.csproj">
+      <Project>{b52e588a-0ede-464f-ba7b-74e646fcd19a}</Project>
+      <Name>SASDconstants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SASDdb.entity.fwk\SASDdb.entity.fwk.csproj">
       <Project>{4b2ca7fd-a140-437e-9a56-8dde9281d82d}</Project>
       <Name>SASDdb.entity.fwk</Name>

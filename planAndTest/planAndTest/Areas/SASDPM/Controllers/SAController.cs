@@ -38,6 +38,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
             //(1) when click on a subject in subject list: 1. need to show currently selected subject in content pane
             //2. need to enable edit/reply to two button (disabled before then)
             // special layout dir(left top), subject(right top), content(bottom most left), relation link (bottom rightmost)
+
+            //undone !!...(1) first level cannot create article, allow only project(s), one project one article
             return View(viewModel);
         }
 

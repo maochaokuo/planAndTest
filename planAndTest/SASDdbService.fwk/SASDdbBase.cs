@@ -21,6 +21,10 @@ namespace SASDdbService
         {
             this.db = db;
         }
+        public SASDdbContext GetDbContext()
+        {
+            return db;
+        }
         public DbContextTransaction BeginTransaction()
         {
             DbContextTransaction ret = 
@@ -49,7 +53,10 @@ namespace SASDdbService
             }
             catch (Exception ex)
             {
-                ret = ex.Message;
+                Exception inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
+                ret = inner.Message;
             }
             return ret;
         }

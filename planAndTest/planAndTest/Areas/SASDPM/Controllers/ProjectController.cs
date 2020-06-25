@@ -2,7 +2,9 @@
 using modelsfwk;
 using planAndTest.Helper.PM;
 using planAndTest.Models.PM;
+using SASDconstants;
 using SASDdb.entity.fwk;
+using SASDdbService;
 using SASDdbService.fwk;
 using System;
 using System.Collections.Generic;
@@ -107,12 +109,38 @@ namespace planAndTest.Areas.SASDPM.Controllers
                 ret = "projectName cannot be empty";
             return ret;
         }
+        protected string addProjectArticle(projectEditViewModel viewModel
+            , SASDdbContext db)
+        {
+            string ret ;
+            tblArticle ta = new tblArticle(db);
+            article pa = new article();
+            pa.articleId = Guid.NewGuid();
+            pa.createtime = DateTime.Now;
+            pa.articleTitle = viewModel.editModel.projectName;
+            pa.articleHtmlContent = string.Format(@"
+<h1>{0}</h1>
+<p>{1}</p>
+", viewModel.editModel.projectName, viewModel.editModel.projectDescription);
+            pa.articleContent = string.Format("{0} {1}"
+                , viewModel.editModel.projectName
+                , viewModel.editModel.projectDescription);
+            pa.isDir = true;
+            pa.articleType = ARTICLE_TYPE.PROJECT.ToString();
+            pa.articleStatus = ARTICLE_STATUS.NEW.ToString();
+            pa.priority = 1;
+            pa.projectId = viewModel.editModel.projectId;
+            ret = ta.Add(pa);
+            ret += ta.SaveChanges();
+            return ret;
+        }
         [HttpPost]
         public ActionResult AddUpdateProject(projectEditViewModel viewModel)
         {
             ActionResult ar;
             ViewBag.userList = PMdropdownOption.userList();
             string err ;
+            viewModel.clearMsg();
             switch (viewModel.cmd)
             {
                 case "save":
@@ -128,8 +156,20 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     {
                         viewModel.editModel.projectId = Guid.NewGuid();
                         viewModel.editModel.createtime = DateTime.Now;
-                        err += tp.Add(viewModel.editModel);
-                        err += tp.SaveChanges();
+                        if (err.Length == 0)
+                        {
+                            using (var trans = tp.BeginTransaction())
+                            {
+                                err += tp.Add(viewModel.editModel);
+                                err += tp.SaveChanges();
+                                err += addProjectArticle(viewModel, tp.GetDbContext());
+                                if (err.Length > 0)
+                                    trans.Rollback();
+                                else
+                                    trans.Commit();
+                                // new project add an article at the root as a directory, article type project
+                            }
+                        }
                         if (err.Length == 0)
                         {
                             viewModel.successMsg = "new project saved";
@@ -152,7 +192,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     }
                     else
                         viewModel.errorMsg = "wrong page status " + viewModel.pageStatus;
-                    //undone !!... (2), new project add an article at the root as a directory, article type project
                     ar = View(viewModel);
                     break;
                 case "addNew":
