@@ -1,0 +1,81 @@
+﻿@model planAndTest.Models.PM.projectVersionsViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPM.cshtml";
+}
+
+<h2>Project Versions</h2>
+
+@using(Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.cmd, new { id="cmd"})
+    @Html.HiddenFor(m => m.singleSelect, new { id="singleSelect"})
+<div class="container">
+    <div class="row">
+        <div class="col-12">&nbsp; </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            projectName
+        </div>
+        <div class="col-4">
+            @Html.DropDownListFor(m => m.projectId, (SelectList)ViewBag.projectList, "", new { @class = "custom-select" })
+        </div>
+        <div class="col-2">
+            version
+        </div>
+        <div class="col-4">
+            @Html.TextBoxFor(m => m.version, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">&nbsp; </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-10">
+            <button onclick="$('#cmd').val('query');$('form').submit()" class="btn btn-primary">Query</button>
+            <button onclick="$('#cmd').val('add');$('form').submit()" class="btn btn-primary">Add</button>
+            <button onclick="$('#cmd').val('delete');$('form').submit()" class="btn btn-primary">Delete</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">&nbsp; </div>
+    </div>
+    @if (Model != null && Model.projectVersions != null && Model.projectVersions.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>projectId</th>
+                        <th>version</th>
+                        <th>version description</th>
+                        <th>create time</th>
+                        <th>project version article</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var rec in Model.projectVersions)
+                {
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" id="@rec.projectVersionId" name="multiSelect" value="@rec.projectVersionId" class="form-control-lg" /></td>
+                            <td>@rec.projectId</td>
+                            <td>@rec.version</td>
+                            <td>@rec.versionDescription</td>
+                            <td>@rec.createtime.ToString("yyyy/MM/dd HH:mm:ss")</td>
+                            <td>@Html.ActionLink("project version article", "Articles", "SA", new { articleId = rec.versionArticleId }, null)</td>
+                            <td>
+                                <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.projectVersionId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+    }
+</div>
+}

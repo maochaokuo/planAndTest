@@ -29,7 +29,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             string ret = "";
             tblUser tu = new tblUser();
             viewModel.users.Clear();
-            List<user> users = tu.getAll();
+            List<user> users = tu.getAll().ToList();
             foreach (user rec in users)
                 viewModel.users.Add(rec);
             return ret;

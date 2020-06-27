@@ -17,16 +17,12 @@ namespace SASDdbService.fwk
         public tblProject(SASDdbContext db) : base(db)
         {
         }
-        public List<project> getAll()
+        public IQueryable<project> getAll()
         {
-            List<project> ret;
-            var qry = (from a in db.project
+            IQueryable<project> ret;
+            ret = (from a in db.project
                        where a.deleteTime == null
                        select a).AsQueryable();
-            if (qry.Any())
-                ret = qry.ToList();
-            else
-                ret = null;
             return ret;
         }
         public project getById(string projectId)
@@ -39,6 +35,14 @@ namespace SASDdbService.fwk
                 ret = null;
             else
                 ret = qry;
+            return ret;
+        }
+        public string nameById(string projectId)
+        {
+            string ret="";
+            project proj = getById(projectId);
+            if (proj != null)
+                ret = proj.projectName;
             return ret;
         }
         public string Add(project newProject)

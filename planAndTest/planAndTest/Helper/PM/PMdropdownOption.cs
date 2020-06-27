@@ -14,7 +14,7 @@ namespace planAndTest.Helper.PM
         {
             List<SelectListItem> _userLst = new List<SelectListItem>();
             tblUser tu = new tblUser();
-            List<user> users = tu.getAll();
+            List<user> users = tu.getAll().ToList();
             foreach (user u in users)
             {
                 _userLst.Add(new SelectListItem() { Text = u.userCommentsPublic, Value = u.userId });
@@ -25,7 +25,7 @@ namespace planAndTest.Helper.PM
         {
             List<SelectListItem> _prjLst = new List<SelectListItem>();
             tblProject tp = new tblProject();
-            List<project> prjs = tp.getAll();
+            List<project> prjs = tp.getAll().ToList();
             foreach (project p in prjs)
             {
                 _prjLst.Add(new SelectListItem() { Text = p.projectName, Value = p.projectId.ToString() });

@@ -25,9 +25,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
         protected string loadProjects(ref projectsViewModel viewModel)
         {
             string ret = "";
+            //undone !!... (3) not yet conditional query for projects
             tblProject tp = new tblProject();
             viewModel.projects.Clear();
-            List<project> projects = tp.getAll();
+            List<project> projects = tp.getAll().ToList();
             if (projects != null)
             {
                 foreach (project rec in projects)
@@ -46,6 +47,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             switch (viewModel.cmd)
             {
                 case "query":
+                    //undone (2) !!... project article link
                     viewModel.errorMsg = loadProjects(ref viewModel);
                     ar = View(viewModel);
                     break;
@@ -71,6 +73,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = View(viewModel);
                     break;
                 case "delete":
+                    //undone !!... (3) delete project delete article also
                     if (string.IsNullOrWhiteSpace(multiSelect))
                         viewModel.errorMsg = "please select project(s) to delete";
                     else
@@ -78,12 +81,15 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         string[] selected = multiSelect.Split(',');
                         foreach (string projectId in selected.ToList())
                             viewModel.errorMsg += tp.Delete(projectId);
-                        tp.SaveChanges();
+                        viewModel.errorMsg += tp.SaveChanges();
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
                             viewModel.successMsg = "successfully deleted";
                     }
                     loadProjects(ref viewModel);
                     ar = View(viewModel);
+                    break;
+                case "versions":
+                    ar = RedirectToAction("Index", "ProjectVersion");
                     break;
                 default:
                     ar = View(viewModel);
@@ -115,7 +121,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             string ret ;
             tblArticle ta = new tblArticle(db);
             article pa = new article();
-            pa.articleId = Guid.NewGuid();
+            pa.articleId =(Guid) viewModel.editModel.projectArticleId;// Guid.NewGuid();
             pa.createtime = DateTime.Now;
             pa.articleTitle = viewModel.editModel.projectName;
             pa.articleHtmlContent = string.Format(@"
@@ -127,7 +133,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                 , viewModel.editModel.projectDescription);
             pa.isDir = true;
             pa.articleType = ARTICLE_TYPE.Project.ToString();
-            pa.articleStatus = articleStatus.New.ToString();
+            pa.articleStatus = ARTICLE_STATUS.New.ToString();
             pa.priority = 1;
             pa.projectId = viewModel.editModel.projectId;
             ret = ta.Add(pa);
@@ -156,19 +162,18 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     {
                         viewModel.editModel.projectId = Guid.NewGuid();
                         viewModel.editModel.createtime = DateTime.Now;
-                        if (err.Length == 0)
+                        viewModel.editModel.projectArticleId
+                            = Guid.NewGuid();
+                        using (var trans = tp.BeginTransaction())
                         {
-                            using (var trans = tp.BeginTransaction())
-                            {
-                                err += tp.Add(viewModel.editModel);
-                                err += tp.SaveChanges();
-                                err += addProjectArticle(viewModel, tp.GetDbContext());
-                                if (err.Length > 0)
-                                    trans.Rollback();
-                                else
-                                    trans.Commit();
-                                // new project add an article at the root as a directory, article type project
-                            }
+                            err += tp.Add(viewModel.editModel);
+                            err += tp.SaveChanges();
+                            err += addProjectArticle(viewModel, tp.GetDbContext());
+                            if (err.Length > 0)
+                                trans.Rollback();
+                            else
+                                trans.Commit();
+                            // new project add an article at the root as a directory, article type project
                         }
                         if (err.Length == 0)
                         {
@@ -209,6 +214,5 @@ namespace planAndTest.Areas.SASDPM.Controllers
             }
             return ar;
         }
-
     }
 }

@@ -17,6 +17,13 @@ namespace SASDdbService.fwk
         public tblProjectVersion(SASDdbContext db) : base(db)
         {
         }
+        public IQueryable<projectVersion> getAll()
+        {
+            IQueryable<projectVersion> ret;
+            ret = (from a in db.projectVersion
+                       select a).AsQueryable();
+            return ret;
+        }
         public List<projectVersion> getByProjectId(string projectId)
         {
             List<projectVersion> ret;
@@ -27,6 +34,19 @@ namespace SASDdbService.fwk
                 ret = qry.ToList();
             else
                 ret = null;
+            return ret;
+        }
+        public projectVersion getById(string projectVersionIdS)
+        {
+            projectVersion ret=null;
+            int projectVersionId=0;
+            if (int.TryParse(projectVersionIdS, out projectVersionId))
+            {
+                var qry = (from a in db.projectVersion
+                           where a.projectVersionId == projectVersionId
+                           select a).FirstOrDefault();
+                ret = qry;
+            }
             return ret;
         }
         public projectVersion getProjectVersion(string 
@@ -80,6 +100,14 @@ namespace SASDdbService.fwk
             string ret ;
             projectVersion deleteProjectVersion =
                 getProjectVersion(projectId, version);
+            ret = Delete(deleteProjectVersion);
+            return ret;
+        }
+        public string Delete(int projectVersionId)
+        {
+            string ret = "";
+            projectVersion deleteProjectVersion =
+                getById(projectVersionId.ToString());
             ret = Delete(deleteProjectVersion);
             return ret;
         }

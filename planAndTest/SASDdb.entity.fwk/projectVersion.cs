@@ -25,5 +25,7 @@ namespace SASDdb.entity.fwk
         public string versionDescription { get; set; }
 
         public DateTime createtime { get; set; }
+
+        public Guid? versionArticleId { get; set; }
     }
 }

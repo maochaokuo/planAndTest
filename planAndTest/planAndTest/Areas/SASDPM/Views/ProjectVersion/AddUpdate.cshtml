@@ -1,0 +1,95 @@
+﻿@model models.fwk.PM.projectVersionEditViewModel
+
+@{
+    ViewBag.Title = "AddUpdate";
+    Layout = "~/Views/Shared/_LayoutPM.cshtml";
+}
+
+<h2>Add/Update project version</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "aupvform" }))
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.pageStatus)
+    if (!string.IsNullOrWhiteSpace(Model.errorMsg))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.errorMsg
+        </div>
+    }
+    if (!string.IsNullOrWhiteSpace(Model.successMsg))
+    {
+        <div class="alert alert-success" role="alert">
+            @Model.successMsg
+        </div>
+    }
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            projectVersionId
+        </div>
+        <div class="col-4">
+            @Html.TextBoxFor(m => m.editModel.projectVersionId, new { @class = "form-control disabled", @readonly = "readonly" })
+        </div>
+        <div class="col-2">
+            projectId
+        </div>
+        <div class="col-4">
+            @Html.DropDownListFor(m => m.editModel.projectId, (SelectList)ViewBag.projectList, "", new { @class = "custom-select" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            version
+        </div>
+        <div class="col-4">
+            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            {
+                @Html.TextBoxFor(m => m.editModel.version, new { @class = "form-control disabled", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.editModel.version, new { @class = "form-control" })
+            }
+        </div>
+        <div class="col-2">
+            versionDescription
+        </div>
+        <div class="col-4">
+            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            {
+                @Html.TextBoxFor(m => m.editModel.versionDescription, new { @class = "form-control disabled", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.editModel.versionDescription, new { @class = "form-control" })
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-10">
+            @if (Model.pageStatus > modelsfwk.PAGE_STATUS.SAVED)
+            {
+                <button class="btn btn-primary" onclick="$('#cmd').val('save');$('form').submit()">Save</button>
+            }
+            @if (Model.pageStatus == modelsfwk.PAGE_STATUS.ADDSAVED)
+            {
+                <button class="btn btn-primary" onclick="$('#cmd').val('addNew');$('form').submit()">Add Next</button>
+            }
+            <button class="btn btn-primary" onclick="$('#cmd').val('query');$('form').submit()">Query</button>
+        </div>
+    </div>
+</div>
+    <input type="hidden" id="errorMsg" name="errorMsg" value="@Model.errorMsg" />
+    <input type="hidden" id="successMsg" name="successMsg" value="@Model.successMsg" />
+}
+
+<script>
+    var herror = $('#errorMsg').val();
+    var hmessage = $('#successMsg').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
+</script>

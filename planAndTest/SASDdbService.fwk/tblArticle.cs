@@ -20,12 +20,20 @@ namespace SASDdbService
         }
         public article GetArticleById(string articleId)
         {
-            article ret=null ;
+            article ret ;
             var guid = Guid.Parse(articleId);
             var qry = //db.article.FromSqlRaw($"select * from article where articleId={articleId}").FirstOrDefault();
                 db.article.Where(a => a.articleId == guid && a.deleteTime==null).FirstOrDefault();
-            if (qry != null)
-                ret = qry;
+            ret = qry;
+            return ret;
+        }
+        public article GetByProjectId(string projectId)
+        {
+            article ret ;
+            var guid = Guid.Parse(projectId);
+            var qry = db.article.Where(a => a.projectId == guid && a.deleteTime == null)
+                .FirstOrDefault();
+            ret = qry;
             return ret;
         }
         public string isDirectoryId(string articleId, out bool isDir)
@@ -103,6 +111,13 @@ namespace SASDdbService
             {
                 return -x.createtime.CompareTo(y.createtime);
             });
+            return ret;
+        }
+        public IQueryable<article> getAll()
+        {
+            IQueryable<article> ret;
+            ret = (from a in db.article
+                   select a).AsQueryable();
             return ret;
         }
         public List<article> FulltextSearch(string keywords, int pagesize=0, int pageIndex=0)

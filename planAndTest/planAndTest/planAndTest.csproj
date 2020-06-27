@@ -163,6 +163,7 @@
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\Job\jProgress.cs" />
     <Compile Include="Models\PM\projectsViewModel.cs" />
+    <Compile Include="Models\PM\projectVersionsViewModel.cs" />
     <Compile Include="Models\PM\usersViewModel.cs" />
     <Compile Include="Models\SA\articlesViewModel.cs" />
     <Compile Include="Models\SA\SAaction1.cs" />
@@ -677,6 +678,8 @@
     <Content Include="Areas\SASDPM\Views\User\AddUpdateUser.cshtml" />
     <Content Include="Areas\SASDPM\Views\Project\Index.cshtml" />
     <Content Include="Areas\SASDPM\Views\Project\AddUpdateProject.cshtml" />
+    <Content Include="Areas\SASDPM\Views\ProjectVersion\Index.cshtml" />
+    <Content Include="Areas\SASDPM\Views\ProjectVersion\AddUpdate.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -722,7 +725,6 @@
     <Folder Include="Areas\EPL\Data\" />
     <Folder Include="Areas\EPL\Views\Shared\" />
     <Folder Include="Areas\SASDPM\Data\" />
-    <Folder Include="Areas\SASDPM\Views\ProjectVersion\" />
     <Folder Include="Areas\SASDPM\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

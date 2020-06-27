@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SASDconstants
 {
-    public enum articleStatus
+    public enum ARTICLE_STATUS
     {
         New=1,
         Open=2,

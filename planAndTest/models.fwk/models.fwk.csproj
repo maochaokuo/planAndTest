@@ -52,6 +52,7 @@
     <Compile Include="Iuser.cs" />
     <Compile Include="modelPaging.cs" />
     <Compile Include="PM\projectEditViewModel.cs" />
+    <Compile Include="PM\projectVersionEditViewModel.cs" />
     <Compile Include="PM\userEditViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SA\articleEditViewModel.cs" />

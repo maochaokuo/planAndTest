@@ -18,16 +18,12 @@ namespace SASDdbService.fwk
         public tblUser(SASDdbContext db) : base(db)
         {
         }
-        public List<user> getAll()
+        public IQueryable<user> getAll()
         {
-            List<user> ret;
-            var qry = (from a in db.user
+            IQueryable<user> ret;
+            ret = (from a in db.user
                        where a.deleteTime == null
                        select a).AsQueryable();
-            if (qry.Any())
-                ret = qry.ToList();
-            else
-                ret = null;
             return ret;
         }
         public user getById(string userId)

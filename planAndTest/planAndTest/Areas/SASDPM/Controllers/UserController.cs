@@ -23,9 +23,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
         protected string loadUsers(ref usersViewModel viewModel)
         {
             string ret = "";
+            //undone !!... (3) not yet conditional query for users
             tblUser tu = new tblUser();
             viewModel.users.Clear();
-            List<user> users = tu.getAll();
+            List<user> users = tu.getAll().ToList();
             if (users != null)
             {
                 foreach (user rec in users)

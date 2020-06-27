@@ -28,5 +28,7 @@ namespace SASDdb.entity.fwk
 
         [StringLength(33)]
         public string deleteBy { get; set; }
+
+        public Guid? projectArticleId { get; set; }
     }
 }

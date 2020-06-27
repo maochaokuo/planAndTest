@@ -6,8 +6,11 @@
     [projectDescription] NVARCHAR (999)   NULL,
     [deleteTime]         DATETIME2 (7)    NULL,
     [deleteBy]           VARCHAR (33)     NULL,
+    [projectArticleId]   UNIQUEIDENTIFIER NULL,
     CONSTRAINT [PK_project] PRIMARY KEY CLUSTERED ([projectId] ASC)
 );
+
+
 
 
 
@@ -21,4 +24,9 @@ CREATE UNIQUE NONCLUSTERED INDEX [IX_project]
     ON [dbo].[project]([projectName] ASC);
 
 
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_project_1]
+    ON [dbo].[project]([projectArticleId] ASC);
 
