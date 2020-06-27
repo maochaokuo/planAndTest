@@ -54,14 +54,17 @@ namespace SASDdbService.fwk
         public string Update(project updateProject)
         {
             string ret = "";
-            var aProject = db.project.SingleOrDefault(x => x.projectId == updateProject.projectId);
+            var aProject = db.project.SingleOrDefault(x => x.projectId 
+                == updateProject.projectId);
             if (aProject != null)
             {
-                aProject = reflectionUtl.assign<project, project>(aProject, updateProject);
+                aProject = reflectionUtl.assign<project, project>(
+                    aProject, updateProject);
                 db.Entry(aProject).State = EntityState.Modified;
             }
             else
-                throw new Exception($"user {updateProject.projectId} not found!");
+                throw new Exception($"project {updateProject.projectId} " +
+                    $"not found!");
             return ret;
         }
         public string Delete(project deleteProject)
