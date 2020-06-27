@@ -9,6 +9,7 @@ namespace SASDconstants
         Web=1,
         Console=2,
         Windows=3,
-        WindowService=4
+        WindowService=4,
+        Library=5
     }
 }

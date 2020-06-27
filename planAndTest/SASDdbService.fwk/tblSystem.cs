@@ -1,4 +1,5 @@
 ﻿using commonLib;
+using models.fwk.SD;
 using SASDdb.entity.fwk;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,23 @@ namespace SASDdbService.fwk
             IQueryable<systems> ret;
             ret = (from a in db.systems
                    select a).AsQueryable();
+            return ret;
+        }
+        public IQueryable<systemDisp> getAllDisp()
+        {
+            IQueryable<systemDisp> ret;
+            ret = (from a in db.systems
+                   join b in db.project on a.projectId equals b.projectId
+                   select new systemDisp
+                   {
+                       systemId=a.systemId,
+                       createtime=a.createtime,
+                       systemName=a.systemName,
+                       systemDescription=a.systemDescription,
+                       systemType=a.systemType,
+                       projectId=a.projectId,
+                       projectName=b.projectName
+                   }).AsQueryable();
             return ret;
         }
         public systems getById(string systemId)

@@ -167,7 +167,7 @@
     <Compile Include="Models\PM\usersViewModel.cs" />
     <Compile Include="Models\SA\articlesViewModel.cs" />
     <Compile Include="Models\SA\SAaction1.cs" />
-    <Compile Include="Models\SD\SDaction1.cs" />
+    <Compile Include="Models\SD\systemsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -665,9 +665,6 @@
     <Content Include="Areas\SASDPM\Views\web.config" />
     <Content Include="Areas\SASDPM\Views\PM\Index.cshtml" />
     <Content Include="Areas\SASDPM\Views\SD\Index.cshtml" />
-    <Content Include="Areas\SASDPM\Views\SD\Action1.cshtml" />
-    <Content Include="Areas\SASDPM\Views\SD\Action2.cshtml" />
-    <Content Include="Areas\SASDPM\Views\SD\Action3.cshtml" />
     <Content Include="Areas\SASDPM\Views\SA\Index.cshtml" />
     <Content Include="Areas\SASDPM\Views\SA\Articles.cshtml" />
     <Content Include="Areas\SASDPM\Views\SA\EditArticle.cshtml" />

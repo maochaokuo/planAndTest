@@ -1,8 +1,80 @@
-﻿
+﻿@model planAndTest.Models.SD.systemsViewModel
+
 @{
-    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutSD.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Systems</h1>
 
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.singleSelect, new { id = "singleSelect" })
+    <div class="container">
+        <div class="row">
+            <div class="col-12">&nbsp; </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                projectName
+            </div>
+            <div class="col-4">
+                @Html.DropDownListFor(m => m.projectId, (SelectList)ViewBag.projectList, "", new { @class = "custom-select" })
+            </div>
+            <div class="col-2">
+                systemName
+            </div>
+            <div class="col-4">
+                @Html.TextBoxFor(m => m.systemName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">&nbsp; </div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+                <button onclick="$('#cmd').val('query');$('form').submit()" class="btn btn-primary">Query</button>
+                <button onclick="$('#cmd').val('add');$('form').submit()" class="btn btn-primary">Add</button>
+                <button onclick="$('#cmd').val('delete');$('form').submit()" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">&nbsp; </div>
+        </div>
+        @if (Model != null && Model.systemList != null && Model.systemList.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>systemName</th>
+                            <th>createtime</th>
+                            <th>systemDescription</th>
+                            <th>systemType</th>
+                            <th>projectName</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (var rec in Model.systemList)
+                    {
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" id="@rec.systemId" name="multiSelect" value="@rec.systemId" class="form-control-lg" /></td>
+                                <td>@rec.systemName</td>
+                                <td>@rec.createtime.ToString("yyyy/MM/dd HH:mm:ss")</td>
+                                <td>@rec.systemDescription</td>
+                                <td>@rec.systemType</td>
+                                <td>@rec.projectName</td>
+                                <td>
+                                    <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.systemId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+}
