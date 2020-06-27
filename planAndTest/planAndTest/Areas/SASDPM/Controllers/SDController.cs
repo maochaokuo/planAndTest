@@ -9,13 +9,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
     public class SDController : Controller
     {
         // todo !!... (1) later
-        // projectVersion
+        // (done)projectVersion
         // systems, systemTemplate, systemEntity, 
-        // entityClass, entityClassVariable
+        // systemInterface, interfaceParameter, interfaceProperty
         // stateMachine, stateMachineState, stateMachineEvent2State
         // todo !!... (2) further later
+        // entityClass, entityClassVariable
         // domain, domainCase
-        // systemInterface, interfaceParameter, interfaceProperty, systemLocation
+        // systemLocation, servers
         public ActionResult Index()
         {
             return View();

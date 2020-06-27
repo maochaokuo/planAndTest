@@ -51,16 +51,20 @@ namespace planAndTest.Areas.SASDPM.Controllers
             tblArticle tbart = new tblArticle();
             article parent = null;
             viewModel.subjects = new List<article>();
+            article art = null;
             if (!string.IsNullOrWhiteSpace(articleId))
             {
-                article art = tbart.GetArticleById(articleId);
-                viewModel.articleTitle = art.articleTitle;
-                viewModel.articleType = art.articleType;
-                viewModel.articleHtmlContent = art.articleHtmlContent;
-                if (string.IsNullOrWhiteSpace(parentDirId))
-                    parentDirId = art.belongToArticleDirId.ToString();
+                art = tbart.GetArticleById(articleId);
+                if (art != null)
+                {
+                    viewModel.articleTitle = art.articleTitle;
+                    viewModel.articleType = art.articleType;
+                    viewModel.articleHtmlContent = art.articleHtmlContent;
+                    if (string.IsNullOrWhiteSpace(parentDirId))
+                        parentDirId = art.belongToArticleDirId.ToString();
+                }
             }
-            else
+            if (art==null)
             {
                 viewModel.articleTitle = "";
                 viewModel.articleType = "";

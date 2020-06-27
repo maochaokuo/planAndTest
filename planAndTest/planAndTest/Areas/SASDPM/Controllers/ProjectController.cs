@@ -47,7 +47,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             switch (viewModel.cmd)
             {
                 case "query":
-                    //undone (2) !!... project article link
+                    // project article link
                     viewModel.errorMsg = loadProjects(ref viewModel);
                     ar = View(viewModel);
                     break;

@@ -30,11 +30,11 @@ select
     where 
 		--st.name in ('tbl_CM_Service_Count_Log')
 		--st.name in ('tbl_VIP_DP_Membership')
-		st.name in ('projectVersion')
+		--st.name in ('projectVersion')
 		--st.name in ('systemEntity', 'systems', 'systemTemplate')
 		--st.name in ('project')
 		--st.name in ('article')
 		--st.name in ('user')
-		--st.name in ('tbl_CM_Role_List')
+		st.name in ('systems')
 		--st.name in ('tbl_CM_Function_List', 'tbl_CM_Role_In_Function')
 	order by st.name, sc.column_id

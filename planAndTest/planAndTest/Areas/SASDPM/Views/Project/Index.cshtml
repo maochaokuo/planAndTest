@@ -54,6 +54,8 @@
                             <th>projectId</th>
                             <th>createtime</th>
                             <th>projectName</th>
+                            <th>project article</th>
+                            <th>versions</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -65,6 +67,8 @@
                                 <td>@rec.projectId</td>
                                 <td>@rec.createtime.ToString("yyyy/MM/dd HH:mm:ss")</td>
                                 <td>@rec.projectName</td>
+                                <td>@Html.ActionLink(rec.projectName + " article", "Articles", "SA", new { articleId = rec.projectArticleId }, null)</td>
+                                <td>@Html.ActionLink(rec.projectName + " versions", "Index", "ProjectVersion", new { projectId = rec.projectId }, null)</td>
                                 <td>
                                     <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.projectId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
                                 </td>

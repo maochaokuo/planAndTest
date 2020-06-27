@@ -18,9 +18,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
     public class ProjectVersionController : Controller
     {
         // GET: SASDPM/ProjectVersion
-        public ActionResult Index()
+        public ActionResult Index(string projectId)
         {
             projectVersionsViewModel viewModel = new projectVersionsViewModel();
+            viewModel.projectId = projectId;
             ViewBag.projectList = PMdropdownOption.projectList();
             return View(viewModel);
         }

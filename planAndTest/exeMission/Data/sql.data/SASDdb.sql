@@ -1,6 +1,10 @@
 use SASDdb
 
 select *
+from systems
+
+/*
+select *
 from projectVersion
 
 select *
@@ -8,7 +12,6 @@ select *
 from project
 --where projectName='System Design Project'
 
-/*
 select *
 -- delete
 from article
