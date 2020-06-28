@@ -1,0 +1,123 @@
+﻿@model models.fwk.SD.systemEditViewModel
+
+@{
+    ViewBag.Title = "AddUpdate";
+    Layout = "~/Views/Shared/_LayoutSD.cshtml";
+}
+
+<h2>Add/Update system</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "ausform" }))
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.pageStatus)
+    if (!string.IsNullOrWhiteSpace(Model.errorMsg))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.errorMsg
+        </div>
+    }
+    if (!string.IsNullOrWhiteSpace(Model.successMsg))
+    {
+        <div class="alert alert-success" role="alert">
+            @Model.successMsg
+        </div>
+    }
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            systemId
+        </div>
+        <div class="col-4">
+            @Html.TextBoxFor(m => m.editModel.systemId, new { @class = "form-control disabled", @readonly = "readonly" })
+        </div>
+        <div class="col-2">
+            projectId
+        </div>
+        <div class="col-4">
+            @Html.DropDownListFor(m => m.editModel.projectId, (SelectList)ViewBag.projectList, "", new { @class = "custom-select" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            systemName
+        </div>
+        <div class="col-4">
+            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            {
+                @Html.TextBoxFor(m => m.editModel.systemName, new { @class = "form-control disabled", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.editModel.systemName, new { @class = "form-control" })
+            }
+        </div>
+        <div class="col-2">
+            systemDescription
+        </div>
+        <div class="col-4">
+            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            {
+                @Html.TextBoxFor(m => m.editModel.systemDescription, new { @class = "form-control disabled", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.editModel.systemDescription, new { @class = "form-control" })
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            systemType
+        </div>
+        <div class="col-4">
+            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            {
+                @Html.TextBoxFor(m => m.editModel.systemType, new { @class = "form-control disabled", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.editModel.systemType, new { @class = "form-control" })
+            }
+        </div>
+        <div class="col-2">
+            systemGroupName
+        </div>
+        <div class="col-4">
+            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            {
+                @Html.TextBoxFor(m => m.editModel.systemGroupName, new { @class = "form-control disabled", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.editModel.systemGroupName, new { @class = "form-control" })
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-10">
+            @if (Model.pageStatus > modelsfwk.PAGE_STATUS.SAVED)
+            {
+                <button class="btn btn-primary" onclick="$('#cmd').val('save');$('form').submit()">Save</button>
+            }
+            @if (Model.pageStatus == modelsfwk.PAGE_STATUS.ADDSAVED)
+            {
+                <button class="btn btn-primary" onclick="$('#cmd').val('addNew');$('form').submit()">Add Next</button>
+            }
+            <button class="btn btn-primary" onclick="$('#cmd').val('query');$('form').submit()">Query</button>
+        </div>
+    </div>
+</div>
+    <input type="hidden" id="errorMsg" name="errorMsg" value="@Model.errorMsg" />
+    <input type="hidden" id="successMsg" name="successMsg" value="@Model.successMsg" />
+}
+
+<script>
+    var herror = $('#errorMsg').val();
+    var hmessage = $('#successMsg').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
+</script>

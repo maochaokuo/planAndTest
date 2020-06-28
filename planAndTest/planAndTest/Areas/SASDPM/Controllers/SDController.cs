@@ -2,7 +2,9 @@
 using modelsfwk;
 using planAndTest.Helper.PM;
 using planAndTest.Models.SD;
+using SASDconstants;
 using SASDdb.entity.fwk;
+using SASDdbService;
 using SASDdbService.fwk;
 using System;
 using System.Collections.Generic;
@@ -45,6 +47,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult Systems()
         {
             systemsViewModel viewModel = new systemsViewModel();
+            ViewBag.projectList = PMdropdownOption.projectList();
             return View(viewModel);
         }
         protected string querySystems(ref systemsViewModel viewModel)
@@ -64,7 +67,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
         [HttpPost]
         public ActionResult Systems(systemsViewModel viewModel)
         {
-            //undone !!... (1) systems view
             ActionResult ar;
             var multiSelect = Request.Form["multiSelect"];
             ViewBag.projectList = PMdropdownOption.projectList();
@@ -115,6 +117,132 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     }
                     viewModel.errorMsg = querySystems(ref viewModel);
                     ar = View(viewModel);
+                    break;
+                default:
+                    ar = View(viewModel);
+                    break;
+            }
+            return ar;
+        }
+        public ActionResult AddUpdate()
+        {
+            systemEditViewModel viewModel;
+            var tmpVM = TempData["systemEditViewModel"];
+            if (tmpVM == null)
+                viewModel = new systemEditViewModel();
+            else
+                viewModel = (systemEditViewModel)tmpVM;
+            ViewBag.projectList = PMdropdownOption.projectList();
+            return View(viewModel);
+        }
+        protected string checkForm(systemEditViewModel viewModel)
+        {
+            string ret = "";
+            if (string.IsNullOrWhiteSpace(viewModel.editModel.systemName))
+                ret = "system name cannot be empty";
+            else if (string.IsNullOrWhiteSpace(viewModel.editModel.systemType))
+                ret = "system type cannot be empty";
+            return ret;
+        }
+        protected string addSystemArticle(systemEditViewModel viewModel
+            , SASDdbContext db)
+        {
+            string ret;
+            tblArticle ta = new tblArticle(db);
+            tblProject tp = new tblProject();
+            string projectName = tp.nameById(viewModel.editModel.projectId.ToString());
+            article prjArticle = ta.GetByProjectId(viewModel.editModel.projectId.ToString());
+            article pva = new article();
+            pva.articleId = (Guid)viewModel.editModel.systemArticleId;
+            pva.createtime = DateTime.Now;
+            pva.articleTitle = $"project {projectName} system " +
+                $"{viewModel.editModel.systemName}";
+            pva.articleHtmlContent = string.Format(@"
+<h1>{0} version {1}</h1>
+<p>type {2}</p>
+<p>{3}</p>
+", projectName, viewModel.editModel.systemName
+, viewModel.editModel.systemType
+, viewModel.editModel.systemDescription);
+            pva.articleContent = string.Format("{0} {1} {2} {3}"
+                , projectName, viewModel.editModel.systemName
+                , viewModel.editModel.systemType
+                , viewModel.editModel.systemDescription);
+            pva.isDir = true;
+            pva.belongToArticleDirId = prjArticle.articleId;
+            pva.articleType = ARTICLE_TYPE.Project.ToString();
+            pva.articleStatus = ARTICLE_STATUS.New.ToString();
+            pva.priority = 1;
+            pva.projectId = viewModel.editModel.projectId;
+            ret = ta.Add(pva);
+            ret += ta.SaveChanges();
+            return ret;
+        }
+        [HttpPost]
+        public ActionResult AddUpdate(systemEditViewModel viewModel)
+        {
+            ActionResult ar;
+            ViewBag.projectList = PMdropdownOption.projectList();
+            string err;
+            viewModel.clearMsg();
+            switch (viewModel.cmd)
+            {
+                case "save":
+                    err = checkForm(viewModel);
+                    if (err.Length > 0)
+                    {
+                        viewModel.errorMsg = err;
+                        ar = View(viewModel);
+                        break;
+                    }
+                    tblSystem ts = new tblSystem();
+                    if (viewModel.pageStatus == PAGE_STATUS.ADD)
+                    {
+                        viewModel.editModel.createtime = DateTime.Now;
+                        viewModel.editModel.systemArticleId = Guid.NewGuid();
+                        using (var trans = ts.BeginTransaction())
+                        {
+                            err += ts.Add(viewModel.editModel);
+                            err += ts.SaveChanges();
+                            err += addSystemArticle(viewModel,
+                                ts.GetDbContext());
+                            if (err.Length > 0)
+                                trans.Rollback();
+                            else
+                                trans.Commit();
+                        }
+                        if (err.Length == 0)
+                        {
+                            viewModel.successMsg = "new system saved";
+                            viewModel.pageStatus = PAGE_STATUS.ADDSAVED;
+                        }
+                        else
+                            viewModel.errorMsg = err;
+                    }
+                    else if (viewModel.pageStatus == PAGE_STATUS.EDIT)
+                    {
+                        err += ts.Update(viewModel.editModel);
+                        err += ts.SaveChanges();
+                        if (err.Length == 0)
+                        {
+                            viewModel.successMsg = "system update";
+                            viewModel.pageStatus = PAGE_STATUS.SAVED;
+                        }
+                        else
+                            viewModel.errorMsg = err;
+                    }
+                    else
+                        viewModel.errorMsg = "wrong page status " + viewModel.pageStatus;
+                    ar = View(viewModel);
+                    break;
+                case "addNew":
+                    systemEditViewModel tmpVM = new systemEditViewModel();
+                    tmpVM.pageStatus = PAGE_STATUS.ADD;
+                    TempData["systemEditViewModel"] = tmpVM;
+                    ar = RedirectToAction("AddUpdate");
+                    break;
+                case "query":
+                    ar = RedirectToAction("Index");
                     break;
                 default:
                     ar = View(viewModel);

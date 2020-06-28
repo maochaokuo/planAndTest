@@ -677,6 +677,8 @@
     <Content Include="Areas\SASDPM\Views\Project\AddUpdateProject.cshtml" />
     <Content Include="Areas\SASDPM\Views\ProjectVersion\Index.cshtml" />
     <Content Include="Areas\SASDPM\Views\ProjectVersion\AddUpdate.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SD\Systems.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SD\AddUpdate.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
