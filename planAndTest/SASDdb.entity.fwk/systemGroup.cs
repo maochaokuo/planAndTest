@@ -6,30 +6,24 @@ namespace SASDdb.entity.fwk
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class systems
+    [Table("systemGroup")]
+    public partial class systemGroup
     {
-        public Guid systemId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int systemGroupId { get; set; }
 
         public DateTime createtime { get; set; }
 
         [Key]
         [Column(Order = 0)]
         [StringLength(33)]
-        public string systemName { get; set; }
+        public string systemGroupName { get; set; }
 
         [StringLength(999)]
-        public string systemDescription { get; set; }
-
-        [StringLength(99)]
-        public string systemType { get; set; }
+        public string systemGroupDescription { get; set; }
 
         [Key]
         [Column(Order = 1)]
         public Guid projectId { get; set; }
-
-        [StringLength(33)]
-        public string systemGroupName { get; set; }
-
-        public Guid? systemArticleId { get; set; }
     }
 }

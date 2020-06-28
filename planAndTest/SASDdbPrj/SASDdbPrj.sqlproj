@@ -88,5 +88,12 @@
     <Build Include="dbo\Tables\domainCase.sql" />
     <Build Include="dbo\Tables\domain.sql" />
     <Build Include="dbo\Tables\templateEntity.sql" />
+    <Build Include="dbo\Tables\uiForm.sql" />
+    <Build Include="dbo\Tables\uiControl.sql" />
+    <Build Include="dbo\Tables\systemGroup.sql" />
+    <Build Include="dbo\Tables\stateMachineEvent.sql" />
+    <Build Include="dbo\Tables\dbTable.sql" />
+    <Build Include="dbo\Tables\dbFields.sql" />
+    <Build Include="dbo\Tables\db.sql" />
   </ItemGroup>
 </Project>

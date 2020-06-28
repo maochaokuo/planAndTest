@@ -11,6 +11,8 @@
 
 
 
+
+
 GO
 
 
@@ -27,4 +29,9 @@ CREATE NONCLUSTERED INDEX [IX_systems_2]
 GO
 CREATE NONCLUSTERED INDEX [IX_systems_1]
     ON [dbo].[systems]([projectId] ASC);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_systems]
+    ON [dbo].[systems]([systemId] ASC);
 

@@ -53,6 +53,9 @@
     <Compile Include="article.cs" />
     <Compile Include="articleLinks.cs" />
     <Compile Include="articleRelation.cs" />
+    <Compile Include="db.cs" />
+    <Compile Include="dbFields.cs" />
+    <Compile Include="dbTable.cs" />
     <Compile Include="domain.cs" />
     <Compile Include="domainCase.cs" />
     <Compile Include="entityClass.cs" />
@@ -68,14 +71,18 @@
     <Compile Include="SASDdbContext.cs" />
     <Compile Include="servers.cs" />
     <Compile Include="stateMachine.cs" />
+    <Compile Include="stateMachineEvent.cs" />
     <Compile Include="stateMachineEvent2State.cs" />
     <Compile Include="stateMachineState.cs" />
     <Compile Include="systemEntity.cs" />
+    <Compile Include="systemGroup.cs" />
     <Compile Include="systemInterface.cs" />
     <Compile Include="systemLocation.cs" />
     <Compile Include="systems.cs" />
     <Compile Include="systemTemplate.cs" />
     <Compile Include="templateEntity.cs" />
+    <Compile Include="uiControl.cs" />
+    <Compile Include="uiForm.cs" />
     <Compile Include="user.cs" />
   </ItemGroup>
   <ItemGroup>

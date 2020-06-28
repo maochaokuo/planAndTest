@@ -28,12 +28,6 @@ namespace SASDdb.entity.fwk
         [StringLength(33)]
         public string newStateName { get; set; }
 
-        [StringLength(33)]
-        public string actionName { get; set; }
-
-        [StringLength(33)]
-        public string endEventName { get; set; }
-
         public DateTime createtime { get; set; }
     }
 }

@@ -15,6 +15,9 @@ namespace SASDdb.entity.fwk
         public virtual DbSet<article> article { get; set; }
         public virtual DbSet<articleLinks> articleLinks { get; set; }
         public virtual DbSet<articleRelation> articleRelation { get; set; }
+        public virtual DbSet<db> db { get; set; }
+        public virtual DbSet<dbFields> dbFields { get; set; }
+        public virtual DbSet<dbTable> dbTable { get; set; }
         public virtual DbSet<domain> domain { get; set; }
         public virtual DbSet<domainCase> domainCase { get; set; }
         public virtual DbSet<entityClass> entityClass { get; set; }
@@ -28,14 +31,18 @@ namespace SASDdb.entity.fwk
         public virtual DbSet<projectVersion> projectVersion { get; set; }
         public virtual DbSet<servers> servers { get; set; }
         public virtual DbSet<stateMachine> stateMachine { get; set; }
+        public virtual DbSet<stateMachineEvent> stateMachineEvent { get; set; }
         public virtual DbSet<stateMachineEvent2State> stateMachineEvent2State { get; set; }
         public virtual DbSet<stateMachineState> stateMachineState { get; set; }
         public virtual DbSet<systemEntity> systemEntity { get; set; }
+        public virtual DbSet<systemGroup> systemGroup { get; set; }
         public virtual DbSet<systemInterface> systemInterface { get; set; }
         public virtual DbSet<systemLocation> systemLocation { get; set; }
         public virtual DbSet<systems> systems { get; set; }
         public virtual DbSet<systemTemplate> systemTemplate { get; set; }
         public virtual DbSet<templateEntity> templateEntity { get; set; }
+        public virtual DbSet<uiControl> uiControl { get; set; }
+        public virtual DbSet<uiForm> uiForm { get; set; }
         public virtual DbSet<user> user { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -66,6 +73,34 @@ namespace SASDdb.entity.fwk
 
             modelBuilder.Entity<articleLinks>()
                 .Property(e => e.linkDesc)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<db>()
+                .Property(e => e.databaseName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<dbFields>()
+                .Property(e => e.databaseName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<dbFields>()
+                .Property(e => e.tableName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<dbFields>()
+                .Property(e => e.fieldName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<dbFields>()
+                .Property(e => e.fieldType)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<dbTable>()
+                .Property(e => e.databaseName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<dbTable>()
+                .Property(e => e.tableName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<domain>()
@@ -136,6 +171,10 @@ namespace SASDdb.entity.fwk
                 .Property(e => e.stateMachineName)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<stateMachineEvent>()
+                .Property(e => e.eventName)
+                .IsUnicode(false);
+
             modelBuilder.Entity<stateMachineEvent2State>()
                 .Property(e => e.eventName)
                 .IsUnicode(false);
@@ -148,14 +187,6 @@ namespace SASDdb.entity.fwk
                 .Property(e => e.newStateName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<stateMachineEvent2State>()
-                .Property(e => e.actionName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<stateMachineEvent2State>()
-                .Property(e => e.endEventName)
-                .IsUnicode(false);
-
             modelBuilder.Entity<stateMachineState>()
                 .Property(e => e.stateName)
                 .IsUnicode(false);
@@ -166,6 +197,10 @@ namespace SASDdb.entity.fwk
 
             modelBuilder.Entity<systemInterface>()
                 .Property(e => e.moduleOrProject)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<uiControl>()
+                .Property(e => e.controlType)
                 .IsUnicode(false);
 
             modelBuilder.Entity<user>()

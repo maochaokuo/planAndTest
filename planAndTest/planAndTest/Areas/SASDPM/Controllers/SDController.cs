@@ -1,4 +1,8 @@
-﻿using planAndTest.Models.SD;
+﻿using models.fwk.SD;
+using modelsfwk;
+using planAndTest.Helper.PM;
+using planAndTest.Models.SD;
+using SASDdb.entity.fwk;
 using SASDdbService.fwk;
 using System;
 using System.Collections.Generic;
@@ -61,8 +65,56 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult Systems(systemsViewModel viewModel)
         {
             ActionResult ar;
+            var multiSelect = Request.Form["multiSelect"];
+            ViewBag.projectList = PMdropdownOption.projectList();
+            viewModel.clearMsg();
+            tblSystem ts = new tblSystem();
+            systemEditViewModel tmpVM;
             switch (viewModel.cmd)
             {
+                case "query":
+                    viewModel.errorMsg = querySystems(ref viewModel);
+                    ar = View(viewModel);
+                    break;
+                case "add":
+                    tmpVM = new systemEditViewModel();
+                    tmpVM.pageStatus = PAGE_STATUS.ADD;
+                    TempData["systemEditViewModel"] = tmpVM;
+                    ar = RedirectToAction("AddUpdate");
+                    break;
+                case "update":
+                    systems sys = ts.getById(viewModel.singleSelect);
+                    if (sys != null)
+                    {
+                        tmpVM = new systemEditViewModel();
+                        tmpVM.editModel = sys;
+                        tmpVM.pageStatus = PAGE_STATUS.EDIT;
+                        TempData["systemEditViewModel"] = tmpVM;
+                        ar = RedirectToAction("AddUpdate");
+                        break;
+                    }
+                    else
+                        viewModel.errorMsg = "error reading this system";
+                    ar = View(viewModel);
+                    break;
+                case "delete":
+                    //undone !!... (3) delete project delete article also
+                    if (string.IsNullOrWhiteSpace(multiSelect))
+                        viewModel.errorMsg = "please select system to delete";
+                    else
+                    {
+                        string[] selected = multiSelect.Split(',');
+                        foreach (string systemId in selected.ToList())
+                        {
+                            viewModel.errorMsg += ts.Delete(systemId);
+                        }
+                        viewModel.errorMsg += ts.SaveChanges();
+                        if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                            viewModel.successMsg = "successfully deleted";
+                    }
+                    viewModel.errorMsg = querySystems(ref viewModel);
+                    ar = View(viewModel);
+                    break;
                 default:
                     ar = View(viewModel);
                     break;

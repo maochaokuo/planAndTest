@@ -6,24 +6,29 @@ namespace SASDdb.entity.fwk
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("stateMachineState")]
-    public partial class stateMachineState
+    [Table("uiControl")]
+    public partial class uiControl
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int stateMachineStateId { get; set; }
+        public int uiControlId { get; set; }
 
         [Key]
         [Column(Order = 0)]
-        public Guid stateMachineId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int uiFormId { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [StringLength(33)]
-        public string stateName { get; set; }
+        public string controlName { get; set; }
 
         [StringLength(999)]
-        public string stateDescription { get; set; }
+        public string controlDescription { get; set; }
 
         public DateTime createtime { get; set; }
+
+        [Required]
+        [StringLength(33)]
+        public string controlType { get; set; }
     }
 }
