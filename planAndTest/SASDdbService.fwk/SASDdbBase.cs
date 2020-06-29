@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Text;
 
 namespace SASDdbService
@@ -13,9 +14,11 @@ namespace SASDdbService
     public class SASDdbBase
     {
         protected SASDdbContext db;
+        protected DbContextTransaction trans;
         public SASDdbBase()
         {
             db = new SASDdbContext();
+            trans = null;
         }
         public SASDdbBase(SASDdbContext db)
         {
@@ -29,6 +32,30 @@ namespace SASDdbService
         {
             DbContextTransaction ret = 
                 db.Database.BeginTransaction();
+            return ret;
+        }
+        public string Commit()
+        {
+            string ret = "";
+            if (trans != null)
+            {
+                trans.Commit();
+                trans.Dispose();
+            }
+            else
+                ret = "no transaction to commit";
+            return ret;
+        }
+        public string Rollback()
+        {
+            string ret = "";
+            if (trans != null)
+            {
+                trans.Rollback();
+                trans.Dispose();
+            }
+            else
+                ret = "no transaction to commit";
             return ret;
         }
         public virtual string SaveChanges()

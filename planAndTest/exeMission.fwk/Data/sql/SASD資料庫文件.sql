@@ -35,6 +35,6 @@ select
 		--st.name in ('project')
 		--st.name in ('article')
 		--st.name in ('user')
-		st.name in ('systems')
-		--st.name in ('tbl_CM_Function_List', 'tbl_CM_Role_In_Function')
+		--st.name in ('systems')
+		st.name in ('systemGroup')
 	order by st.name, sc.column_id

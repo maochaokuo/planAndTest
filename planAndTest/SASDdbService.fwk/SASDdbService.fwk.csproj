@@ -57,6 +57,7 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="repository\UnitOfWork.cs" />
     <Compile Include="SASDdbBase.cs" />
     <Compile Include="tblArticle.cs" />
     <Compile Include="tblProject.cs" />

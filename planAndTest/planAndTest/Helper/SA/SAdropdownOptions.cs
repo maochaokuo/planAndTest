@@ -10,7 +10,6 @@ namespace planAndTest.Helper.SA
 {
     public class SAdropdownOptions
     {
-
         public static SelectList articleTypeOption()
         {
             List<SelectListItem> _itemType = new List<SelectListItem>();

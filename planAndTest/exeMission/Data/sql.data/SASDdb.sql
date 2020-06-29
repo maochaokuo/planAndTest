@@ -1,6 +1,9 @@
 use SASDdb
 
 select *
+from systemGroup
+
+select *
 from systems
 
 /*

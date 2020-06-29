@@ -159,6 +159,7 @@
     <Compile Include="Helper\htmlHelper.cs" />
     <Compile Include="Helper\PM\PMdropdownOption.cs" />
     <Compile Include="Helper\SA\SAdropdownOptions.cs" />
+    <Compile Include="Helper\SD\SDdropdownOptions.cs" />
     <Compile Include="Models\EPL\EplAction1vm.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\Job\jProgress.cs" />
