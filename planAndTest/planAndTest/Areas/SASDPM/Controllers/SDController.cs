@@ -73,6 +73,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             viewModel.clearMsg();
             tblSystem ts = new tblSystem();
             systemEditViewModel tmpVM;
+            //todo (1) two combo system type, system group
             switch (viewModel.cmd)
             {
                 case "query":
