@@ -1,6 +1,7 @@
 ﻿using models.fwk.SD;
 using modelsfwk;
 using planAndTest.Helper.PM;
+using planAndTest.Helper.SD;
 using planAndTest.Models.SD;
 using SASDconstants;
 using SASDdb.entity.fwk;
@@ -48,6 +49,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             systemsViewModel viewModel = new systemsViewModel();
             ViewBag.projectList = PMdropdownOption.projectList();
+            ViewBag.systemTypeList = SDdropdownOptions.systemTypeList();
+            ViewBag.systemGroupList = SDdropdownOptions.systemGroupList();
             return View(viewModel);
         }
         protected string querySystems(ref systemsViewModel viewModel)
@@ -73,7 +76,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
             viewModel.clearMsg();
             tblSystem ts = new tblSystem();
             systemEditViewModel tmpVM;
-            //todo (1) two combo system type, system group
             switch (viewModel.cmd)
             {
                 case "query":
@@ -134,6 +136,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
             else
                 viewModel = (systemEditViewModel)tmpVM;
             ViewBag.projectList = PMdropdownOption.projectList();
+            // two combo system type, system group
+            ViewBag.systemTypeList = SDdropdownOptions.systemTypeList();
+            ViewBag.systemGroupList = SDdropdownOptions.systemGroupList();
             return View(viewModel);
         }
         protected string checkForm(systemEditViewModel viewModel)
@@ -159,7 +164,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             pva.articleTitle = $"project {projectName} system " +
                 $"{viewModel.editModel.systemName}";
             pva.articleHtmlContent = string.Format(@"
-<h1>{0} version {1}</h1>
+<h1>{0} system {1}</h1>
 <p>type {2}</p>
 <p>{3}</p>
 ", projectName, viewModel.editModel.systemName
@@ -184,6 +189,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             ActionResult ar;
             ViewBag.projectList = PMdropdownOption.projectList();
+            // two combo system type, system group
+            ViewBag.systemTypeList = SDdropdownOptions.systemTypeList();
+            ViewBag.systemGroupList = SDdropdownOptions.systemGroupList();
             string err;
             viewModel.clearMsg();
             switch (viewModel.cmd)
@@ -243,7 +251,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = RedirectToAction("AddUpdate");
                     break;
                 case "query":
-                    ar = RedirectToAction("Index");
+                    ar = RedirectToAction("Systems");
                     break;
                 default:
                     ar = View(viewModel);

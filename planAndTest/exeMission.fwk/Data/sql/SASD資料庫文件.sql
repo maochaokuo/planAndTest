@@ -34,7 +34,7 @@ select
 		--st.name in ('systemEntity', 'systems', 'systemTemplate')
 		--st.name in ('project')
 		--st.name in ('article')
-		--st.name in ('user')
+		st.name in ('systems','systemGroup')
 		--st.name in ('systems')
-		st.name in ('systemGroup')
+		--st.name in ('systemGroup')
 	order by st.name, sc.column_id

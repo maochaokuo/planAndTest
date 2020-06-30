@@ -55,7 +55,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = View(viewModel);
                     break;
                 case "add":
-                    //todo (2) should default to currently selected project
                     tmpVM = new projectVersionEditViewModel();
                     tmpVM.pageStatus = PAGE_STATUS.ADD;
                     TempData["projectVersionEditViewModel"] = tmpVM;

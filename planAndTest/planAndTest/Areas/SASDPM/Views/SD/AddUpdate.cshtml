@@ -73,11 +73,11 @@
         <div class="col-4">
             @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
             {
-                @Html.TextBoxFor(m => m.editModel.systemType, new { @class = "form-control disabled", @readonly = "readonly" })
+                @Html.DropDownListFor(m => m.editModel.systemType, (SelectList)ViewBag.systemTypeList, "", new { @class = "form-control disabled", @readonly = "readonly" })
             }
             else
             {
-                @Html.TextBoxFor(m => m.editModel.systemType, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.editModel.systemType, (SelectList)ViewBag.systemTypeList, "", new { @class = "form-control" })
             }
         </div>
         <div class="col-2">
@@ -86,11 +86,11 @@
         <div class="col-4">
             @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
             {
-                @Html.TextBoxFor(m => m.editModel.systemGroupName, new { @class = "form-control disabled", @readonly = "readonly" })
+                @Html.DropDownListFor(m => m.editModel.systemGroupName, (SelectList)ViewBag.systemGroupList, "", new { @class = "form-control disabled", @readonly = "readonly" })
             }
             else
             {
-                @Html.TextBoxFor(m => m.editModel.systemGroupName, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.editModel.systemGroupName, (SelectList)ViewBag.systemGroupList, "", new { @class = "form-control" })
             }
         </div>
     </div>

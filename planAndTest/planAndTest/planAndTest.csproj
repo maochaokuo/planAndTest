@@ -148,6 +148,7 @@
     <Compile Include="Areas\SASDPM\Controllers\ProjectController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\ProjectVersionController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SDController.cs" />
+    <Compile Include="Areas\SASDPM\Controllers\SystemGroupController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\UserController.cs" />
     <Compile Include="Areas\SASDPM\SASDPMAreaRegistration.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SAController.cs" />
@@ -726,6 +727,7 @@
     <Folder Include="Areas\EPL\Views\Shared\" />
     <Folder Include="Areas\SASDPM\Data\" />
     <Folder Include="Areas\SASDPM\Views\Shared\" />
+    <Folder Include="Areas\SASDPM\Views\SystemGroup\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
