@@ -58,6 +58,7 @@
     <Compile Include="SA\articleEditViewModel.cs" />
     <Compile Include="SD\systemDisp.cs" />
     <Compile Include="SD\systemEditViewModel.cs" />
+    <Compile Include="SD\systemGroupViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
