@@ -1,6 +1,7 @@
 ﻿using SASDdb.entity.fwk;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,33 +40,36 @@ namespace SASDdbService.fwk.repository
 
         protected void init()
         {
-            articleLinksRepository = new Repository<articleLinks>();
-            articleRelationRepository=new Repository<articleRelation>();
-            dbRepository=new Repository<db>();
-            dbFieldsRepository=new Repository<dbFields>();
-            dbTableRepository=new Repository<dbTable>();
-            domainRepository=new Repository<domain>();
-            domainCaseRepository=new Repository<domainCase>();
-            entityClassRepository=new Repository<entityClass>();
-            entityClassVariableRepository=new Repository<entityClassVariable>();
-            fileRepositoryRepository=new Repository<fileRepository>();
-            interfaceParameterRepository=new Repository<interfaceParameter>();
-            interfacePropertyRepository=new Repository<interfaceProperty>();
-            networkServiceSourceRepository=new Repository<networkServiceSource>();
-            projectMemberUserRepository=new Repository<projectMemberUser>();
-            serversRepository=new Repository<servers>();
-            stateMachineRepository=new Repository<stateMachine>();
-            stateMachineEventRepository=new Repository<stateMachineEvent>();
-            stateMachineEvent2StateRepository=new Repository<stateMachineEvent2State>();
-            stateMachineStateRepository=new Repository<stateMachineState>();
-            systemEntityRepository=new Repository<systemEntity>();
-            systemGroupRepository=new Repository<systemGroup>();
-            systemInterfaceRepository=new Repository<systemInterface>();
-            systemLocationRepository=new Repository<systemLocation>();
-            systemTemplateRepository=new Repository<systemTemplate>();
-            templateEntityRepository=new Repository<templateEntity>();
-            uiControlRepository=new Repository<uiControl>();
-            uiFormRepository=new Repository<uiForm>();
+            articleLinksRepository = new Repository<articleLinks>(db);
+            articleRelationRepository=new Repository<articleRelation>(db);
+            dbRepository=new Repository<db>(db);
+            dbFieldsRepository=new Repository<dbFields>(db);
+            dbTableRepository=new Repository<dbTable>(db);
+            domainRepository=new Repository<domain>(db);
+            domainCaseRepository=new Repository<domainCase>(db);
+            entityClassRepository=new Repository<entityClass>(db);
+            entityClassVariableRepository=
+                new Repository<entityClassVariable>(db);
+            fileRepositoryRepository=new Repository<fileRepository>(db);
+            interfaceParameterRepository=new Repository<interfaceParameter>(db);
+            interfacePropertyRepository=new Repository<interfaceProperty>(db);
+            networkServiceSourceRepository=
+                new Repository<networkServiceSource>(db);
+            projectMemberUserRepository=new Repository<projectMemberUser>(db);
+            serversRepository=new Repository<servers>(db);
+            stateMachineRepository=new Repository<stateMachine>(db);
+            stateMachineEventRepository=new Repository<stateMachineEvent>(db);
+            stateMachineEvent2StateRepository=
+                new Repository<stateMachineEvent2State>(db);
+            stateMachineStateRepository=new Repository<stateMachineState>(db);
+            systemEntityRepository=new Repository<systemEntity>(db);
+            systemGroupRepository=new Repository<systemGroup>(db);
+            systemInterfaceRepository=new Repository<systemInterface>(db);
+            systemLocationRepository=new Repository<systemLocation>(db);
+            systemTemplateRepository=new Repository<systemTemplate>(db);
+            templateEntityRepository=new Repository<templateEntity>(db);
+            uiControlRepository=new Repository<uiControl>(db);
+            uiFormRepository=new Repository<uiForm>(db);
         }
         public UnitOfWork() : base()
         {
@@ -74,6 +78,11 @@ namespace SASDdbService.fwk.repository
         public UnitOfWork(SASDdbContext db) : base(db)
         {
             init();
+        }
+        public override string SaveChanges()
+        {
+            string ret = base.SaveChanges();
+            return ret;
         }
     }
 }

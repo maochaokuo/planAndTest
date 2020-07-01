@@ -16,10 +16,10 @@ namespace SASDdbService.fwk
         {
             dbSet = db.Set<T>();
         }
-        public Repository() : base()
-        {
-            init();
-        }
+        //public Repository() : base()
+        //{
+        //    init();
+        //}
         public Repository(SASDdbContext db) : base(db)
         {
             init();

@@ -116,9 +116,13 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         }
                         viewModel.errorMsg += ts.SaveChanges();
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                        { 
                             viewModel.successMsg = "successfully deleted";
+                            viewModel.errorMsg =
+                                querySystems(ref viewModel);
+                        }
                     }
-                    viewModel.errorMsg = querySystems(ref viewModel);
+                    //viewModel.errorMsg = querySystems(ref viewModel);
                     ar = View(viewModel);
                     break;
                 default:

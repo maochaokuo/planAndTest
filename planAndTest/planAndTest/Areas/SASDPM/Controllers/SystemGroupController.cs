@@ -52,6 +52,13 @@ namespace planAndTest.Areas.SASDPM.Controllers
                 viewModel.queryResult = null; 
             return ret;
         }
+        protected string checkForm(systemGroupViewModel viewModel)
+        {
+            string ret = "";
+            if (string.IsNullOrWhiteSpace(viewModel.editModel.systemGroupName))
+                ret = "system group name cannot be empty";
+            return ret;
+        }
         [HttpPost]
         public ActionResult Index(systemGroupViewModel viewModel)
         {
@@ -87,6 +94,28 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     }
                     else
                         viewModel.errorMsg = "error reading this system group";
+                    ar = View(viewModel);
+                    break;
+                case "delete":
+                    if (string.IsNullOrWhiteSpace(multiSelect))
+                        viewModel.errorMsg = "please select system group to delete";
+                    else
+                    {
+                        string[] selected = multiSelect.Split(',');
+                        foreach (string systemGroupId in selected.ToList())
+                            uow.systemGroupRepository.Delete(
+                                    systemGroupId.ToString());
+                        viewModel.errorMsg = uow.SaveChanges();
+                        if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                        {
+                            viewModel.successMsg = "successfully deleted";
+                            viewModel.errorMsg = query(ref viewModel);
+                        }
+                    }
+                    ar = View(viewModel);
+                    break;
+                case "save":
+                    //todo !!... (1) system group undone
                     ar = View(viewModel);
                     break;
                 default:

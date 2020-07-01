@@ -4,10 +4,12 @@ namespace modelsfwk
 {
     public enum PAGE_STATUS
     {
-        ADD=2,
-        EDIT=1,
-        SAVED=0,
-        ADDSAVED = -1
+        ADD = 2,
+        EDIT = 1,
+        SAVED = 0,
+        ADDSAVED = -1,
+        QUERY = -2,
+        QUERYED = -3
     }
     public class ViewModelBase 
     {
