@@ -11,11 +11,12 @@ namespace models.fwk.SD
     public class systemGroupViewModel : ViewModelBase
     {
         public systemGroup editModel { get; set; }
-        public List<systemGroup> queryResult { get; set; }
+        public List<systemGroupDisp> queryResult { get; set; }
         public systemGroupViewModel()
         {
             editModel = new systemGroup();
-            queryResult = new List<systemGroup>();
+            queryResult = new List<systemGroupDisp>();
+            pageStatus = PAGE_STATUS.QUERY;
         }
     }
 }

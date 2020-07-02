@@ -238,7 +238,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         err += ts.SaveChanges();
                         if (err.Length == 0)
                         {
-                            viewModel.successMsg = "system update";
+                            viewModel.successMsg = "system updated";
                             viewModel.pageStatus = PAGE_STATUS.SAVED;
                         }
                         else

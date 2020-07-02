@@ -2,6 +2,7 @@
 using modelsfwk;
 using planAndTest.Helper.PM;
 using SASDdb.entity.fwk;
+using SASDdbService.fwk;
 using SASDdbService.fwk.repository;
 using System;
 using System.Collections.Generic;
@@ -39,8 +40,18 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             string ret = "";
             systemGroup tmpModel = viewModel.editModel;
+            tblProject tp = new tblProject(uow.GetDbContext());
             var qry = (from a in uow.systemGroupRepository.GetAll()
-                       select a).AsQueryable();
+                       join b in tp.getAll() on a.projectId equals b.projectId
+                       select new systemGroupDisp
+                       {
+                           systemGroupId=a.systemGroupId,
+                           createtime=a.createtime,
+                           systemGroupName=a.systemGroupName,
+                           systemGroupDescription=a.systemGroupDescription,
+                           projectId=a.projectId,
+                           projectName=b.projectName
+                       }).AsQueryable();
             if (!string.IsNullOrWhiteSpace( tmpModel.projectId.ToString()))
                 qry = qry.Where(x => x.projectId == tmpModel.projectId);
             if (!string.IsNullOrWhiteSpace(tmpModel.systemGroupName))
@@ -70,8 +81,16 @@ namespace planAndTest.Areas.SASDPM.Controllers
             switch (viewModel.cmd)
             {
                 case "query":
-                    viewModel.errorMsg = query(ref viewModel);
-                    ar = View(viewModel);
+                    if (viewModel.pageStatus <= PAGE_STATUS.QUERY)
+                    {
+                        viewModel.errorMsg = query(ref viewModel);
+                        ar = View(viewModel);
+                    }
+                    else
+                    {
+                        viewModel.pageStatus = PAGE_STATUS.QUERY;
+                        ar = RedirectToAction("Index");
+                    }
                     break;
                 case "add":
                     viewModel.editModel = new systemGroup();
@@ -115,7 +134,31 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = View(viewModel);
                     break;
                 case "save":
-                    //todo !!... (1) system group undone
+                    string err = checkForm(viewModel);
+                    if (err.Length > 0)
+                    {
+                        viewModel.errorMsg = err;
+                        ar = View(viewModel);
+                        break;
+                    }
+                    if (viewModel.pageStatus == PAGE_STATUS.ADD)
+                    {
+                        viewModel.editModel.createtime = DateTime.Now;
+                        uow.systemGroupRepository.Insert(viewModel.editModel);
+                        viewModel.errorMsg = uow.SaveChanges();
+                        if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                            viewModel.successMsg = "new system group saved";
+                    }
+                    else if (viewModel.pageStatus == PAGE_STATUS.EDIT)
+                    {
+                        uow.systemGroupRepository.Update(viewModel.editModel);
+                        viewModel.errorMsg = uow.SaveChanges();
+                        if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                            viewModel.successMsg = "system group updated";
+                    }
+                    else
+                        viewModel.errorMsg = $"wrong page status " +
+                            $"{viewModel.pageStatus}";
                     ar = View(viewModel);
                     break;
                 default:

@@ -59,9 +59,9 @@
                             <th></th>
                         </tr>
                     </thead>
-                    @foreach (var rec in Model.systemList)
-                    {
-                        <tbody>
+                    <tbody>
+                        @foreach (var rec in Model.systemList)
+                        {
                             <tr>
                                 <td><input type="checkbox" id="@rec.systemId" name="multiSelect" value="@rec.systemId" class="form-control-lg" /></td>
                                 <td>@rec.projectName</td>
@@ -75,8 +75,8 @@
                                     <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.systemId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
                                 </td>
                             </tr>
-                        </tbody>
-                    }
+                        }
+                    </tbody>
                 </table>
             </div>
         }
