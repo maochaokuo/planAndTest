@@ -12,7 +12,7 @@ namespace SASDdbService.fwk
         T GetById(object Id);
         void Insert(T obj);
         void Update(T obj);
-        void Delete(Object Id);
+        void Delete(T Id);
         void Save();
     }
 }

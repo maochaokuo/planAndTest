@@ -52,7 +52,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                            projectId=a.projectId,
                            projectName=b.projectName
                        }).AsQueryable();
-            if (!string.IsNullOrWhiteSpace( tmpModel.projectId.ToString()))
+            if (tmpModel.projectId!=Guid.Empty &&
+                    !string.IsNullOrWhiteSpace( tmpModel.projectId.ToString()))
                 qry = qry.Where(x => x.projectId == tmpModel.projectId);
             if (!string.IsNullOrWhiteSpace(tmpModel.systemGroupName))
                 qry = qry.Where(x => x.systemGroupName.Contains(
@@ -122,8 +123,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     {
                         string[] selected = multiSelect.Split(',');
                         foreach (string systemGroupId in selected.ToList())
-                            uow.systemGroupRepository.Delete(
-                                    systemGroupId.ToString());
+                        {
+                            sg = (from a in uow.systemGroupRepository.GetAll()
+                                  where a.systemGroupId.ToString() == systemGroupId
+                                  select a).FirstOrDefault();
+                            if (sg == null)
+                                continue;
+                            uow.systemGroupRepository.Delete(sg);
+                        }
                         viewModel.errorMsg = uow.SaveChanges();
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
                         {
@@ -147,14 +154,20 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         uow.systemGroupRepository.Insert(viewModel.editModel);
                         viewModel.errorMsg = uow.SaveChanges();
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                        {
                             viewModel.successMsg = "new system group saved";
+                            viewModel.pageStatus = PAGE_STATUS.ADDSAVED;
+                        }
                     }
                     else if (viewModel.pageStatus == PAGE_STATUS.EDIT)
                     {
                         uow.systemGroupRepository.Update(viewModel.editModel);
                         viewModel.errorMsg = uow.SaveChanges();
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                        {
                             viewModel.successMsg = "system group updated";
+                            viewModel.pageStatus = PAGE_STATUS.SAVED;
+                        }
                     }
                     else
                         viewModel.errorMsg = $"wrong page status " +

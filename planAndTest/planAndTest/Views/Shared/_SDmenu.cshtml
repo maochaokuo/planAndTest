@@ -17,5 +17,10 @@
             asp-action="Action1">Action1</a>*@
             @Html.ActionLink("Systems", "Systems", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
+        <li class="nav-item">
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
+            asp-action="Action1">Action1</a>*@
+            @Html.ActionLink("System Groups", "Index", "SystemGroup", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
+        </li>
     </ul>
 </div>

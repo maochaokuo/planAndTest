@@ -42,9 +42,9 @@ namespace SASDdbService.fwk
         {
             db.Entry(obj).State = EntityState.Modified;
         }
-        public void Delete(object Id)
+        public void Delete(T getObjById)
         {
-            T getObjById = dbSet.Find(Id);
+            //T getObjById = dbSet.Find(Id);
             dbSet.Remove(getObjById);
         }
         public void Save()
