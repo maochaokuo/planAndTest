@@ -84,7 +84,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     break;
                 case "add":
                     tmpVM = new systemEditViewModel();
-                    tmpVM.pageStatus = PAGE_STATUS.ADD;
+                    tmpVM.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["systemEditViewModel"] = tmpVM;
                     ar = RedirectToAction("AddUpdate");
                     break;
@@ -94,7 +94,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     {
                         tmpVM = new systemEditViewModel();
                         tmpVM.editModel = sys;
-                        tmpVM.pageStatus = PAGE_STATUS.EDIT;
+                        tmpVM.pageStatus = (int)PAGE_STATUS.EDIT;
                         TempData["systemEditViewModel"] = tmpVM;
                         ar = RedirectToAction("AddUpdate");
                         break;
@@ -209,7 +209,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         break;
                     }
                     tblSystem ts = new tblSystem();
-                    if (viewModel.pageStatus == PAGE_STATUS.ADD)
+                    if (viewModel.pageStatus == (int)PAGE_STATUS.ADD)
                     {
                         viewModel.editModel.createtime = DateTime.Now;
                         viewModel.editModel.systemArticleId = Guid.NewGuid();
@@ -227,19 +227,19 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         if (err.Length == 0)
                         {
                             viewModel.successMsg = "new system saved";
-                            viewModel.pageStatus = PAGE_STATUS.ADDSAVED;
+                            viewModel.pageStatus = (int)PAGE_STATUS.ADDSAVED;
                         }
                         else
                             viewModel.errorMsg = err;
                     }
-                    else if (viewModel.pageStatus == PAGE_STATUS.EDIT)
+                    else if (viewModel.pageStatus == (int)PAGE_STATUS.EDIT)
                     {
                         err += ts.Update(viewModel.editModel);
                         err += ts.SaveChanges();
                         if (err.Length == 0)
                         {
                             viewModel.successMsg = "system updated";
-                            viewModel.pageStatus = PAGE_STATUS.SAVED;
+                            viewModel.pageStatus = (int)PAGE_STATUS.SAVED;
                         }
                         else
                             viewModel.errorMsg = err;
@@ -250,7 +250,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     break;
                 case "addNew":
                     systemEditViewModel tmpVM = new systemEditViewModel();
-                    tmpVM.pageStatus = PAGE_STATUS.ADD;
+                    tmpVM.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["systemEditViewModel"] = tmpVM;
                     ar = RedirectToAction("AddUpdate");
                     break;

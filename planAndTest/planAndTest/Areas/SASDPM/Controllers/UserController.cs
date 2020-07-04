@@ -50,7 +50,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     break;
                 case "add":
                     userEditViewModel tmpVMa = new userEditViewModel();
-                    tmpVMa.pageStatus = PAGE_STATUS.ADD;
+                    tmpVMa.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["userEditViewModel"] = tmpVMa;
                     ar = RedirectToAction("AddUpdateUser");
                     break;
@@ -60,7 +60,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     {
                         userEditViewModel tmpVM = new userEditViewModel();
                         tmpVM.editModel = u;
-                        tmpVM.pageStatus = PAGE_STATUS.EDIT;
+                        tmpVM.pageStatus = (int)PAGE_STATUS.EDIT;
                         TempData["userEditViewModel"] = tmpVM;
                         ar = RedirectToAction("AddUpdateUser");
                         break;
@@ -132,7 +132,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         break;
                     }
                     tblUser tu = new tblUser();
-                    if (viewModel.pageStatus == PAGE_STATUS.ADD)
+                    if (viewModel.pageStatus == (int)PAGE_STATUS.ADD)
                     {
                         viewModel.editModel.createtime = DateTime.Now;
                         viewModel.editModel.modifytime = DateTime.Now;
@@ -141,12 +141,12 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         if (err.Length == 0)
                         {
                             viewModel.successMsg = "new user saved";
-                            viewModel.pageStatus = PAGE_STATUS.ADDSAVED;
+                            viewModel.pageStatus = (int)PAGE_STATUS.ADDSAVED;
                         }
                         else
                             viewModel.errorMsg = err;
                     }
-                    else if (viewModel.pageStatus == PAGE_STATUS.EDIT)
+                    else if (viewModel.pageStatus == (int)PAGE_STATUS.EDIT)
                     {
                         viewModel.editModel.modifytime = DateTime.Now;
                         err += tu.Update(viewModel.editModel);
@@ -154,7 +154,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         if (err.Length == 0)
                         {
                             viewModel.successMsg = "user updated";
-                            viewModel.pageStatus = PAGE_STATUS.SAVED;
+                            viewModel.pageStatus = (int)PAGE_STATUS.SAVED;
                         }
                         else
                             viewModel.errorMsg = err;
@@ -165,7 +165,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     break;
                 case "addNew":
                     userEditViewModel tmpVMa = new userEditViewModel();
-                    tmpVMa.pageStatus = PAGE_STATUS.ADD;
+                    tmpVMa.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["userEditViewModel"] = tmpVMa;
                     ar = RedirectToAction("AddUpdateUser");
                     break;

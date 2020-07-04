@@ -56,7 +56,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     break;
                 case "add":
                     tmpVM = new projectVersionEditViewModel();
-                    tmpVM.pageStatus = PAGE_STATUS.ADD;
+                    tmpVM.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["projectVersionEditViewModel"] = tmpVM;
                     ar = RedirectToAction("AddUpdate");
                     break;
@@ -66,7 +66,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     {
                         tmpVM = new projectVersionEditViewModel();
                         tmpVM.editModel = pv;
-                        tmpVM.pageStatus = PAGE_STATUS.EDIT;
+                        tmpVM.pageStatus = (int)PAGE_STATUS.EDIT;
                         TempData["projectVersionEditViewModel"] = tmpVM;
                         ar = RedirectToAction("AddUpdate");
                         break;
@@ -169,7 +169,7 @@ viewModel.editModel.versionDescription);
                         break;
                     }
                     tblProjectVersion tpv = new tblProjectVersion();
-                    if (viewModel.pageStatus == PAGE_STATUS.ADD)
+                    if (viewModel.pageStatus == (int)PAGE_STATUS.ADD)
                     {
                         viewModel.editModel.createtime = DateTime.Now;
                         viewModel.editModel.versionArticleId = Guid.NewGuid();
@@ -187,19 +187,19 @@ viewModel.editModel.versionDescription);
                         if (err.Length == 0)
                         {
                             viewModel.successMsg = "new project version saved";
-                            viewModel.pageStatus = PAGE_STATUS.ADDSAVED;
+                            viewModel.pageStatus = (int)PAGE_STATUS.ADDSAVED;
                         }
                         else
                             viewModel.errorMsg = err;
                     }
-                    else if (viewModel.pageStatus == PAGE_STATUS.EDIT)
+                    else if (viewModel.pageStatus == (int)PAGE_STATUS.EDIT)
                     {
                         err += tpv.Update(viewModel.editModel);
                         err += tpv.SaveChanges();
                         if (err.Length == 0)
                         {
                             viewModel.successMsg = "project version update";
-                            viewModel.pageStatus = PAGE_STATUS.SAVED;
+                            viewModel.pageStatus = (int)PAGE_STATUS.SAVED;
                         }
                         else
                             viewModel.errorMsg = err;
@@ -210,7 +210,7 @@ viewModel.editModel.versionDescription);
                     break;
                 case "addNew":
                     projectVersionEditViewModel tmpVM = new projectVersionEditViewModel();
-                    tmpVM.pageStatus = PAGE_STATUS.ADD;
+                    tmpVM.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["projectVersionEditViewModel"] = tmpVM;
                     ar = RedirectToAction("AddUpdate");
                     break;

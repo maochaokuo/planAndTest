@@ -1,4 +1,5 @@
-﻿using models.fwk.SD;
+﻿using commonLib;
+using models.fwk.SD;
 using modelsfwk;
 using planAndTest.Helper.PM;
 using SASDdb.entity.fwk;
@@ -6,6 +7,7 @@ using SASDdbService.fwk;
 using SASDdbService.fwk.repository;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web;
@@ -21,8 +23,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             uow = new UnitOfWork();
         }
-        //todo !!... (1) important mission:
-        // need to make 1 page (single action single view) controller
+        //need to make 1 page (single action single view) controller
         // may use accordion for 3 segment, query part, query result part, add/update/detail part
         public ActionResult Index()
         {
@@ -32,8 +33,12 @@ namespace planAndTest.Areas.SASDPM.Controllers
                 viewModel = new systemGroupViewModel();
             else
                 viewModel = (systemGroupViewModel)systemGroupModel;
+            ViewBag.pageStatus = TempData["pageStatus"];
+            if (ViewBag.pageStatus == null)
+                ViewBag.pageStatus =(int) PAGE_STATUS.QUERY;
             ViewBag.projectList = PMdropdownOption.projectList();
             TempData["systemGroupModel"] = systemGroupModel;
+            TempData["pageStatus"] = ViewBag.pageStatus;
             return View(viewModel);
         }
         protected string query(ref systemGroupViewModel viewModel)
@@ -42,7 +47,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
             systemGroup tmpModel = viewModel.editModel;
             tblProject tp = new tblProject(uow.GetDbContext());
             var qry = (from a in uow.systemGroupRepository.GetAll()
-                       join b in tp.getAll() on a.projectId equals b.projectId
+                       join b in tp.getAll() on a.projectId equals b.projectId into c
+                       from d in c.DefaultIfEmpty()
                        select new systemGroupDisp
                        {
                            systemGroupId=a.systemGroupId,
@@ -50,7 +56,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                            systemGroupName=a.systemGroupName,
                            systemGroupDescription=a.systemGroupDescription,
                            projectId=a.projectId,
-                           projectName=b.projectName
+                           projectName=d.projectName
                        }).AsQueryable();
             if (tmpModel.projectId!=Guid.Empty &&
                     !string.IsNullOrWhiteSpace( tmpModel.projectId.ToString()))
@@ -79,25 +85,34 @@ namespace planAndTest.Areas.SASDPM.Controllers
             ViewBag.projectList = PMdropdownOption.projectList();
             systemGroupViewModel tmpVM;
             viewModel.clearMsg();
+            ViewBag.pageStatus = TempData["pageStatus"];
+            if (ViewBag.pageStatus == null)
+                ViewBag.pageStatus = (int)PAGE_STATUS.QUERY;
             switch (viewModel.cmd)
             {
                 case "query":
-                    if (viewModel.pageStatus <= PAGE_STATUS.QUERY)
+                    if (ViewBag.pageStatus <=(int) PAGE_STATUS.QUERY)
                     {
                         viewModel.errorMsg = query(ref viewModel);
                         ar = View(viewModel);
                     }
                     else
                     {
-                        viewModel.pageStatus = PAGE_STATUS.QUERY;
+                        ViewBag.pageStatus = (int)PAGE_STATUS.QUERY;
+                        TempData["systemGroupModel"] = null;
+                        TempData["pageStatus"] = ViewBag.pageStatus;
                         ar = RedirectToAction("Index");
+                        return ar;
                     }
                     break;
                 case "add":
+                case "addNew":
                     viewModel.editModel = new systemGroup();
-                    viewModel.pageStatus = PAGE_STATUS.ADD;
-                    ar = View(viewModel);
-                    break;
+                    ViewBag.pageStatus =(int) PAGE_STATUS.ADD;
+                    TempData["systemGroupModel"] = null;
+                    TempData["pageStatus"] = ViewBag.pageStatus;
+                    ar = RedirectToAction("Index");
+                    return ar;
                 case "update":
                     systemGroup sg = (from a in uow.systemGroupRepository.GetAll()
                                       where a.systemGroupId.ToString()
@@ -107,10 +122,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     {
                         tmpVM = new systemGroupViewModel();
                         tmpVM.editModel = sg;
-                        tmpVM.pageStatus = PAGE_STATUS.EDIT;
+                        TempData["pageStatus"] =(int) PAGE_STATUS.EDIT;
                         TempData["systemGroupModel"] = tmpVM;
                         ar = RedirectToAction("Index");
-                        break;
+                        return ar;
                     }
                     else
                         viewModel.errorMsg = "error reading this system group";
@@ -148,7 +163,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         ar = View(viewModel);
                         break;
                     }
-                    if (viewModel.pageStatus == PAGE_STATUS.ADD)
+                    if (ViewBag.pageStatus ==(int) PAGE_STATUS.ADD)
                     {
                         viewModel.editModel.createtime = DateTime.Now;
                         uow.systemGroupRepository.Insert(viewModel.editModel);
@@ -156,29 +171,44 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
                         {
                             viewModel.successMsg = "new system group saved";
-                            viewModel.pageStatus = PAGE_STATUS.ADDSAVED;
+                            ViewBag.pageStatus =(int) PAGE_STATUS.ADDSAVED;
                         }
                     }
-                    else if (viewModel.pageStatus == PAGE_STATUS.EDIT)
+                    else if (ViewBag.pageStatus ==(int) PAGE_STATUS.EDIT)
                     {
-                        uow.systemGroupRepository.Update(viewModel.editModel);
-                        viewModel.errorMsg = uow.SaveChanges();
-                        if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                        var qry = (from a in uow.systemGroupRepository.GetAll()
+                                   where a.systemGroupId 
+                                    == viewModel.editModel.systemGroupId
+                                   select a).SingleOrDefault();
+                        if (qry != null)
                         {
-                            viewModel.successMsg = "system group updated";
-                            viewModel.pageStatus = PAGE_STATUS.SAVED;
+                            qry = reflectionUtl.assign<systemGroup,
+                                systemGroup>(qry, viewModel.editModel);
+                            uow.GetDbContext().Entry(qry).State
+                                = EntityState.Modified;
+                            //uow.systemGroupRepository.Update(viewModel.editModel);
+                            viewModel.errorMsg = uow.SaveChanges();
+                            if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                            {
+                                viewModel.successMsg = "system group updated";
+                                ViewBag.pageStatus = (int)PAGE_STATUS.SAVED;
+                            }
                         }
+                        else
+                            viewModel.errorMsg = "system group not found";
                     }
                     else
                         viewModel.errorMsg = $"wrong page status " +
-                            $"{viewModel.pageStatus}";
+                            $"{ViewBag.pageStatus}";
                     ar = View(viewModel);
                     break;
                 default:
+                    viewModel.errorMsg = $"unhandled command {viewModel.cmd}";
                     ar = View(viewModel);
                     break;
             }
             TempData["systemGroupModel"] = viewModel;
+            TempData["pageStatus"] = ViewBag.pageStatus;
             return ar;
         }
     }

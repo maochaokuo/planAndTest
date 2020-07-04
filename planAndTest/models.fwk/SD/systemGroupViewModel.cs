@@ -16,7 +16,7 @@ namespace models.fwk.SD
         {
             editModel = new systemGroup();
             queryResult = new List<systemGroupDisp>();
-            pageStatus = PAGE_STATUS.QUERY;
+            //pageStatus = PAGE_STATUS.QUERY;
         }
     }
 }

@@ -136,7 +136,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         aevm.parentDirTitle = art.articleTitle;
                     }
                     aevm.changeMode = ARTICLE_CHANGE_MODE.CREATE;
-                    aevm.pageStatus = modelsfwk.PAGE_STATUS.ADD;
+                    aevm.pageStatus = (int)modelsfwk.PAGE_STATUS.ADD;
                     TempData["articleEditViewModel"] = aevm;
                     ret = RedirectToAction("EditArticle");
                     break;
@@ -154,7 +154,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         aevm.parentDirTitle = artParent.articleTitle;
                     }
                     aevm.changeMode = ARTICLE_CHANGE_MODE.EDIT;
-                    aevm.pageStatus = modelsfwk.PAGE_STATUS.EDIT;
+                    aevm.pageStatus = (int)modelsfwk.PAGE_STATUS.EDIT;
                     TempData["articleEditViewModel"] = aevm;
                     ret = RedirectToAction("EditArticle");
                     break;
@@ -163,7 +163,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     aevm.editModel.belongToArticleDirId = new Guid(viewModel.articleId);
                     aevm.parentDirTitle = viewModel.articleTitle;
                     aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
-                    aevm.pageStatus = modelsfwk.PAGE_STATUS.ADD;
+                    aevm.pageStatus = (int)modelsfwk.PAGE_STATUS.ADD;
                     TempData["articleEditViewModel"] = aevm;
                     ret = RedirectToAction("EditArticle");
                     break;
@@ -344,10 +344,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     else
                     {
                         viewModel.successMsg = "new article successfully added";
-                        if (viewModel.pageStatus == modelsfwk.PAGE_STATUS.ADD)
-                            viewModel.pageStatus = modelsfwk.PAGE_STATUS.ADDSAVED;
-                        else if (viewModel.pageStatus == modelsfwk.PAGE_STATUS.EDIT)
-                            viewModel.pageStatus = modelsfwk.PAGE_STATUS.SAVED;
+                        if (viewModel.pageStatus == (int)modelsfwk.PAGE_STATUS.ADD)
+                            viewModel.pageStatus = (int)modelsfwk.PAGE_STATUS.ADDSAVED;
+                        else if (viewModel.pageStatus == (int)modelsfwk.PAGE_STATUS.EDIT)
+                            viewModel.pageStatus = (int)modelsfwk.PAGE_STATUS.SAVED;
                     }
                     // notification failed, so, should use pure hidden field rather than html helped 
                     //ViewBag.Message = "article/directory saved";                    

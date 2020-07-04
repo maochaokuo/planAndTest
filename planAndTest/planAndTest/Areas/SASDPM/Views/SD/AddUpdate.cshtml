@@ -43,7 +43,7 @@
             systemName
         </div>
         <div class="col-4">
-            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            @if (Model.pageStatus <=(int)modelsfwk.PAGE_STATUS.SAVED)
             {
                 @Html.TextBoxFor(m => m.editModel.systemName, new { @class = "form-control disabled", @readonly = "readonly" })
             }
@@ -56,7 +56,7 @@
             systemDescription
         </div>
         <div class="col-4">
-            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            @if (Model.pageStatus <= (int)modelsfwk.PAGE_STATUS.SAVED)
             {
                 @Html.TextBoxFor(m => m.editModel.systemDescription, new { @class = "form-control disabled", @readonly = "readonly" })
             }
@@ -71,7 +71,7 @@
             systemType
         </div>
         <div class="col-4">
-            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            @if (Model.pageStatus <=(int) modelsfwk.PAGE_STATUS.SAVED)
             {
                 @Html.DropDownListFor(m => m.editModel.systemType, (SelectList)ViewBag.systemTypeList, "", new { @class = "form-control disabled", @readonly = "readonly" })
             }
@@ -84,7 +84,7 @@
             systemGroupName
         </div>
         <div class="col-4">
-            @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+            @if (Model.pageStatus <=(int) modelsfwk.PAGE_STATUS.SAVED)
             {
                 @Html.DropDownListFor(m => m.editModel.systemGroupName, (SelectList)ViewBag.systemGroupList, "", new { @class = "form-control disabled", @readonly = "readonly" })
             }
@@ -97,11 +97,11 @@
     <div class="row">
         <div class="col-2"></div>
         <div class="col-10">
-            @if (Model.pageStatus > modelsfwk.PAGE_STATUS.SAVED)
+            @if (Model.pageStatus >(int) modelsfwk.PAGE_STATUS.SAVED)
             {
                 <button class="btn btn-primary" onclick="$('#cmd').val('save');$('form').submit()">Save</button>
             }
-            @if (Model.pageStatus == modelsfwk.PAGE_STATUS.ADDSAVED)
+            @if (Model.pageStatus ==(int) modelsfwk.PAGE_STATUS.ADDSAVED)
             {
                 <button class="btn btn-primary" onclick="$('#cmd').val('addNew');$('form').submit()">Add Next</button>
             }

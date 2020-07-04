@@ -3,10 +3,20 @@ use SASDdb
 select *
 from systemGroup
 
+/*
 select *
 from systems
 
-/*
+SELECT 
+    [Extent1].[systemGroupId] AS [systemGroupId], 
+    [Extent1].[createtime] AS [createtime], 
+    [Extent1].[systemGroupName] AS [systemGroupName], 
+    [Extent1].[systemGroupDescription] AS [systemGroupDescription], 
+    [Extent1].[projectId] AS [projectId]
+    --,[Extent2].[projectName] AS [projectName]
+    FROM  [dbo].[systemGroup] AS [Extent1]
+    LEFT OUTER JOIN [dbo].[project] AS [Extent2] ON ([Extent2].[deleteTime] IS NULL) AND ([Extent1].[projectId] = [Extent2].[projectId])
+
 select *
 from projectVersion
 

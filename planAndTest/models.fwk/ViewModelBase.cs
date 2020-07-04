@@ -35,10 +35,20 @@ namespace modelsfwk
         //public string multiSelect { get; set; } cannot use this column, must declared as hidden field and use request.form to receive
         public int pagesize { get; set; }
         public int pageindex { get; set; }
-        public PAGE_STATUS pageStatus { get; set; }
+        private int _pageStatus = (int)PAGE_STATUS.SAVED;
+        public int pageStatus { 
+            get
+            {
+                return _pageStatus;
+            }
+            set
+            {
+                _pageStatus = value;
+            }
+        }
         public ViewModelBase()
         {
-            pageStatus = PAGE_STATUS.SAVED;
+            //pageStatus = PAGE_STATUS.SAVED;
         }
         public void clearMsg()
         {
