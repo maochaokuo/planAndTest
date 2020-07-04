@@ -38,7 +38,8 @@ namespace SASDdbService.fwk
                        systemDescription=a.systemDescription,
                        systemType=a.systemType,
                        projectId=a.projectId,
-                       projectName=b.projectName
+                       projectName=b.projectName,
+                       systemGroupName=a.systemGroupName
                    }).AsQueryable();
             return ret;
         }

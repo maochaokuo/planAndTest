@@ -30,7 +30,7 @@ namespace planAndTest.Helper.SD
                 .GetAll().ToList();
             foreach (systemGroup sg in systemGroups)
                 _systemGroup.Add(new SelectListItem() { 
-                    Text = sg.systemGroupName, Value = sg.systemGroupId
+                    Text = sg.systemGroupName, Value = sg.systemGroupName
                         .ToString() });
             return new SelectList(_systemGroup, "Value", "Text", null);
         }
