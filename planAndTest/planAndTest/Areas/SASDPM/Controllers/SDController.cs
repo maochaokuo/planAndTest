@@ -19,7 +19,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
     {
         // todo !!... (1) later
         // (done)projectVersion
-        // systems, systemGroup, systemEntity, 
+        // (done)systems, (done)systemGroup, systemEntity, 
         // stateMachine, stateMachineState, stateMachineEvent
         // stateMachineEvent2NewState
         //      (include stateMachineEventParameter, stateMachineAction)

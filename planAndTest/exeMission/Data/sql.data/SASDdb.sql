@@ -1,9 +1,12 @@
 use SASDdb
 
 select *
-from systemGroup
+from systemEntity
 
 /*
+select *
+from systemGroup
+
 select *
 from systems
 

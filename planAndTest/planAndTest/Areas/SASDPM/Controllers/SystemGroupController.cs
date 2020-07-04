@@ -16,12 +16,12 @@ using System.Web.UI;
 
 namespace planAndTest.Areas.SASDPM.Controllers
 {
-    public class SystemGroupController : Controller
+    public class SystemGroupController : ControllerBase
     {
-        protected UnitOfWork uow = null;
-        public SystemGroupController()
+        //protected UnitOfWork uow = null;
+        public SystemGroupController():base()
         {
-            uow = new UnitOfWork();
+            //uow = new UnitOfWork();
         }
         //need to make 1 page (single action single view) controller
         // may use accordion for 3 segment, query part, query result part, add/update/detail part
@@ -47,7 +47,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
             systemGroup tmpModel = viewModel.editModel;
             tblProject tp = new tblProject(uow.GetDbContext());
             var qry = (from a in uow.systemGroupRepository.GetAll()
-                       join b in tp.getAll() on a.projectId equals b.projectId into c
+                       join b in tp.getAll() on a.projectId 
+                            equals b.projectId into c
                        from d in c.DefaultIfEmpty()
                        select new systemGroupDisp
                        {

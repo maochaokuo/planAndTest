@@ -28,7 +28,7 @@ select
 	 where tc.CONSTRAINT_TYPE = 'PRIMARY KEY') p 
 		on p.TABLE_NAME=st.name and p.COLUMN_NAME=sc.name
     where 
-		--st.name in ('tbl_CM_Service_Count_Log')
+		st.name in ('systemEntity')
 		--st.name in ('tbl_VIP_DP_Membership')
 		--st.name in ('projectVersion')
 		--st.name in ('systemEntity', 'systems', 'systemTemplate')
@@ -36,5 +36,5 @@ select
 		--st.name in ('article')
 		--st.name in ('systems','systemGroup')
 		--st.name in ('systems')
-		st.name in ('systemGroup')
+		--st.name in ('systemGroup')
 	order by st.name, sc.column_id

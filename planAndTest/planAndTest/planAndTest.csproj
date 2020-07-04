@@ -148,11 +148,13 @@
     <Compile Include="Areas\SASDPM\Controllers\ProjectController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\ProjectVersionController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SDController.cs" />
+    <Compile Include="Areas\SASDPM\Controllers\SystemEntityController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SystemGroupController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\UserController.cs" />
     <Compile Include="Areas\SASDPM\SASDPMAreaRegistration.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SAController.cs" />
     <Compile Include="Areas\EPL\Controllers\EplController.cs" />
+    <Compile Include="base\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -682,6 +684,7 @@
     <Content Include="Areas\SASDPM\Views\SD\Systems.cshtml" />
     <Content Include="Areas\SASDPM\Views\SD\AddUpdate.cshtml" />
     <Content Include="Areas\SASDPM\Views\SystemGroup\Index.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SystemEntity\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
