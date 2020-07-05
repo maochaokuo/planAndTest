@@ -9,8 +9,7 @@ namespace SASDdb.entity.fwk
     [Table("systemEntity")]
     public partial class systemEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int systemEntityId { get; set; }
+        public Guid systemEntityId { get; set; }
 
         public DateTime createtime { get; set; }
 
@@ -24,10 +23,10 @@ namespace SASDdb.entity.fwk
 
         public int? systemTemplateId { get; set; }
 
-        public int? parentEntityId { get; set; }
-
         [Key]
         [Column(Order = 1)]
         public Guid systemId { get; set; }
+
+        public Guid? parentEntityId { get; set; }
     }
 }

@@ -38,9 +38,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                 return RedirectToAction("Systems", "SD");
             if (!string.IsNullOrWhiteSpace(parentEntityIdS))
             {
-                int parentEntityId;
-                if (int.TryParse(parentEntityIdS, out parentEntityId))
-                    viewModel.editModel.parentEntityId = parentEntityId;
+                viewModel.editModel.parentEntityId =new Guid(parentEntityIdS);
             }
             ViewBag.pageStatus = TempData[PageStatus];
             if (ViewBag.pageStatus == null)
@@ -89,7 +87,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpModel.entityDescription));
             if (tmpModel.systemTemplateId > 0)
                 qry = qry.Where(x => x.systemTemplateId == tmpModel.systemTemplateId);
-            if (tmpModel.parentEntityId > 0)
+            if (tmpModel.parentEntityId!=null
+                    && tmpModel.parentEntityId!=Guid.Empty)
                 qry = qry.Where(x => x.parentEntityId == tmpModel.parentEntityId);
             if (tmpModel.systemId!=Guid.Empty &&
                     !string.IsNullOrWhiteSpace(tmpModel.systemId.ToString()))
@@ -105,8 +104,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
             string ret = "";
             if (string.IsNullOrWhiteSpace(viewModel.editModel.entityName))
                 ret = "entity name cannot be empty";
-            else if (viewModel.editModel.systemId != Guid.Empty ||
-                    string.IsNullOrWhiteSpace(viewModel.editModel.ToString()))
+            else if (viewModel.editModel.systemId == Guid.Empty ||
+                    string.IsNullOrWhiteSpace(viewModel.editModel.systemId.ToString()))
                 ret = "systemId cannot be invalid";
             return ret;
         }
@@ -159,14 +158,16 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     return ar;
                 case "update":
                     se = (from a in uow.systemEntityRepository.GetAll()
-                                      where a.systemEntityId.ToString()
-                                        == viewModel.singleSelect
+                                      where a.systemEntityId
+                                        ==new Guid( viewModel.singleSelect)
                                       select a).FirstOrDefault();
                     if (se != null)
                     {
                         tmpVM = new systemEntityViewModel();
-                        se = reflectionUtl.assign<systemEntity,
-                            systemEntity>(se, viewModel.editModel);
+                        tmpVM.editModel = jsonUtl.decodeJson<systemEntityDisp>(
+                            jsonUtl.encodeJson(se));
+                        //se = reflectionUtl.assign<systemEntity,
+                        //    systemEntity>(se, viewModel.editModel);
                         //tmpVM.editModel = se;
                         TempData[PageStatus] = (int)PAGE_STATUS.EDIT;
                         TempData[modelName] = tmpVM;
@@ -211,8 +212,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     }
                     if (ViewBag.pageStatus == (int)PAGE_STATUS.ADD)
                     {
+                        viewModel.editModel.systemEntityId = Guid.NewGuid();
                         viewModel.editModel.createtime = DateTime.Now;
-                        uow.systemEntityRepository.Insert(viewModel.editModel);
+                        systemEntity toAdd = new systemEntity();
+                        //toAdd = reflectionUtl.assign<systemEntity, systemEntity>
+                        //    (toAdd, viewModel.editModel as systemEntity);
+                        toAdd = jsonUtl.decodeJson<systemEntity>(
+                            jsonUtl.encodeJson(viewModel.editModel));
+                        uow.systemEntityRepository.Insert(toAdd);// viewModel.editModel);
                         viewModel.errorMsg = uow.SaveChanges();
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
                         {
@@ -230,6 +237,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         {
                             qry = reflectionUtl.assign<systemEntity,
                                 systemEntity>(qry, viewModel.editModel);
+                            //qry = jsonUtl.decodeJson<systemEntity>
+                            //    (jsonUtl.encodeJson(viewModel.editModel));
                             uow.GetDbContext().Entry(qry).State
                                 = EntityState.Modified;
                             viewModel.errorMsg = uow.SaveChanges();

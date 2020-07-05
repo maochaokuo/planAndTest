@@ -175,8 +175,15 @@
                 systemTemplateId
             </div>
             <div class="col-4">
-                @Html.DropDownListFor(m => m.editModel.systemTemplateId, (SelectList)ViewBag.systemTemplateList, "", new { @class = "custom-select disabled", disabled = "true", @readonly = "readonly" })
-                @Html.HiddenFor(m => m.editModel.systemTemplateId)
+                @if (ViewBag.pageStatus <= (int)modelsfwk.PAGE_STATUS.SAVED)
+                {
+                    @Html.DropDownListFor(m => m.editModel.systemTemplateId, (SelectList)ViewBag.systemTemplateList, "", new { @class = "custom-select disabled", disabled = "true", @readonly = "readonly" })
+                    @Html.HiddenFor(m => m.editModel.systemTemplateId)
+                }
+                else
+                {
+                    @Html.DropDownListFor(m => m.editModel.systemTemplateId, (SelectList)ViewBag.systemTemplateList, "", new { @class = "custom-select" })
+                }
             </div>
         </div>
         <div class="row">
@@ -184,15 +191,15 @@
                 parentEntityId
             </div>
             <div class="col-4">
-                @Html.DropDownListFor(m => m.editModel.parentEntityId, (SelectList)ViewBag.systemEntityList, "", new { @class = "custom-select disabled", disabled = "true", @readonly = "readonly" })
-                @Html.HiddenFor(m => m.editModel.systemTemplateId)
+                    @Html.DropDownListFor(m => m.editModel.parentEntityId, (SelectList)ViewBag.systemEntityList, "", new { @class = "custom-select disabled", disabled = "true", @readonly = "readonly" })
+                    @Html.HiddenFor(m => m.editModel.parentEntityId)
             </div>
             <div class="col-2">
                 systemId
             </div>
             <div class="col-4">
-                @Html.DropDownListFor(m => m.editModel.systemId, (SelectList)ViewBag.systemList, "", new { @class = "custom-select disabled", disabled = "true", @readonly = "readonly" })
-                @Html.HiddenFor(m => m.editModel.systemTemplateId)
+                    @Html.DropDownListFor(m => m.editModel.systemId, (SelectList)ViewBag.systemList, "", new { @class = "custom-select disabled", disabled = "true", @readonly = "readonly" })
+                    @Html.HiddenFor(m => m.editModel.systemId)
             </div>
         </div>
         <div class="row">

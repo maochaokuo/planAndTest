@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define RELEASE
+
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -28,17 +30,28 @@ namespace commonLib
                 //if (tyName == "String")
                 {
                     string name = property.Name;
+#if RELEASE
                     try
+#endif
                     {
                         bool found = false;
                         foreach(PropertyInfo property2 in properties2)
                         {
                             Type tp2 = property2.PropertyType;
                             string name2 = property2.Name;
-                            if (name==name2)
+                            if (name == name2)
                             {
-                                String objStr = property2.GetValue(recordSource) + "";
-                                property.SetValue(recordTarget, objStr);
+                                Object objStr = property2.GetValue(recordSource) ;
+                                if (tp2.Name == "Guid")
+                                    property.SetValue(recordTarget, new Guid(objStr.ToString()));
+                                else if (tp2.Name == "DateTime")
+                                    property.SetValue(recordTarget, DateTime.Parse(objStr.ToString()));
+                                else
+                                {
+                                    //String objStr2 = property2.GetValue(recordSource) ;
+                                    //else
+                                    property.SetValue(recordTarget, objStr);// objStr2);
+                                }
                                 found = true;
                                 break;
                             }
@@ -46,6 +59,7 @@ namespace commonLib
                         if (!found)
                             throw new Exception($"property {name} not found ");
                     }
+#if RELEASE
                     catch (Exception ex)
                     {
                         Exception innerEx = ex;
@@ -53,6 +67,7 @@ namespace commonLib
                             innerEx = innerEx.InnerException;
                         dbg.o(innerEx.Message);
                     }
+#endif
                 }
             }
             return recordTarget;

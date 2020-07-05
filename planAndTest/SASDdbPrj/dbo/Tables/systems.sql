@@ -5,8 +5,12 @@
     [systemDescription] NVARCHAR (999)   NULL,
     [systemType]        NVARCHAR (99)    NULL,
     [projectId]         UNIQUEIDENTIFIER NOT NULL,
+    [systemGroupName]   NVARCHAR (33)    NULL,
+    [systemArticleId]   UNIQUEIDENTIFIER NULL,
     CONSTRAINT [PK_systems] PRIMARY KEY CLUSTERED ([systemName] ASC, [projectId] ASC)
 );
+
+
 
 
 
@@ -34,4 +38,14 @@ CREATE NONCLUSTERED INDEX [IX_systems_1]
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_systems]
     ON [dbo].[systems]([systemId] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_systems_4]
+    ON [dbo].[systems]([systemArticleId] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_systems_3]
+    ON [dbo].[systems]([systemGroupName] ASC);
 
