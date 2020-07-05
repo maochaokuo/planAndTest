@@ -46,7 +46,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             ViewBag.systemTemplateList = SDdropdownOptions.systemTemplateList();
             ViewBag.systemEntityList = SDdropdownOptions.systemEntityList();
             ViewBag.systemList = SDdropdownOptions.systemList();
-            TempData[modelName] = systemEntityModel;
+            TempData[modelName] = viewModel;
             TempData[PageStatus] = ViewBag.pageStatus;
             return View(viewModel);
         }
