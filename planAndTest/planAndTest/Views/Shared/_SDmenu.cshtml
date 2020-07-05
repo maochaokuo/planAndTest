@@ -13,8 +13,7 @@
             @Html.ActionLink("System Design", "Index", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
 
-
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" >
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 Systems
@@ -29,16 +28,14 @@
             </div>
         </li>
 
-
-
-        <li class="nav-item">
+        <li class="nav-item" style="display:none">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
-            asp-action="Action1">Action1</a>*@
+        asp-action="Action1">Action1</a>*@
             @Html.ActionLink("Systems", "Systems", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
-        <li class="nav-item">
+        <li class="nav-item" style="display:none">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
-            asp-action="Action1">Action1</a>*@
+        asp-action="Action1">Action1</a>*@
             @Html.ActionLink("System Groups", "Index", "SystemGroup", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
     </ul>

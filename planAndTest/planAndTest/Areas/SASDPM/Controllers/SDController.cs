@@ -17,6 +17,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
 {
     public class SDController : Controller
     {
+        // from project->system (and/or system group)->system entity
         // todo !!... (1) later
         // (done)projectVersion
         // (done)systems, (done)systemGroup, systemEntity, 
@@ -48,6 +49,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult Systems()
         {
             systemsViewModel viewModel = new systemsViewModel();
+            var projectId = Session["projectId"];
+            if (projectId != null)
+            {
+                viewModel.projectId = projectId.ToString();
+                ViewBag.projectLock = true;
+            }
+            else
+                return RedirectToAction("Index", "Project");
             ViewBag.projectList = PMdropdownOption.projectList();
             ViewBag.systemTypeList = SDdropdownOptions.systemTypeList();
             ViewBag.systemGroupList = SDdropdownOptions.systemGroupList();
@@ -73,9 +82,18 @@ namespace planAndTest.Areas.SASDPM.Controllers
             ActionResult ar;
             var multiSelect = Request.Form["multiSelect"];
             ViewBag.projectList = PMdropdownOption.projectList();
+            var projectId = Session["projectId"];
+            if (projectId != null)
+            {
+                viewModel.projectId = projectId.ToString();
+                ViewBag.projectLock = true;
+            }
+            else
+                return RedirectToAction("Index", "Project");
             viewModel.clearMsg();
             tblSystem ts = new tblSystem();
             systemEditViewModel tmpVM;
+            systems sys;
             switch (viewModel.cmd)
             {
                 case "query":
@@ -89,7 +107,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = RedirectToAction("AddUpdate");
                     break;
                 case "update":
-                    systems sys = ts.getById(viewModel.singleSelect);
+                    sys = ts.getById(viewModel.singleSelect);
                     if (sys != null)
                     {
                         tmpVM = new systemEditViewModel();
@@ -101,6 +119,17 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     }
                     else
                         viewModel.errorMsg = "error reading this system";
+                    ar = View(viewModel);
+                    break;
+                case "entity":
+                    sys = ts.getById(viewModel.singleSelect);
+                    if (sys != null)
+                    {
+                        Session["systemId"] = sys.systemId.ToString();
+                        ar = RedirectToAction("Index", "SystemEntity");
+                        break;
+                    }
+                    viewModel.errorMsg = "error reading this system";
                     ar = View(viewModel);
                     break;
                 case "delete":
@@ -139,6 +168,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
                 viewModel = new systemEditViewModel();
             else
                 viewModel = (systemEditViewModel)tmpVM;
+            var projectId = Session["projectId"];
+            if (projectId != null)
+            {
+                viewModel.editModel.projectId =new Guid( projectId.ToString());
+                ViewBag.projectLock = true;
+            }
+            else
+                return RedirectToAction("Index", "Project");
             ViewBag.projectList = PMdropdownOption.projectList();
             // two combo system type, system group
             ViewBag.systemTypeList = SDdropdownOptions.systemTypeList();
@@ -192,6 +229,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult AddUpdate(systemEditViewModel viewModel)
         {
             ActionResult ar;
+            var projectId = Session["projectId"];
+            if (projectId != null)
+            {
+                viewModel.editModel.projectId = new Guid(projectId.ToString());
+                ViewBag.projectLock = true;
+            }
+            else
+                return RedirectToAction("Index", "Project");
             ViewBag.projectList = PMdropdownOption.projectList();
             // two combo system type, system group
             ViewBag.systemTypeList = SDdropdownOptions.systemTypeList();
@@ -211,6 +256,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tblSystem ts = new tblSystem();
                     if (viewModel.pageStatus == (int)PAGE_STATUS.ADD)
                     {
+                        viewModel.editModel.systemId = Guid.NewGuid();
                         viewModel.editModel.createtime = DateTime.Now;
                         viewModel.editModel.systemArticleId = Guid.NewGuid();
                         using (var trans = ts.BeginTransaction())

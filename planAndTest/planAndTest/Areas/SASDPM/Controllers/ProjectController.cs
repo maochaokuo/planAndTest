@@ -44,6 +44,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             // multi select 
             tblProject tp = new tblProject();
             viewModel.clearMsg();
+            project p;
             switch (viewModel.cmd)
             {
                 case "query":
@@ -58,7 +59,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = RedirectToAction("AddUpdateProject");
                     break;
                 case "update":
-                    project p = tp.getById(viewModel.singleSelect);
+                    p = tp.getById(viewModel.singleSelect);
                     if (p != null)
                     {
                         projectEditViewModel tmpVM = new projectEditViewModel();
@@ -68,8 +69,18 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         ar = RedirectToAction("AddUpdateProject");
                         break;
                     }
-                    else
-                        viewModel.errorMsg = "error reading this project";
+                    viewModel.errorMsg = "error reading this project";
+                    ar = View(viewModel);
+                    break;
+                case "systems":
+                    p = tp.getById(viewModel.singleSelect);
+                    if (p != null)
+                    {
+                        Session["projectId"] = p.projectId.ToString();
+                        ar = RedirectToAction("Systems", "SD");
+                        break;
+                    }
+                    viewModel.errorMsg = "error reading this project";
                     ar = View(viewModel);
                     break;
                 case "delete":

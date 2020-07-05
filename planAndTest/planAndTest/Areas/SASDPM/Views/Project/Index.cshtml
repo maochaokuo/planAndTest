@@ -71,6 +71,7 @@
                                 <td>@Html.ActionLink(rec.projectName + " versions", "Index", "ProjectVersion", new { projectId = rec.projectId }, null)</td>
                                 <td>
                                     <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.projectId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
+                                    <button onclick="$('#cmd').val('systems'); $('#singleSelect').val('@rec.projectId');$('form').submit()" class="btn btn-primary btn-sm">Systems</button>
                                 </td>
                             </tr>
                         </tbody>

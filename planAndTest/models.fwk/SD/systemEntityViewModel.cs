@@ -10,11 +10,11 @@ namespace models.fwk.SD
 {
     public class systemEntityViewModel : ViewModelBase
     {
-        public systemEntity editModel { get; set; }
+        public systemEntityDisp editModel { get; set; }
         public List<systemEntityDisp> queryResult { get; set; }
         public systemEntityViewModel()
         {
-            editModel = new systemEntity();
+            editModel = new systemEntityDisp();
             queryResult = new List<systemEntityDisp>();
         }
     }

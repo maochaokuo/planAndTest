@@ -19,26 +19,34 @@ namespace planAndTest.Areas.SASDPM.Controllers
     public class SystemGroupController : ControllerBase
     {
         //protected UnitOfWork uow = null;
-        public SystemGroupController():base()
+        public SystemGroupController()
+            : base("systemGroupModel", "system group")
         {
-            //uow = new UnitOfWork();
         }
         //need to make 1 page (single action single view) controller
         // may use accordion for 3 segment, query part, query result part, add/update/detail part
         public ActionResult Index()
         {
             systemGroupViewModel viewModel;
-            var systemGroupModel = TempData["systemGroupModel"];
+            var systemGroupModel = TempData[modelName];
             if (systemGroupModel == null)
                 viewModel = new systemGroupViewModel();
             else
                 viewModel = (systemGroupViewModel)systemGroupModel;
-            ViewBag.pageStatus = TempData["pageStatus"];
+            ViewBag.pageStatus = TempData[PageStatus];
             if (ViewBag.pageStatus == null)
                 ViewBag.pageStatus =(int) PAGE_STATUS.QUERY;
             ViewBag.projectList = PMdropdownOption.projectList();
-            TempData["systemGroupModel"] = systemGroupModel;
-            TempData["pageStatus"] = ViewBag.pageStatus;
+            var projectId = Session["projectId"];
+            if (projectId != null)
+            {
+                viewModel.editModel.projectId =new Guid( projectId.ToString());
+                ViewBag.projectLock = true;
+            }
+            else
+                return RedirectToAction("Index", "Project");
+            TempData[modelName] = systemGroupModel;
+            TempData[PageStatus] = ViewBag.pageStatus;
             return View(viewModel);
         }
         protected string query(ref systemGroupViewModel viewModel)
@@ -75,18 +83,26 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             string ret = "";
             if (string.IsNullOrWhiteSpace(viewModel.editModel.systemGroupName))
-                ret = "system group name cannot be empty";
+                ret = $"{modelMessage} name cannot be empty";
             return ret;
         }
         [HttpPost]
         public ActionResult Index(systemGroupViewModel viewModel)
         {
             ActionResult ar;
-            var multiSelect = Request.Form["multiSelect"];
+            var multiSelect = Request.Form[MultiSelect];
             ViewBag.projectList = PMdropdownOption.projectList();
+            var projectId = Session["projectId"];
+            if (projectId != null)
+            {
+                viewModel.editModel.projectId =new Guid( projectId.ToString());
+                ViewBag.projectLock = true;
+            }
+            else
+                return RedirectToAction("Index", "Project");
             systemGroupViewModel tmpVM;
             viewModel.clearMsg();
-            ViewBag.pageStatus = TempData["pageStatus"];
+            ViewBag.pageStatus = TempData[PageStatus];
             if (ViewBag.pageStatus == null)
                 ViewBag.pageStatus = (int)PAGE_STATUS.QUERY;
             switch (viewModel.cmd)
@@ -100,8 +116,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     else
                     {
                         ViewBag.pageStatus = (int)PAGE_STATUS.QUERY;
-                        TempData["systemGroupModel"] = null;
-                        TempData["pageStatus"] = ViewBag.pageStatus;
+                        TempData[modelName] = null;
+                        TempData[PageStatus] = ViewBag.pageStatus;
                         ar = RedirectToAction("Index");
                         return ar;
                     }
@@ -110,8 +126,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                 case "addNew":
                     viewModel.editModel = new systemGroup();
                     ViewBag.pageStatus =(int) PAGE_STATUS.ADD;
-                    TempData["systemGroupModel"] = null;
-                    TempData["pageStatus"] = ViewBag.pageStatus;
+                    TempData[modelName] = null;
+                    TempData[PageStatus] = ViewBag.pageStatus;
                     ar = RedirectToAction("Index");
                     return ar;
                 case "update":
@@ -123,18 +139,18 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     {
                         tmpVM = new systemGroupViewModel();
                         tmpVM.editModel = sg;
-                        TempData["pageStatus"] =(int) PAGE_STATUS.EDIT;
-                        TempData["systemGroupModel"] = tmpVM;
+                        TempData[PageStatus] =(int) PAGE_STATUS.EDIT;
+                        TempData[modelName] = tmpVM;
                         ar = RedirectToAction("Index");
                         return ar;
                     }
                     else
-                        viewModel.errorMsg = "error reading this system group";
+                        viewModel.errorMsg = $"error reading this {modelMessage}";
                     ar = View(viewModel);
                     break;
                 case "delete":
                     if (string.IsNullOrWhiteSpace(multiSelect))
-                        viewModel.errorMsg = "please select system group to delete";
+                        viewModel.errorMsg = $"please select {modelMessage} to delete";
                     else
                     {
                         string[] selected = multiSelect.Split(',');
@@ -171,7 +187,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         viewModel.errorMsg = uow.SaveChanges();
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
                         {
-                            viewModel.successMsg = "new system group saved";
+                            viewModel.successMsg = $"new {modelMessage} saved";
                             ViewBag.pageStatus =(int) PAGE_STATUS.ADDSAVED;
                         }
                     }
@@ -187,16 +203,15 @@ namespace planAndTest.Areas.SASDPM.Controllers
                                 systemGroup>(qry, viewModel.editModel);
                             uow.GetDbContext().Entry(qry).State
                                 = EntityState.Modified;
-                            //uow.systemGroupRepository.Update(viewModel.editModel);
                             viewModel.errorMsg = uow.SaveChanges();
                             if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
                             {
-                                viewModel.successMsg = "system group updated";
+                                viewModel.successMsg = $"{modelMessage} updated";
                                 ViewBag.pageStatus = (int)PAGE_STATUS.SAVED;
                             }
                         }
                         else
-                            viewModel.errorMsg = "system group not found";
+                            viewModel.errorMsg = $"{modelMessage} not found";
                     }
                     else
                         viewModel.errorMsg = $"wrong page status " +
@@ -208,8 +223,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = View(viewModel);
                     break;
             }
-            TempData["systemGroupModel"] = viewModel;
-            TempData["pageStatus"] = ViewBag.pageStatus;
+            TempData[modelName] = viewModel;
+            TempData[PageStatus] = ViewBag.pageStatus;
             return ar;
         }
     }

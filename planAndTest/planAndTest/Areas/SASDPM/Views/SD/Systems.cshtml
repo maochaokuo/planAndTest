@@ -19,7 +19,15 @@
                 projectName
             </div>
             <div class="col-4">
-                @Html.DropDownListFor(m => m.projectId, (SelectList)ViewBag.projectList, "", new { @class = "custom-select" })
+                @if (ViewBag.projectLock)
+                {
+                    @Html.DropDownListFor(m => m.projectId, (SelectList)ViewBag.projectList, "", new { @class = "custom-select disabled", @readonly = "readonly", disabled = "true" })
+                    @Html.HiddenFor(m => m.projectId)
+                }
+                else
+                {
+                    @Html.DropDownListFor(m => m.projectId, (SelectList)ViewBag.projectList, "", new { @class = "custom-select" })
+                }
             </div>
             <div class="col-2">
                 systemName
@@ -73,6 +81,7 @@
                                 <td>@Html.ActionLink("system article", "Articles", "SA", new { articleId = rec.systemArticleId }, null)</td>
                                 <td>
                                     <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.systemId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
+                                    <button onclick="$('#cmd').val('entity'); $('#singleSelect').val('@rec.systemId');$('form').submit()" class="btn btn-primary btn-sm">Entities</button>
                                 </td>
                             </tr>
                         }

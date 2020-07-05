@@ -1,4 +1,5 @@
 ﻿using SASDdb.entity.fwk;
+using SASDdbService.fwk;
 using SASDdbService.fwk.repository;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,48 @@ namespace planAndTest.Helper.SD
                         .ToString() });
             return new SelectList(_systemGroup, "Value", "Text", null);
         }
+        public static SelectList systemTemplateList()
+        {
+            List<SelectListItem> _systemTemplate = new List<SelectListItem>();
+            UnitOfWork uow = new UnitOfWork();
+            List<systemTemplate> systemTemplates = uow.systemTemplateRepository
+                .GetAll().ToList();
+            foreach (systemTemplate st in systemTemplates)
+                _systemTemplate.Add(new SelectListItem()
+                {
+                    Text = st.templateName,
+                    Value = st.systemTemplateId
+                        .ToString()
+                });
+            return new SelectList(_systemTemplate, "Value", "Text", null);
+        }
+        public static SelectList systemEntityList()
+        {
+            List<SelectListItem> _systemEntity = new List<SelectListItem>();
+            UnitOfWork uow = new UnitOfWork();
+            List<systemEntity> systemEntities = uow.systemEntityRepository
+                .GetAll().ToList();
+            foreach (systemEntity se in systemEntities)
+                _systemEntity.Add(new SelectListItem()
+                {
+                    Text = se.entityName,
+                    Value = se.systemEntityId
+                        .ToString()
+                });
+            return new SelectList(_systemEntity, "Value", "Text", null);
+        }
+        public static SelectList systemList()
+        {
+            List<SelectListItem> _system = new List<SelectListItem>();
+            tblSystem ts = new tblSystem();
+            List<systems> systemList = ts.getAll().ToList();
+            foreach (systems rec in systemList)
+                _system.Add(new SelectListItem()
+                {
+                    Text = rec.systemName,
+                    Value = rec.systemId.ToString()
+                });
+            return new SelectList(_system, "Value", "Text", null);
+        }
     }
-
 }

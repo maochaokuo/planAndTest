@@ -3,6 +3,9 @@ use SASDdb
 select *
 from systemEntity
 
+select *
+from systemTemplate
+
 /*
 select *
 from systemGroup

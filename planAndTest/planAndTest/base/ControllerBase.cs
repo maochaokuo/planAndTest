@@ -9,10 +9,16 @@ namespace planAndTest
 {
 	public class ControllerBase : Controller
 	{
+		protected const string PageStatus = "pageStatus";
+		protected const string MultiSelect = "multiSelect";
 		protected UnitOfWork uow = null;
-		public ControllerBase()
+		protected readonly string modelName;
+		protected readonly string modelMessage;
+		public ControllerBase(string modelName, string modelMessage)
         {
 			uow = new UnitOfWork();
+			this.modelName = modelName;
+			this.modelMessage = modelMessage;
         }
 	}
 }
