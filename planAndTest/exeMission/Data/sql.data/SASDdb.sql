@@ -1,12 +1,15 @@
 use SASDdb
 
 select *
+from stateMachine
+
+/*
+select *
 from systemEntity
 
 select *
 from systemTemplate
 
-/*
 select *
 from systemGroup
 

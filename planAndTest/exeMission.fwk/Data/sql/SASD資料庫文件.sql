@@ -28,8 +28,8 @@ select
 	 where tc.CONSTRAINT_TYPE = 'PRIMARY KEY') p 
 		on p.TABLE_NAME=st.name and p.COLUMN_NAME=sc.name
     where 
-		st.name in ('systemEntity')
-		--st.name in ('systemTemplate','systemEntity','systems')
+		--st.name in ('systemEntity')
+		st.name in ('stateMachine')
 		--st.name in ('projectVersion')
 		--st.name in ('systemEntity', 'systems', 'systemTemplate')
 		--st.name in ('project')
