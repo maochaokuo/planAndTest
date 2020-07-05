@@ -22,6 +22,11 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult Index()
         {
             stateMachineViewModel viewModel;
+            var stateMachineModel = TempData[modelName];
+            if (stateMachineModel == null)
+                viewModel = new stateMachineViewModel();
+            else
+                viewModel = (stateMachineViewModel)stateMachineModel;
             return View(viewModel);
         }
     }
