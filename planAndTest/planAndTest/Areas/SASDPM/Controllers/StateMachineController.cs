@@ -108,6 +108,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         TempData[PageStatus] = (int)PAGE_STATUS.EDIT;
                         TempData[modelName] = tmpVM;
                         ar = RedirectToAction("Index");
+                        return ar;
                     }
                     else
                         viewModel.errorMsg = $"error reading this {modelMessage}";
@@ -126,6 +127,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                                   select a).FirstOrDefault();
                             if (sm == null)
                                 continue;
+                            uow.stateMachineRepository.Delete(sm);
                         }
                         viewModel.errorMsg = uow.SaveChanges();
                         if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
@@ -189,6 +191,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = View(viewModel);
                     break;
             }
+            TempData[modelName] = viewModel;
+            TempData[PageStatus] = ViewBag.pageStatus;
             return ar;
         }
     }
