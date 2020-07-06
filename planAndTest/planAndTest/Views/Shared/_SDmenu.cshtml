@@ -13,29 +13,42 @@
             @Html.ActionLink("System Design", "Index", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
 
-        <li class="nav-item dropdown" >
+        <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 Systems
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 @*<a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="Index">Jobs</a>
-        <a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="JobProgress">Job Progress</a>
-        <a class="dropdown-item" asp-area="" asp-controller="Hangfire">Hangfire</a>*@
+                <a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="JobProgress">Job Progress</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Hangfire">Hangfire</a>*@
                 @Html.ActionLink("Systems", "Systems", "SD", new { area = "SASDPM" }, new { @class = "dropdown-item" })
                 @Html.ActionLink("System Groups", "Index", "SystemGroup", new { area = "SASDPM" }, new { @class = "dropdown-item" })
                 @Html.ActionLink("System Entities", "Index", "SystemEntity", new { area = "SASDPM" }, new { @class = "dropdown-item" })
             </div>
         </li>
 
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStateMachine" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                StateMachine
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownStateMachine">
+                @*<a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="Index">Jobs</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="JobProgress">Job Progress</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Hangfire">Hangfire</a>*@
+                @Html.ActionLink("State Machines", "Index", "StateMachine", new { area = "SASDPM" }, new { @class = "dropdown-item" })
+            </div>
+        </li>
+
         <li class="nav-item" style="display:none">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
-        asp-action="Action1">Action1</a>*@
+            asp-action="Action1">Action1</a>*@
             @Html.ActionLink("Systems", "Systems", "SD", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
         <li class="nav-item" style="display:none">
             @*<a class="nav-link text-dark" asp-area="" asp-controller="SD"
-        asp-action="Action1">Action1</a>*@
+            asp-action="Action1">Action1</a>*@
             @Html.ActionLink("System Groups", "Index", "SystemGroup", new { area = "SASDPM" }, new { @class = "nav-link text-dark" })
         </li>
     </ul>
