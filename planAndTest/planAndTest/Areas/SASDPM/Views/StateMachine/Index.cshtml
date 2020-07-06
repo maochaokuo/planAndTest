@@ -81,6 +81,8 @@
                                 <td>@rec.stateMachineDescription</td>
                                 <td>
                                     <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.stateMachineId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
+                                    <button onclick="$('#cmd').val('states'); $('#singleSelect').val('@rec.stateMachineId');$('form').submit()" class="btn btn-primary btn-sm">States</button>
+                                    <button onclick="$('#cmd').val('events'); $('#singleSelect').val('@rec.stateMachineId');$('form').submit()" class="btn btn-primary btn-sm">Events</button>
                                 </td>
                             </tr>
                         }

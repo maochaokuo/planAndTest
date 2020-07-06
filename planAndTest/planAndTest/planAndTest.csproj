@@ -148,6 +148,8 @@
     <Compile Include="Areas\SASDPM\Controllers\ProjectController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\ProjectVersionController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SDController.cs" />
+    <Compile Include="Areas\SASDPM\Controllers\SMeventController.cs" />
+    <Compile Include="Areas\SASDPM\Controllers\SMstateController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\StateMachineController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SystemEntityController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\SystemGroupController.cs" />
@@ -687,6 +689,8 @@
     <Content Include="Areas\SASDPM\Views\SystemGroup\Index.cshtml" />
     <Content Include="Areas\SASDPM\Views\SystemEntity\Index.cshtml" />
     <Content Include="Areas\SASDPM\Views\StateMachine\Index.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SMevent\Index.cshtml" />
+    <Content Include="Areas\SASDPM\Views\SMstate\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

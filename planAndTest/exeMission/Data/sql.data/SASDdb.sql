@@ -1,9 +1,15 @@
 use SASDdb
 
 select *
-from stateMachine
+from stateMachineState
+
+select *
+from stateMachineEvent
 
 /*
+select *
+from stateMachine
+
 select *
 from systemEntity
 

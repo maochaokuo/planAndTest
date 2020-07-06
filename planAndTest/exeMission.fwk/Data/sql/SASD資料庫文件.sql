@@ -29,12 +29,12 @@ select
 		on p.TABLE_NAME=st.name and p.COLUMN_NAME=sc.name
     where 
 		--st.name in ('systemEntity')
-		st.name in ('stateMachine')
+		--st.name in ('stateMachine')
 		--st.name in ('projectVersion')
 		--st.name in ('systemEntity', 'systems', 'systemTemplate')
 		--st.name in ('project')
 		--st.name in ('article')
-		--st.name in ('systems','systemGroup')
+		st.name in ('stateMachine','stateMachineState','stateMachineEvent')
 		--st.name in ('systems')
 		--st.name in ('systemGroup')
 	order by st.name, sc.column_id
