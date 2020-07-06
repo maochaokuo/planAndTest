@@ -79,6 +79,8 @@
                                 <th>project name</th>
                                 <th></th>
                             </tr>
+                        </thead>
+                        <tbody>
                             @foreach (var rec in Model.queryResult)
                             {
                                 <tr>
@@ -92,7 +94,7 @@
                                     </td>
                                 </tr>
                             }
-                        </thead>
+                        </tbody>
                     </table>
                 </div>
             }

@@ -85,7 +85,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
             if (!string.IsNullOrWhiteSpace(tmpModel.entityDescription))
                 qry = qry.Where(x => x.entityDescription.Contains(
                     tmpModel.entityDescription));
-            if (tmpModel.systemTemplateId > 0)
+            if (tmpModel.systemTemplateId !=null
+                    && tmpModel.systemTemplateId!=Guid.Empty)
                 qry = qry.Where(x => x.systemTemplateId == tmpModel.systemTemplateId);
             if (tmpModel.parentEntityId!=null
                     && tmpModel.parentEntityId!=Guid.Empty)

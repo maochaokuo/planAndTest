@@ -58,9 +58,9 @@
                         <th></th>
                     </tr>
                 </thead>
-                @foreach (var rec in Model.projectVersions)
-                {
-                    <tbody>
+                <tbody>
+                    @foreach (var rec in Model.projectVersions)
+                    {
                         <tr>
                             <td><input type="checkbox" id="@rec.projectVersionId" name="multiSelect" value="@rec.projectVersionId" class="form-control-lg" /></td>
                             <td>@rec.projectId</td>
@@ -72,9 +72,9 @@
                                 <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.projectVersionId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
                             </td>
                         </tr>
-                    </tbody>
-                }
-            </table>
+                    }
+                </tbody>
+                </table>
         </div>
     }
 </div>

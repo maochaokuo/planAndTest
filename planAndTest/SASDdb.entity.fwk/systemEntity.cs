@@ -21,7 +21,7 @@ namespace SASDdb.entity.fwk
         [StringLength(999)]
         public string entityDescription { get; set; }
 
-        public int? systemTemplateId { get; set; }
+        public Guid? systemTemplateId { get; set; }
 
         [Key]
         [Column(Order = 1)]

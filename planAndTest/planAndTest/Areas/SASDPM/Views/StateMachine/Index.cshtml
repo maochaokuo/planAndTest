@@ -8,3 +8,161 @@
 
 <h2>State Machine</h2>
 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "smform" }))
+{
+    @Html.HiddenFor(m => m.cmd, new { id = "cmd" })
+    @Html.HiddenFor(m => m.singleSelect, new { id = "singleSelect" })
+    if (!string.IsNullOrWhiteSpace(Model.errorMsg))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.errorMsg
+        </div>
+    }
+    if (!string.IsNullOrWhiteSpace(Model.successMsg))
+    {
+        <div class="alert alert-success" role="alert">
+            @Model.successMsg
+        </div>
+    }
+<div class="container">
+    @if (ViewBag.pageStatus <= (int)PAGE_STATUS.QUERY)
+    {
+        <div class="row">
+            <div class="col-12">&nbsp; </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                state machine name
+            </div>
+            <div class="col-4">
+                @Html.TextBoxFor(m => m.editModel.stateMachineName, new { @class = "form-control" })
+            </div>
+            <div class="col-2">
+                state machine description
+            </div>
+            <div class="col-4">
+                @Html.TextBoxFor(m => m.editModel.stateMachineDescription, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">&nbsp; </div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+                <button onclick="$('#cmd').val('query');$('form').submit()" class="btn btn-primary">Query</button>
+                <button onclick="$('#cmd').val('add');$('form').submit()" class="btn btn-primary">Add</button>
+                <button onclick="$('#cmd').val('delete');$('form').submit()" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">&nbsp; </div>
+        </div>
+        if (Model != null && Model.queryResult != null && Model.queryResult.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>state machine name</th>
+                            <th>create time</th>
+                            <th>state machine description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.queryResult)
+                        {
+                            <tr>
+                                <td><input type="checkbox" id="@rec.stateMachineId" name="multiSelect" value="@rec.stateMachineId" class="form-control-lg" /></td>
+                                <td>@rec.stateMachineName</td>
+                                <td>@rec.createtime.ToString("yyyy/MM/dd HH:mm:ss")</td>
+                                <td>@rec.stateMachineDescription</td>
+                                <td>
+                                    <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.stateMachineId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.editModel.createtime)
+        <div class="row">
+            <div class="col-2">
+                stateMachineId
+            </div>
+            <div class="col-4">
+                @Html.TextBoxFor(m => m.editModel.stateMachineId, new { @class = "form-control disabled", @readonly = "readonly" })
+                @Html.HiddenFor(m => m.editModel.stateMachineId)
+            </div>
+            <div class="col-2">
+                stateMachineName
+            </div>
+            <div class="col-4">
+                @if (ViewBag.pageStatus != (int)modelsfwk.PAGE_STATUS.ADD)
+                {
+                    @Html.TextBoxFor(m => m.editModel.stateMachineName, new { @class = "form-control disabled", @readonly = "readonly" })
+                    @Html.HiddenFor(m => m.editModel.stateMachineName)
+                }
+                else
+                {
+                    @Html.TextBoxFor(m => m.editModel.stateMachineName, new { @class = "form-control" })
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                stateMachineDescription
+            </div>
+            <div class="col-4">
+                @if (ViewBag.pageStatus <= (int)modelsfwk.PAGE_STATUS.SAVED)
+                {
+                    @Html.TextBoxFor(m => m.editModel.stateMachineDescription, new { @class = "form-control disabled", @readonly = "readonly" })
+                    @Html.HiddenFor(m => m.editModel.stateMachineDescription)
+                }
+                else
+                {
+                    @Html.TextBoxFor(m => m.editModel.stateMachineDescription, new { @class = "form-control" })
+                }
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-4">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+                @if (ViewBag.pageStatus > (int)modelsfwk.PAGE_STATUS.SAVED)
+                {
+                    <button class="btn btn-primary" onclick="$('#cmd').val('save');$('form').submit()">Save</button>
+                }
+                @if (ViewBag.pageStatus == (int)modelsfwk.PAGE_STATUS.ADDSAVED)
+                {
+                    <button class="btn btn-primary" onclick="$('#cmd').val('addNew');$('form').submit()">Add Next</button>
+                }
+                <button class="btn btn-primary" onclick="$('#cmd').val('query');$('form').submit()">Query</button>
+            </div>
+        </div>
+        <input type="hidden" id="errorMsg" name="errorMsg" value="@Model.errorMsg" />
+        <input type="hidden" id="successMsg" name="successMsg" value="@Model.successMsg" />
+    }
+</div>
+
+}
+
+<script>
+    var herror = $('#errorMsg').val();
+    var hmessage = $('#successMsg').val();
+    if (typeof (herror) !== 'undefined' && herror.length > 0)
+        $.notify({ message: herror }, { type: 'danger' });
+    if (typeof (hmessage) !== 'undefined' && hmessage.length > 0)
+        $.notify({ message: hmessage }, { type: 'success' });
+</script>

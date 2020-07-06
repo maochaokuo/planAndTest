@@ -9,7 +9,7 @@ namespace SASDdb.entity.fwk
     [Table("systemTemplate")]
     public partial class systemTemplate
     {
-        public int systemTemplateId { get; set; }
+        public Guid systemTemplateId { get; set; }
 
         public DateTime createtime { get; set; }
 
@@ -19,5 +19,7 @@ namespace SASDdb.entity.fwk
 
         [StringLength(999)]
         public string templateDescription { get; set; }
+
+        public Guid? baseSystemTemplateId { get; set; }
     }
 }

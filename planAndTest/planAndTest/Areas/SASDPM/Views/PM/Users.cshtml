@@ -58,11 +58,11 @@
                             <th></th>
                         </tr>
                     </thead>
-                    @foreach (var rec in Model.users)
-                    {
-                        <tbody>
+                    <tbody>
+                        @foreach (var rec in Model.users)
+                        {
                             <tr>
-                                <td><input type="checkbox" id="@rec.userId" name="multiSelect" value="@rec.userId" class="form-control-lg"/></td>
+                                <td><input type="checkbox" id="@rec.userId" name="multiSelect" value="@rec.userId" class="form-control-lg" /></td>
                                 <td>@rec.userId</td>
                                 <td>@rec.createtime.ToString("yyyy/MM/dd HH:mm:ss")</td>
                                 <td>@rec.userCommentsPublic</td>
@@ -72,9 +72,9 @@
                                     <button onclick="$('#cmd').val('update'); $('#singleSelect').val('@rec.userId');$('form').submit()" class="btn btn-primary btn-sm">Update</button>
                                 </td>
                             </tr>
-                        </tbody>
-                    }
-                </table>
+                        }
+                    </tbody>
+                    </table>
             </div>
         }
     </div>
