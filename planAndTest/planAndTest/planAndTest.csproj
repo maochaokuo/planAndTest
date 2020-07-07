@@ -144,6 +144,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\EPL\EPLAreaRegistration.cs" />
+    <Compile Include="Areas\SASDPM\Controllers\GlobalEventController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\PMController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\ProjectController.cs" />
     <Compile Include="Areas\SASDPM\Controllers\ProjectVersionController.cs" />
@@ -691,6 +692,7 @@
     <Content Include="Areas\SASDPM\Views\StateMachine\Index.cshtml" />
     <Content Include="Areas\SASDPM\Views\SMevent\Index.cshtml" />
     <Content Include="Areas\SASDPM\Views\SMstate\Index.cshtml" />
+    <Content Include="Areas\SASDPM\Views\GlobalEvent\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

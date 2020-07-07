@@ -6,8 +6,11 @@
     [eventActionName]         NVARCHAR (33)    NULL,
     [actionDoneEvent]         NVARCHAR (33)    NULL,
     [actionDoneEventParaJson] NVARCHAR (999)   NULL,
+    [globalEventDescription]  NVARCHAR (99)    NULL,
     CONSTRAINT [PK_globalEvent] PRIMARY KEY CLUSTERED ([globalEventId] ASC)
 );
+
+
 
 
 GO

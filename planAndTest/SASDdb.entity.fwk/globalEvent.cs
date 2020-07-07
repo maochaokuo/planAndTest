@@ -28,5 +28,8 @@ namespace SASDdb.entity.fwk
 
         [StringLength(999)]
         public string actionDoneEventParaJson { get; set; }
+
+        [StringLength(99)]
+        public string globalEventDescription { get; set; }
     }
 }

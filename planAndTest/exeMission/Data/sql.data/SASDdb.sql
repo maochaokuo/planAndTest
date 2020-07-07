@@ -3,6 +3,9 @@ use SASDdb
 select *
 from stateMachineEvent
 
+select *
+from globalEvent
+
 /*
 select *
 from stateMachineState

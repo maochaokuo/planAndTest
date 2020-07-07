@@ -33,7 +33,7 @@ select
 		--st.name in ('projectVersion')
 		--st.name in ('systemEntity', 'systems', 'systemTemplate')
 		--st.name in ('project')
-		st.name in ('stateMachineEvent')
+		st.name in ('stateMachineEvent', 'globalEvent')
 		--st.name in ('stateMachine','stateMachineState','stateMachineEvent','stateMachineEvent2State')
 		--st.name in ('systems')
 		--st.name in ('systemGroup')

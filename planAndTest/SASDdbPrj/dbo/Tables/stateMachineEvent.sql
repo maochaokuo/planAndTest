@@ -1,4 +1,4 @@
-CREATE TABLE [dbo].[stateMachineEvent] (
+﻿CREATE TABLE [dbo].[stateMachineEvent] (
     [stateMachineEventId]     UNIQUEIDENTIFIER CONSTRAINT [DF_stateMachineEvent_stateMachineEventId] DEFAULT (newid()) NOT NULL,
     [stateMachineId]          UNIQUEIDENTIFIER NOT NULL,
     [eventName]               VARCHAR (33)     NOT NULL,
@@ -8,8 +8,11 @@ CREATE TABLE [dbo].[stateMachineEvent] (
     [actionDoneEvent]         NVARCHAR (33)    NULL,
     [actionDoneEventParaJson] NVARCHAR (999)   NULL,
     [globalEventId]           UNIQUEIDENTIFIER NULL,
+    [eventDescription]        NVARCHAR (99)    NULL,
     CONSTRAINT [PK_stateMachineEvent] PRIMARY KEY CLUSTERED ([stateMachineId] ASC, [eventName] ASC)
 );
+
+
 
 
 

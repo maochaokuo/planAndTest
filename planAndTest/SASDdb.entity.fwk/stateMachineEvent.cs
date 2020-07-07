@@ -35,5 +35,8 @@ namespace SASDdb.entity.fwk
         public string actionDoneEventParaJson { get; set; }
 
         public Guid? globalEventId { get; set; }
+
+        [StringLength(99)]
+        public string eventDescription { get; set; }
     }
 }

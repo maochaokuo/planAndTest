@@ -28,5 +28,7 @@ namespace SASDdb.entity.fwk
         public Guid systemId { get; set; }
 
         public Guid? parentEntityId { get; set; }
+
+        public Guid? stateMachineId { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace SASDdbService.fwk.repository
         public Repository<entityClass> entityClassRepository;
         public Repository<entityClassVariable> entityClassVariableRepository;
         public Repository<fileRepository> fileRepositoryRepository;
+        public Repository<globalEvent> globalEventRepository;
         public Repository<interfaceParameter> interfaceParameterRepository;
         public Repository<interfaceProperty> interfacePropertyRepository;
         public Repository<networkServiceSource> networkServiceSourceRepository;
@@ -51,6 +52,7 @@ namespace SASDdbService.fwk.repository
             entityClassVariableRepository=
                 new Repository<entityClassVariable>(db);
             fileRepositoryRepository=new Repository<fileRepository>(db);
+            globalEventRepository = new Repository<globalEvent>(db);
             interfaceParameterRepository=new Repository<interfaceParameter>(db);
             interfacePropertyRepository=new Repository<interfaceProperty>(db);
             networkServiceSourceRepository=
