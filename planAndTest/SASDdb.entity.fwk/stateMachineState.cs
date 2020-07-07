@@ -9,8 +9,7 @@ namespace SASDdb.entity.fwk
     [Table("stateMachineState")]
     public partial class stateMachineState
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int stateMachineStateId { get; set; }
+        public Guid stateMachineStateId { get; set; }
 
         [Key]
         [Column(Order = 0)]

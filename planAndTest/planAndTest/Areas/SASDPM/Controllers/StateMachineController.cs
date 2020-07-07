@@ -138,9 +138,6 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     }
                     ar = View(viewModel);
                     break;
-                default:
-                    ar = View(viewModel);
-                    break;
                 case "save":
                     string err = checkForm(viewModel);
                     if (err.Length > 0)
@@ -188,6 +185,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     }
                     else
                         viewModel.errorMsg = $"wrong page status {ViewBag.pageStatus}";
+                    ar = View(viewModel);
+                    break;
+                default:
                     ar = View(viewModel);
                     break;
             }

@@ -19,5 +19,14 @@ namespace SASDdb.entity.fwk
 
         [StringLength(999)]
         public string stateMachineDescription { get; set; }
+
+        [StringLength(999)]
+        public string receiveSelfEvent { get; set; }
+
+        [StringLength(999)]
+        public string receiveParentEvent { get; set; }
+
+        [StringLength(999)]
+        public string receiveChildEvent { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace SASDdb.entity.fwk
         public virtual DbSet<entityClass> entityClass { get; set; }
         public virtual DbSet<entityClassVariable> entityClassVariable { get; set; }
         public virtual DbSet<fileRepository> fileRepository { get; set; }
+        public virtual DbSet<globalEvent> globalEvent { get; set; }
         public virtual DbSet<interfaceParameter> interfaceParameter { get; set; }
         public virtual DbSet<interfaceProperty> interfaceProperty { get; set; }
         public virtual DbSet<networkServiceSource> networkServiceSource { get; set; }
@@ -137,6 +138,10 @@ namespace SASDdb.entity.fwk
 
             modelBuilder.Entity<fileRepository>()
                 .Property(e => e.url)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<globalEvent>()
+                .Property(e => e.globalEventName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<interfaceParameter>()

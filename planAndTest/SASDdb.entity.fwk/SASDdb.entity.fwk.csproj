@@ -61,6 +61,7 @@
     <Compile Include="entityClass.cs" />
     <Compile Include="entityClassVariable.cs" />
     <Compile Include="fileRepository.cs" />
+    <Compile Include="globalEvent.cs" />
     <Compile Include="interfaceParameter.cs" />
     <Compile Include="interfaceProperty.cs" />
     <Compile Include="networkServiceSource.cs" />

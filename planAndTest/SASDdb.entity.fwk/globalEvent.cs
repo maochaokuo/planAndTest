@@ -6,19 +6,14 @@ namespace SASDdb.entity.fwk
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("stateMachineEvent")]
-    public partial class stateMachineEvent
+    [Table("globalEvent")]
+    public partial class globalEvent
     {
-        public Guid stateMachineEventId { get; set; }
+        public Guid globalEventId { get; set; }
 
-        [Key]
-        [Column(Order = 0)]
-        public Guid stateMachineId { get; set; }
-
-        [Key]
-        [Column(Order = 1)]
+        [Required]
         [StringLength(33)]
-        public string eventName { get; set; }
+        public string globalEventName { get; set; }
 
         public DateTime createtime { get; set; }
 
@@ -33,7 +28,5 @@ namespace SASDdb.entity.fwk
 
         [StringLength(999)]
         public string actionDoneEventParaJson { get; set; }
-
-        public Guid? globalEventId { get; set; }
     }
 }

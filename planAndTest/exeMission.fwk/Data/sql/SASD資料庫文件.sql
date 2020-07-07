@@ -33,8 +33,8 @@ select
 		--st.name in ('projectVersion')
 		--st.name in ('systemEntity', 'systems', 'systemTemplate')
 		--st.name in ('project')
-		--st.name in ('article')
-		st.name in ('stateMachine','stateMachineState','stateMachineEvent')
+		st.name in ('stateMachineEvent')
+		--st.name in ('stateMachine','stateMachineState','stateMachineEvent','stateMachineEvent2State')
 		--st.name in ('systems')
 		--st.name in ('systemGroup')
 	order by st.name, sc.column_id

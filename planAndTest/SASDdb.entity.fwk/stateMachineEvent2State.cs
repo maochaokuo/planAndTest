@@ -8,7 +8,7 @@ namespace SASDdb.entity.fwk
 
     public partial class stateMachineEvent2State
     {
-        public int stateMachineEvent2StateId { get; set; }
+        public Guid stateMachineEvent2StateId { get; set; }
 
         [Key]
         [Column(Order = 0)]
