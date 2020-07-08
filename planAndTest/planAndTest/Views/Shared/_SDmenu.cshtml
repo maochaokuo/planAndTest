@@ -35,9 +35,10 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownStateMachine">
                 @*<a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="Index">Jobs</a>
-                <a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="JobProgress">Job Progress</a>
-                <a class="dropdown-item" asp-area="" asp-controller="Hangfire">Hangfire</a>*@
+        <a class="dropdown-item" asp-area="" asp-controller="Job" asp-action="JobProgress">Job Progress</a>
+        <a class="dropdown-item" asp-area="" asp-controller="Hangfire">Hangfire</a>*@
                 @Html.ActionLink("State Machines", "Index", "StateMachine", new { area = "SASDPM" }, new { @class = "dropdown-item" })
+                @Html.ActionLink("Global Events", "Index", "GlobalEvent", new { area = "SASDPM" }, new { @class = "dropdown-item" })
             </div>
         </li>
 

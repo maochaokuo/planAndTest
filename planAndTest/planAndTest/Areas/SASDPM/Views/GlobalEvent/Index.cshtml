@@ -124,7 +124,7 @@
                 eventActionName
             </div>
             <div class="col-4">
-                @if (ViewBag.pageStatus != (int)modelsfwk.PAGE_STATUS.ADD)
+                @if (ViewBag.pageStatus <= (int)modelsfwk.PAGE_STATUS.SAVED)
                 {
                     @Html.TextBoxFor(m => m.editModel.eventActionName, new { @class = "form-control disabled", @readonly = "readonly" })
                     @Html.HiddenFor(m => m.editModel.eventActionName)
@@ -138,7 +138,7 @@
                 actionDoneEvent
             </div>
             <div class="col-4">
-                @if (ViewBag.pageStatus != (int)modelsfwk.PAGE_STATUS.ADD)
+                @if (ViewBag.pageStatus <= (int)modelsfwk.PAGE_STATUS.SAVED)
                 {
                     @Html.TextBoxFor(m => m.editModel.actionDoneEvent, new { @class = "form-control disabled", @readonly = "readonly" })
                     @Html.HiddenFor(m => m.editModel.actionDoneEvent)
@@ -154,7 +154,7 @@
                 globalEventDescription
             </div>
             <div class="col-4">
-                @if (ViewBag.pageStatus != (int)modelsfwk.PAGE_STATUS.ADD)
+                @if (ViewBag.pageStatus <= (int)modelsfwk.PAGE_STATUS.SAVED)
                 {
                     @Html.TextBoxFor(m => m.editModel.globalEventDescription, new { @class = "form-control disabled", @readonly = "readonly" })
                     @Html.HiddenFor(m => m.editModel.globalEventDescription)
