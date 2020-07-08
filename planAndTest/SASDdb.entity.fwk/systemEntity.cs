@@ -30,5 +30,8 @@ namespace SASDdb.entity.fwk
         public Guid? parentEntityId { get; set; }
 
         public Guid? stateMachineId { get; set; }
+
+        [StringLength(33)]
+        public string stateMachineStateName { get; set; }
     }
 }

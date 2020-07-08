@@ -28,5 +28,8 @@ namespace SASDdb.entity.fwk
 
         [StringLength(999)]
         public string receiveChildEvent { get; set; }
+
+        [StringLength(33)]
+        public string initialStateName { get; set; }
     }
 }

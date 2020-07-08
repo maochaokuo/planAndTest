@@ -6,8 +6,11 @@
     [receiveSelfEvent]        NVARCHAR (999)   NULL,
     [receiveParentEvent]      NVARCHAR (999)   NULL,
     [receiveChildEvent]       NVARCHAR (999)   NULL,
+    [initialStateName]        VARCHAR (33)     NULL,
     CONSTRAINT [PK_stateMachine] PRIMARY KEY CLUSTERED ([stateMachineId] ASC)
 );
+
+
 
 
 

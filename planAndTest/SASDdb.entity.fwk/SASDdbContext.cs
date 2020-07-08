@@ -176,6 +176,10 @@ namespace SASDdb.entity.fwk
                 .Property(e => e.stateMachineName)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<stateMachine>()
+                .Property(e => e.initialStateName)
+                .IsUnicode(false);
+
             modelBuilder.Entity<stateMachineEvent>()
                 .Property(e => e.eventName)
                 .IsUnicode(false);
@@ -194,6 +198,10 @@ namespace SASDdb.entity.fwk
 
             modelBuilder.Entity<stateMachineState>()
                 .Property(e => e.stateName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<systemEntity>()
+                .Property(e => e.stateMachineStateName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<systemInterface>()
