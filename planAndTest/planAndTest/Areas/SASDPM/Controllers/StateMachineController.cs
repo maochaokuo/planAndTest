@@ -187,6 +187,12 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         viewModel.errorMsg = $"wrong page status {ViewBag.pageStatus}";
                     ar = View(viewModel);
                     break;
+                case "states":
+                    ar = RedirectToAction("Index", "SMstate");
+                    break;
+                case "events":
+                    ar = RedirectToAction("Index", "SMevent");
+                    break;
                 default:
                     ar = View(viewModel);
                     break;

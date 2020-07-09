@@ -210,6 +210,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = View(viewModel);
                     break;
             }
+            TempData[modelName] = viewModel;
+            TempData[PageStatus] = ViewBag.pageStatus;
             return ar;
         }
     }
