@@ -60,6 +60,7 @@
     <Compile Include="SD\SMeventViewModel.cs" />
     <Compile Include="SD\SMstateViewModel.cs" />
     <Compile Include="SD\stateMachineEventDisp.cs" />
+    <Compile Include="SD\stateMachineStateDisp.cs" />
     <Compile Include="SD\stateMachineViewModel.cs" />
     <Compile Include="SD\systemDisp.cs" />
     <Compile Include="SD\systemEditViewModel.cs" />

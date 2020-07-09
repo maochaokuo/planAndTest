@@ -10,12 +10,12 @@ namespace models.fwk.SD
 {
     public class SMstateViewModel : ViewModelBase
     {
-        public stateMachineState editModel { get; set; }
-        public List<stateMachineState> queryResult { get; set; }
+        public stateMachineStateDisp editModel { get; set; }
+        public List<stateMachineStateDisp> queryResult { get; set; }
         public SMstateViewModel()
         {
-            editModel = new stateMachineState();
-            queryResult = new List<stateMachineState>();
+            editModel = new stateMachineStateDisp();
+            queryResult = new List<stateMachineStateDisp>();
         }
     }
 }
