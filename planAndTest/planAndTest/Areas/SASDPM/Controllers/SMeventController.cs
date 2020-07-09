@@ -39,9 +39,26 @@ namespace planAndTest.Areas.SASDPM.Controllers
         protected string query(ref SMeventViewModel viewModel)
         {
             string ret = "";
-            stateMachineEvent tmpModel = viewModel.editModel;
+            stateMachineEventDisp tmpModel = viewModel.editModel;
             var qry = (from a in uow.stateMachineEventRepository.GetAll()
-                       select a).AsQueryable();
+                       join b in uow.stateMachineRepository.GetAll()
+                            on a.stateMachineId equals b.stateMachineId into c
+                       from d in c.DefaultIfEmpty()
+                       join e in uow.globalEventRepository.GetAll()
+                            on a.globalEventId equals e.globalEventId into f
+                       from g in f.DefaultIfEmpty()
+                       select new stateMachineEventDisp
+                       {
+                           stateMachineEventId=a.stateMachineEventId,
+                           stateMachineName=d.stateMachineName,
+                           eventName=a.eventName,
+                           createtime=a.createtime,
+                           eventActionName=a.eventActionName,
+                           actionDoneEvent=a.actionDoneEvent,
+                           globalEventId=a.globalEventId,
+                           globalEventName=g.globalEventName,
+                           eventDescription=a.eventDescription
+                       }).AsQueryable();
             if (!string.IsNullOrWhiteSpace(tmpModel.eventName))
                 qry = qry.Where(x => x.eventName.Contains(
                     tmpModel.eventName));
@@ -90,7 +107,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     break;
                 case "add":
                 case "addNew":
-                    viewModel.editModel = new stateMachineEvent();
+                    viewModel.editModel = new stateMachineEventDisp();
                     ViewBag.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData[modelName] = null;
                     TempData[PageStatus] = ViewBag.pageStatus;
@@ -104,7 +121,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     if (model != null)
                     {
                         tmpVM = new SMeventViewModel();
-                        tmpVM.editModel = jsonUtl.decodeJson<stateMachineEvent>(
+                        tmpVM.editModel = jsonUtl.decodeJson<stateMachineEventDisp>(
                             jsonUtl.encodeJson(model));
                         TempData[PageStatus] = (int)PAGE_STATUS.EDIT;
                         TempData[modelName] = tmpVM;

@@ -10,12 +10,12 @@ namespace models.fwk.SD
 {
     public class SMeventViewModel :ViewModelBase
     {
-        public stateMachineEvent editModel { get; set; }
-        public List<stateMachineEvent> queryResult { get; set; }
+        public stateMachineEventDisp editModel { get; set; }
+        public List<stateMachineEventDisp> queryResult { get; set; }
         public SMeventViewModel()
         {
-            editModel = new stateMachineEvent();
-            queryResult = new List<stateMachineEvent>();
+            editModel = new stateMachineEventDisp();
+            queryResult = new List<stateMachineEventDisp>();
         }
     }
 }
