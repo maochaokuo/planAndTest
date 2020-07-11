@@ -1,4 +1,5 @@
-﻿@model models.fwk.PM.userEditViewModel
+﻿@using modelsfwk
+@model models.fwk.PM.userEditViewModel
 
 @{
     ViewBag.Title = "AddUpdateUser";
@@ -17,7 +18,7 @@
                 userId
             </div>
             <div class="col-4">
-                @if (Model.pageStatus == modelsfwk.PAGE_STATUS.ADD)
+                @if (Model.pageStatus ==(int) PAGE_STATUS.ADD)
                 {
                     @Html.TextBoxFor(m => m.editModel.userId, new { @class = "form-control" })
                 }
@@ -32,7 +33,7 @@
                 userPassword
             </div>
             <div class="col-4">
-                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                @if (Model.pageStatus <= (int)PAGE_STATUS.SAVED)
                 {
                     @Html.PasswordFor(m => m.editModel.userPassword, new { @class = "form-control disabled", @readonly = "readonly" })
                 }
@@ -41,7 +42,7 @@
                     @Html.PasswordFor(m => m.editModel.userPassword, new { @class = "form-control" })
                 }
             </div>
-            @if (Model.pageStatus > modelsfwk.PAGE_STATUS.SAVED)
+            @if (Model.pageStatus > (int)PAGE_STATUS.SAVED)
             {
             <div class="col-2">
                 confirm userPassword
@@ -56,7 +57,7 @@
                 userCommentsPublic
             </div>
             <div class="col-4">
-                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                @if (Model.pageStatus <= (int)PAGE_STATUS.SAVED)
                 {
                     @Html.TextBoxFor(m => m.editModel.userCommentsPublic, new { @class = "form-control disabled", @readonly = "readonly" })
                 }
@@ -69,7 +70,7 @@
                 userCommentsPrivate
             </div>
             <div class="col-4">
-                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                @if (Model.pageStatus <= (int)PAGE_STATUS.SAVED)
                 {
                     @Html.TextBoxFor(m => m.editModel.userCommentsPrivate, new { @class = "form-control disabled", @readonly = "readonly" })
                 }
@@ -84,7 +85,7 @@
                 hintQuestion
             </div>
             <div class="col-4">
-                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                @if (Model.pageStatus <= (int)PAGE_STATUS.SAVED)
                 {
                     @Html.TextBoxFor(m => m.editModel.hintQuestion, new { @class = "form-control disabled", @readonly = "readonly" })
                 }
@@ -97,7 +98,7 @@
                 hintAnswer
             </div>
             <div class="col-4">
-                @if (Model.pageStatus <= modelsfwk.PAGE_STATUS.SAVED)
+                @if (Model.pageStatus <= (int)PAGE_STATUS.SAVED)
                 {
                     @Html.PasswordFor(m => m.editModel.hintAnswer, new { @class = "form-control disabled", @readonly = "readonly" })
                 }
@@ -110,11 +111,11 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-10">
-                @if (Model.pageStatus > modelsfwk.PAGE_STATUS.SAVED)
+                @if (Model.pageStatus > (int)PAGE_STATUS.SAVED)
                 {
                     <button class="btn btn-primary" onclick="$('#cmd').val('save');$('form').submit()">Save</button>
                 }
-                @if (Model.pageStatus == modelsfwk.PAGE_STATUS.ADDSAVED)
+                @if (Model.pageStatus == (int)PAGE_STATUS.ADDSAVED)
                 {
                     <button class="btn btn-primary" onclick="$('#cmd').val('addNew');$('form').submit()">Add Next</button>
                 }

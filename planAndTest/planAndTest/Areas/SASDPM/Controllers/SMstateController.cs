@@ -30,7 +30,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             ViewBag.pageStatus = TempData[PageStatus];
             if (ViewBag.pageStatus == null)
                 ViewBag.pageStatus = (int)PAGE_STATUS.QUERY;
-            ViewBag.stateMachineList = SDdropdownOptions.stateMachineList();
+            ViewBag.stateMachineName = Session["stateMachineName"] + "";
             TempData[modelName] = viewModel;
             TempData[PageStatus] = ViewBag.pageStatus;
             return View(viewModel);
@@ -72,8 +72,31 @@ namespace planAndTest.Areas.SASDPM.Controllers
         public ActionResult Index(SMstateViewModel viewModel)
         {
             ActionResult ar;
-            switch(viewModel.cmd)
+            var multiSelect = Request.Form[MultiSelect];
+            SMstateViewModel tmpVM;
+            viewModel.clearMsg();
+            ViewBag.pageStatus = TempData[PageStatus];
+            if (ViewBag.pageStatus == null)
+                ViewBag.pageStatus = (int)PAGE_STATUS.QUERY;
+            ViewBag.stateMachineName = Session["stateMachineName"] + "";
+            stateMachineState model;
+            switch (viewModel.cmd)
             {
+                case "query":
+                    if (ViewBag.pageStatus <= (int)PAGE_STATUS.QUERY)
+                    {
+                        viewModel.errorMsg = query(ref viewModel);
+                        ar = View(viewModel);
+                    }
+                    else
+                    {
+                        ViewBag.pageStatus = (int)PAGE_STATUS.QUERY;
+                        TempData[modelName] = null;
+                        TempData[PageStatus] = ViewBag.pageStatus;
+                        ar = RedirectToAction("Index");
+                        return ar;
+                    }
+                    break;
                 default:
                     ar = View(viewModel);
                     break;

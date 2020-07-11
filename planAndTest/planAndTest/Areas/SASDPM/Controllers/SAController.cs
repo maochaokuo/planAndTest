@@ -94,7 +94,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
         [HttpPost]
         public ActionResult Articles(articlesViewModel viewModel)
         {
-            ActionResult ret;
+            ActionResult ar;
             var selectedDirectory = Request.Form["selectedDirectory"];
             var selectedArticle = Request.Form["selectedArticle"];
             if (!string.IsNullOrWhiteSpace(selectedDirectory))
@@ -138,8 +138,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     aevm.changeMode = ARTICLE_CHANGE_MODE.CREATE;
                     aevm.pageStatus = (int)modelsfwk.PAGE_STATUS.ADD;
                     TempData["articleEditViewModel"] = aevm;
-                    ret = RedirectToAction("EditArticle");
-                    break;
+                    ar = RedirectToAction("EditArticle");
+                    return ar;
                 case "edit":
                     ta = new tblArticle();
                     art = ta.GetArticleById(viewModel.articleId);
@@ -156,8 +156,8 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     aevm.changeMode = ARTICLE_CHANGE_MODE.EDIT;
                     aevm.pageStatus = (int)modelsfwk.PAGE_STATUS.EDIT;
                     TempData["articleEditViewModel"] = aevm;
-                    ret = RedirectToAction("EditArticle");
-                    break;
+                    ar = RedirectToAction("EditArticle");
+                    return ar;
                 case "replyTo":
                     aevm = new articleEditViewModel();
                     aevm.editModel.belongToArticleDirId = new Guid(viewModel.articleId);
@@ -165,11 +165,11 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     aevm.changeMode = ARTICLE_CHANGE_MODE.REPLY_TO;
                     aevm.pageStatus = (int)modelsfwk.PAGE_STATUS.ADD;
                     TempData["articleEditViewModel"] = aevm;
-                    ret = RedirectToAction("EditArticle");
-                    break;
+                    ar = RedirectToAction("EditArticle");
+                    return ar;
                 case "parentDir":
-                    ret = RedirectToAction("Articles", new { articleId = viewModel.parentDirId });
-                    break;
+                    ar = RedirectToAction("Articles", new { articleId = viewModel.parentDirId });
+                    return ar;
                 case "delete":
                     // delete confirm
                     if (viewModel.selectedDirId.Count > 0 || viewModel.selectedArticleId.Count > 0)
@@ -177,7 +177,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         ViewBag.confirmDelete = "1";
                         TempData["confirmDelete"] = 1;
                     }
-                    ret = View(viewModel);
+                    ar = View(viewModel);
                     break;
                 case "realDelete":
                     // to real delete 
@@ -214,14 +214,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     // at last no matter what result, clear selection
                     viewModel.selectedDirId.Clear();
                     viewModel.selectedArticleId.Clear();
-                    ret = View(viewModel);
+                    ar = View(viewModel);
                     break;
                 default:
-                    ret = View(viewModel);
+                    ar = View(viewModel);
                     break;
             }
             TempData["articlesViewModel"] = viewModel;
-            return ret;
+            return ar;
         }
 
         public ActionResult EditArticle()//string isDir)

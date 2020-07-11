@@ -53,7 +53,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpVMa.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["userEditViewModel"] = tmpVMa;
                     ar = RedirectToAction("AddUpdateUser");
-                    break;
+                    return ar;
                 case "update":
                     user u = tu.getById(viewModel.singleSelect);
                     if (u != null)
@@ -63,10 +63,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         tmpVM.pageStatus = (int)PAGE_STATUS.EDIT;
                         TempData["userEditViewModel"] = tmpVM;
                         ar = RedirectToAction("AddUpdateUser");
-                        break;
+                        return ar;
                     }
-                    else
-                        viewModel.errorMsg = "error reading this user";
+                    viewModel.errorMsg = "error reading this user";
                     ar = View(viewModel);
                     break;
                 case "delete":
@@ -168,10 +167,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpVMa.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["userEditViewModel"] = tmpVMa;
                     ar = RedirectToAction("AddUpdateUser");
-                    break;
+                    return ar;
                 case "query":
                     ar = RedirectToAction("Index");
-                    break;
+                    return ar;
                 default:
                     ar = View(viewModel);
                     break;

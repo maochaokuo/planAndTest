@@ -59,7 +59,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpVM.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["projectVersionEditViewModel"] = tmpVM;
                     ar = RedirectToAction("AddUpdate");
-                    break;
+                    return ar;
                 case "update":
                     projectVersion pv = tpv.getById(viewModel.singleSelect);
                     if (pv != null)
@@ -69,10 +69,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         tmpVM.pageStatus = (int)PAGE_STATUS.EDIT;
                         TempData["projectVersionEditViewModel"] = tmpVM;
                         ar = RedirectToAction("AddUpdate");
-                        break;
+                        return ar;
                     }
-                    else
-                        viewModel.errorMsg = "error reading this project version";
+                    viewModel.errorMsg = "error reading this project version";
                     ar = View(viewModel);
                     break;
                 case "delete":
@@ -213,10 +212,10 @@ viewModel.editModel.versionDescription);
                     tmpVM.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["projectVersionEditViewModel"] = tmpVM;
                     ar = RedirectToAction("AddUpdate");
-                    break;
+                    return ar;
                 case "query":
                     ar = RedirectToAction("Index");
-                    break;
+                    return ar;
                 default:
                     ar = View(viewModel);
                     break;

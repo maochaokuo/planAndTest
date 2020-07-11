@@ -106,7 +106,7 @@
                 stateMachineName
             </div>
             <div class="col-4">
-                @if (ViewBag.pageStatus != (int)modelsfwk.PAGE_STATUS.ADD)
+                @if (ViewBag.pageStatus != (int)PAGE_STATUS.ADD)
                 {
                     @Html.TextBoxFor(m => m.editModel.stateMachineName, new { @class = "form-control disabled", @readonly = "readonly" })
                     @Html.HiddenFor(m => m.editModel.stateMachineName)
@@ -122,7 +122,7 @@
                 stateMachineDescription
             </div>
             <div class="col-4">
-                @if (ViewBag.pageStatus <= (int)modelsfwk.PAGE_STATUS.SAVED)
+                @if (ViewBag.pageStatus <= (int)PAGE_STATUS.SAVED)
                 {
                     @Html.TextBoxFor(m => m.editModel.stateMachineDescription, new { @class = "form-control disabled", @readonly = "readonly" })
                     @Html.HiddenFor(m => m.editModel.stateMachineDescription)
@@ -142,11 +142,11 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-10">
-                @if (ViewBag.pageStatus > (int)modelsfwk.PAGE_STATUS.SAVED)
+                @if (ViewBag.pageStatus > (int)PAGE_STATUS.SAVED)
                 {
                     <button class="btn btn-primary" onclick="$('#cmd').val('save');$('form').submit()">Save</button>
                 }
-                @if (ViewBag.pageStatus == (int)modelsfwk.PAGE_STATUS.ADDSAVED)
+                @if (ViewBag.pageStatus == (int)PAGE_STATUS.ADDSAVED)
                 {
                     <button class="btn btn-primary" onclick="$('#cmd').val('addNew');$('form').submit()">Add Next</button>
                 }

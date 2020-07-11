@@ -7,6 +7,7 @@
 }
 
 <h2>System Entity</h2>
+<h6>system @ViewBag.systemName</h6>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "seform" }))
 {
@@ -147,7 +148,7 @@
                 entityName
             </div>
             <div class="col-4">
-                @if (ViewBag.pageStatus != (int)modelsfwk.PAGE_STATUS.ADD)
+                @if (ViewBag.pageStatus != (int)PAGE_STATUS.ADD)
                 {
                     @Html.TextBoxFor(m => m.editModel.entityName, new { @class = "form-control disabled", @readonly = "readonly" })
                     @Html.HiddenFor(m => m.editModel.entityName)
@@ -163,7 +164,7 @@
                 entityDescription
             </div>
             <div class="col-4">
-                @if (ViewBag.pageStatus <= (int)modelsfwk.PAGE_STATUS.SAVED)
+                @if (ViewBag.pageStatus <= (int)PAGE_STATUS.SAVED)
                 {
                     @Html.TextBoxFor(m => m.editModel.entityDescription, new { @class = "form-control disabled", @readonly = "readonly" })
                     @Html.HiddenFor(m => m.editModel.entityDescription)
@@ -177,7 +178,7 @@
                 systemTemplateId
             </div>
             <div class="col-4">
-                @if (ViewBag.pageStatus <= (int)modelsfwk.PAGE_STATUS.SAVED)
+                @if (ViewBag.pageStatus <= (int)PAGE_STATUS.SAVED)
                 {
                     @Html.DropDownListFor(m => m.editModel.systemTemplateId, (SelectList)ViewBag.systemTemplateList, "", new { @class = "custom-select disabled", disabled = "true", @readonly = "readonly" })
                     @Html.HiddenFor(m => m.editModel.systemTemplateId)
@@ -207,11 +208,11 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-10">
-                @if (ViewBag.pageStatus > (int)modelsfwk.PAGE_STATUS.SAVED)
+                @if (ViewBag.pageStatus > (int)PAGE_STATUS.SAVED)
                 {
                     <button class="btn btn-primary" onclick="$('#cmd').val('save');$('form').submit()">Save</button>
                 }
-                @if (ViewBag.pageStatus == (int)modelsfwk.PAGE_STATUS.ADDSAVED)
+                @if (ViewBag.pageStatus == (int)PAGE_STATUS.ADDSAVED)
                 {
                     <button class="btn btn-primary" onclick="$('#cmd').val('addNew');$('form').submit()">Add Next</button>
                 }

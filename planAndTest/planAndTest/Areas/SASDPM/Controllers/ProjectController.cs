@@ -57,7 +57,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpVMa.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["projectEditViewModel"] = tmpVMa;
                     ar = RedirectToAction("AddUpdateProject");
-                    break;
+                    return ar;
                 case "update":
                     p = tp.getById(viewModel.singleSelect);
                     if (p != null)
@@ -67,7 +67,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         tmpVM.pageStatus = (int)PAGE_STATUS.EDIT;
                         TempData["projectEditViewModel"] = tmpVM;
                         ar = RedirectToAction("AddUpdateProject");
-                        break;
+                        return ar;
                     }
                     viewModel.errorMsg = "error reading this project";
                     ar = View(viewModel);
@@ -77,8 +77,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     if (p != null)
                     {
                         Session["projectId"] = p.projectId.ToString();
+                        Session["projectName"] = p.projectName;
                         ar = RedirectToAction("Systems", "SD");
-                        break;
+                        return ar;
                     }
                     viewModel.errorMsg = "error reading this project";
                     ar = View(viewModel);
@@ -101,7 +102,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     break;
                 case "versions":
                     ar = RedirectToAction("Index", "ProjectVersion");
-                    break;
+                    return ar;
                 default:
                     ar = View(viewModel);
                     break;
@@ -215,10 +216,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpVMa.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["projectEditViewModel"] = tmpVMa;
                     ar = RedirectToAction("AddUpdateProject");
-                    break;
+                    return ar;
                 case "query":
                     ar = RedirectToAction("Index");
-                    break;
+                    return ar;
                 default:
                     ar = View(viewModel);
                     break;

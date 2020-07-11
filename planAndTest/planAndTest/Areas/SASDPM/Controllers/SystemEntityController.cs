@@ -32,6 +32,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             if (systemId != null)
             {
                 viewModel.editModel.systemId = new Guid(systemId.ToString());
+                ViewBag.systemName = Session["systemName"] + "";
                 ViewBag.systemLock = true;
             }
             else
@@ -118,6 +119,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             if (systemId != null)
             {
                 viewModel.editModel.systemId = new Guid(systemId.ToString());
+                ViewBag.systemName = Session["systemName"] + "";
                 ViewBag.systemLock = true;
             }
             else
@@ -176,8 +178,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         ar = RedirectToAction("Index");
                         return ar;
                     }
-                    else
-                        viewModel.errorMsg = $"error reading this {modelMessage}";
+                    viewModel.errorMsg = $"error reading this {modelMessage}";
                     ar = View(viewModel);
                     break;
                 case "delete":

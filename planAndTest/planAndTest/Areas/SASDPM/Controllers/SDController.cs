@@ -50,13 +50,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
         {
             systemsViewModel viewModel = new systemsViewModel();
             var projectId = Session["projectId"];
-            if (projectId != null)
+            if (projectId == null)
+                return RedirectToAction("Index", "Project");
             {
                 viewModel.projectId = projectId.ToString();
+                ViewBag.projectName = Session["projectName"] + "";
                 ViewBag.projectLock = true;
             }
-            else
-                return RedirectToAction("Index", "Project");
+            //else
             ViewBag.projectList = PMdropdownOption.projectList();
             ViewBag.systemTypeList = SDdropdownOptions.systemTypeList();
             ViewBag.systemGroupList = SDdropdownOptions.systemGroupList();
@@ -83,13 +84,14 @@ namespace planAndTest.Areas.SASDPM.Controllers
             var multiSelect = Request.Form["multiSelect"];
             ViewBag.projectList = PMdropdownOption.projectList();
             var projectId = Session["projectId"];
-            if (projectId != null)
+            if (projectId == null)
+                return RedirectToAction("Index", "Project");
             {
                 viewModel.projectId = projectId.ToString();
+                ViewBag.projectName = Session["projectName"] + "";
                 ViewBag.projectLock = true;
             }
-            else
-                return RedirectToAction("Index", "Project");
+            //else
             viewModel.clearMsg();
             tblSystem ts = new tblSystem();
             systemEditViewModel tmpVM;
@@ -105,7 +107,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpVM.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["systemEditViewModel"] = tmpVM;
                     ar = RedirectToAction("AddUpdate");
-                    break;
+                    return ar;
                 case "update":
                     sys = ts.getById(viewModel.singleSelect);
                     if (sys != null)
@@ -115,10 +117,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         tmpVM.pageStatus = (int)PAGE_STATUS.EDIT;
                         TempData["systemEditViewModel"] = tmpVM;
                         ar = RedirectToAction("AddUpdate");
-                        break;
+                        return ar;
                     }
-                    else
-                        viewModel.errorMsg = "error reading this system";
+                    viewModel.errorMsg = "error reading this system";
                     ar = View(viewModel);
                     break;
                 case "entity":
@@ -126,8 +127,9 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     if (sys != null)
                     {
                         Session["systemId"] = sys.systemId.ToString();
+                        Session["systemName"] = sys.systemName + "";
                         ar = RedirectToAction("Index", "SystemEntity");
-                        break;
+                        return ar;
                     }
                     viewModel.errorMsg = "error reading this system";
                     ar = View(viewModel);
@@ -172,6 +174,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             if (projectId != null)
             {
                 viewModel.editModel.projectId =new Guid( projectId.ToString());
+                ViewBag.projectName = Session["projectName"] + "";
                 ViewBag.projectLock = true;
             }
             else
@@ -233,6 +236,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             if (projectId != null)
             {
                 viewModel.editModel.projectId = new Guid(projectId.ToString());
+                ViewBag.projectName = Session["projectName"] + "";
                 ViewBag.projectLock = true;
             }
             else
@@ -299,10 +303,10 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     tmpVM.pageStatus = (int)PAGE_STATUS.ADD;
                     TempData["systemEditViewModel"] = tmpVM;
                     ar = RedirectToAction("AddUpdate");
-                    break;
+                    return ar;
                 case "query":
                     ar = RedirectToAction("Systems");
-                    break;
+                    return ar;
                 default:
                     ar = View(viewModel);
                     break;

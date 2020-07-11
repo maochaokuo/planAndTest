@@ -32,6 +32,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                 ViewBag.pageStatus = (int)PAGE_STATUS.QUERY;
             ViewBag.stateMachineList = SDdropdownOptions.stateMachineList();
             ViewBag.globalEventList = SDdropdownOptions.globalEventList();
+            ViewBag.stateMachineName = Session["stateMachineName"] + "";
             TempData[modelName] = viewModel;
             TempData[PageStatus] = ViewBag.pageStatus;
             return View(viewModel);
@@ -85,6 +86,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             ViewBag.pageStatus = TempData[PageStatus];
             if (ViewBag.pageStatus == null)
                 ViewBag.pageStatus = (int)PAGE_STATUS.QUERY;
+            ViewBag.stateMachineName = Session["stateMachineName"] + "";
             ViewBag.stateMachineList = SDdropdownOptions.stateMachineList();
             ViewBag.globalEventList = SDdropdownOptions.globalEventList();
             stateMachineEvent model;
@@ -128,8 +130,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         ar = RedirectToAction("Index");
                         return ar;
                     }
-                    else
-                        viewModel.errorMsg = $"error reading this {modelMessage}";
+                    viewModel.errorMsg = $"error reading this {modelMessage}";
                     ar = View(viewModel);
                     break;
                 case "delete":

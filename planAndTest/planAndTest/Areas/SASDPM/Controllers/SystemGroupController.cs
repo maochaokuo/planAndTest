@@ -41,6 +41,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             if (projectId != null)
             {
                 viewModel.editModel.projectId =new Guid( projectId.ToString());
+                ViewBag.projectName = Session["projectName"] + "";
                 ViewBag.projectLock = true;
             }
             else
@@ -96,6 +97,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
             if (projectId != null)
             {
                 viewModel.editModel.projectId =new Guid( projectId.ToString());
+                ViewBag.projectName = Session["projectName"] + "";
                 ViewBag.projectLock = true;
             }
             else

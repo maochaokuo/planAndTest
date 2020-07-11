@@ -110,8 +110,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         ar = RedirectToAction("Index");
                         return ar;
                     }
-                    else
-                        viewModel.errorMsg = $"error reading this {modelMessage}";
+                    viewModel.errorMsg = $"error reading this {modelMessage}";
                     ar = View(viewModel);
                     break;
                 case "delete":

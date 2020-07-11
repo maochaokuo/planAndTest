@@ -110,8 +110,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         ar = RedirectToAction("Index");
                         return ar;
                     }
-                    else
-                        viewModel.errorMsg = $"error reading this {modelMessage}";
+                    viewModel.errorMsg = $"error reading this {modelMessage}";
                     ar = View(viewModel);
                     break;
                 case "delete":
@@ -188,10 +187,34 @@ namespace planAndTest.Areas.SASDPM.Controllers
                     ar = View(viewModel);
                     break;
                 case "states":
-                    ar = RedirectToAction("Index", "SMstate");
+                    sm = (from a in uow.stateMachineRepository.GetAll()
+                          where a.stateMachineId
+                                == new Guid(viewModel.singleSelect)
+                          select a).FirstOrDefault();
+                    if (sm != null)
+                    {
+                        Session["stateMachineId"] = sm.stateMachineId.ToString();
+                        Session["stateMachineName"] = sm.stateMachineName + "";
+                        ar = RedirectToAction("Index", "SMstate");
+                        return ar;
+                    }
+                    viewModel.errorMsg = $"error reading this {modelMessage}";
+                    ar = View(viewModel);
                     break;
                 case "events":
-                    ar = RedirectToAction("Index", "SMevent");
+                    sm = (from a in uow.stateMachineRepository.GetAll()
+                          where a.stateMachineId
+                                == new Guid(viewModel.singleSelect)
+                          select a).FirstOrDefault();
+                    if (sm != null)
+                    {
+                        Session["stateMachineId"] = sm.stateMachineId.ToString();
+                        Session["stateMachineName"] = sm.stateMachineName + "";
+                        ar = RedirectToAction("Index", "SMevent");
+                        return ar;
+                    }
+                    viewModel.errorMsg = $"error reading this {modelMessage}";
+                    ar = View(viewModel);
                     break;
                 default:
                     ar = View(viewModel);
