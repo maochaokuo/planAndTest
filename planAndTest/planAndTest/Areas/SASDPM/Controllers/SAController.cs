@@ -311,11 +311,25 @@ namespace planAndTest.Areas.SASDPM.Controllers
 
                         err = tArticle.Add(viewModel.editModel);// as article);
                         err += tArticle.SaveChanges();
+                        if (err.Length > 0)
+                            viewModel.errorMsg = "error: " + err;
+                        else
+                        {
+                            viewModel.successMsg = "new article successfully added";
+                            viewModel.pageStatus = (int)modelsfwk.PAGE_STATUS.ADDSAVED;
+                        }
                     }
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.EDIT)
                     {
                         err = tArticle.Update(viewModel.editModel);
                         err += tArticle.SaveChanges();
+                        if (err.Length > 0)
+                            viewModel.errorMsg = "error: " + err;
+                        else
+                        {
+                            viewModel.successMsg = "article successfully updated";
+                            viewModel.pageStatus = (int)modelsfwk.PAGE_STATUS.SAVED;
+                        }
                     }
                     else if (viewModel.changeMode == ARTICLE_CHANGE_MODE.REPLY_TO)
                     {
@@ -338,16 +352,13 @@ namespace planAndTest.Areas.SASDPM.Controllers
                             else
                                 err += err1;
                         }
-                    }
-                    if (err.Length > 0)
-                        viewModel.errorMsg = "error: " + err;
-                    else
-                    {
-                        viewModel.successMsg = "new article successfully added";
-                        if (viewModel.pageStatus == (int)modelsfwk.PAGE_STATUS.ADD)
+                        if (err.Length > 0)
+                            viewModel.errorMsg = "error: " + err;
+                        else
+                        {
+                            viewModel.successMsg = "new article successfully added";
                             viewModel.pageStatus = (int)modelsfwk.PAGE_STATUS.ADDSAVED;
-                        else if (viewModel.pageStatus == (int)modelsfwk.PAGE_STATUS.EDIT)
-                            viewModel.pageStatus = (int)modelsfwk.PAGE_STATUS.SAVED;
+                        }
                     }
                     // notification failed, so, should use pure hidden field rather than html helped 
                     //ViewBag.Message = "article/directory saved";                    

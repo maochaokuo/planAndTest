@@ -96,5 +96,8 @@
     <Build Include="dbo\Tables\dbFields.sql" />
     <Build Include="dbo\Tables\db.sql" />
     <Build Include="dbo\Tables\globalEvent.sql" />
+    <Build Include="dbo\Tables\testResult.sql" />
+    <Build Include="dbo\Tables\testCaseResult.sql" />
+    <Build Include="dbo\Tables\testCase.sql" />
   </ItemGroup>
 </Project>

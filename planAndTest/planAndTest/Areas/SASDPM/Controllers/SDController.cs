@@ -21,14 +21,15 @@ namespace planAndTest.Areas.SASDPM.Controllers
         // todo !!... (1) later
         // (done)projectVersion
         // (done)systems, (done)systemGroup, (done)systemEntity, 
-        // stateMachine, stateMachineState, stateMachineEvent
+        // (done)stateMachine, (done)globalEvent, (done)stateMachineEvent, (done)stateMachineState
         // stateMachineEvent2NewState
         //      (include stateMachineEventParameter, stateMachineAction)
+        // systemTemplate
+        // form, control (textbox, dropdown, checkbox, button)
         // database, table, field
         //      field property: primaryKeyOrder, fieldType, nullable, length(string)
-        // form, control (textbox, dropdown, checkbox, button)
         // todo !!... (2) further later
-        // systemTemplate
+        // testCase, testResult, testCaseResult (to test this system self)
         // systemInterface, interfaceParameter, interfaceProperty
         // entityClass, entityClassVariable
         //   entityBehavior (input/output)

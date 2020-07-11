@@ -82,6 +82,9 @@
     <Compile Include="systems.cs" />
     <Compile Include="systemTemplate.cs" />
     <Compile Include="templateEntity.cs" />
+    <Compile Include="testCase.cs" />
+    <Compile Include="testCaseResult.cs" />
+    <Compile Include="testResult.cs" />
     <Compile Include="uiControl.cs" />
     <Compile Include="uiForm.cs" />
     <Compile Include="user.cs" />

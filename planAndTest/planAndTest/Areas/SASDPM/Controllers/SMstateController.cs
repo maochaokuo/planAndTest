@@ -97,6 +97,106 @@ namespace planAndTest.Areas.SASDPM.Controllers
                         return ar;
                     }
                     break;
+                case "add":
+                case "addNew":
+                    viewModel.editModel = new stateMachineStateDisp();
+                    ViewBag.pageStatus = (int)PAGE_STATUS.ADD;
+                    TempData[modelName] = null;
+                    TempData[PageStatus] = ViewBag.pageStatus;
+                    ar = RedirectToAction("Index");
+                    return ar;
+                case "update":
+                    model = (from a in uow.stateMachineStateRepository.GetAll()
+                             where a.stateMachineStateId
+                                   == new Guid(viewModel.singleSelect)
+                             select a).FirstOrDefault();
+                    if (model != null)
+                    {
+                        tmpVM = new SMstateViewModel();
+                        tmpVM.editModel = jsonUtl.decodeJson<stateMachineStateDisp>(
+                            jsonUtl.encodeJson(model));
+                        TempData[PageStatus] = (int)PAGE_STATUS.EDIT;
+                        TempData[modelName] = tmpVM;
+                        ar = RedirectToAction("Index");
+                        return ar;
+                    }
+                    viewModel.errorMsg = $"error reading this {modelMessage}";
+                    ar = View(viewModel);
+                    break;
+                case "delete":
+                    if (string.IsNullOrWhiteSpace(multiSelect))
+                        viewModel.errorMsg = $"please select {modelMessage} to delete";
+                    else
+                    {
+                        string[] selected = multiSelect.Split(',');
+                        foreach (string recId in selected.ToList())
+                        {
+                            model = (from a in uow.stateMachineStateRepository.GetAll()
+                                     where a.stateMachineStateId.ToString()
+                                       == recId
+                                     select a).FirstOrDefault();
+                            if (model == null)
+                                continue;
+                            uow.stateMachineStateRepository.Delete(model);
+                        }
+                        viewModel.errorMsg = uow.SaveChanges();
+                        if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                        {
+                            viewModel.successMsg = "successfully deleted";
+                            viewModel.errorMsg = query(ref viewModel);
+                        }
+                    }
+                    ar = View(viewModel);
+                    break;
+                case "save":
+                    string err = checkForm(viewModel);
+                    if (err.Length > 0)
+                    {
+                        viewModel.errorMsg = err;
+                        ar = View(viewModel);
+                        break;
+                    }
+                    if (ViewBag.pageStatus == (int)PAGE_STATUS.ADD)
+                    {
+                        viewModel.editModel.stateMachineStateId = Guid.NewGuid();
+                        viewModel.editModel.createtime = DateTime.Now;
+                        stateMachineState toAdd = new stateMachineState();
+                        toAdd = jsonUtl.decodeJson<stateMachineState>(
+                            jsonUtl.encodeJson(viewModel.editModel));
+                        uow.stateMachineStateRepository.Insert(toAdd);
+                        viewModel.errorMsg = uow.SaveChanges();
+                        if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                        {
+                            viewModel.successMsg = $"new {modelMessage} saved";
+                            ViewBag.pageStatus = (int)PAGE_STATUS.ADDSAVED;
+                        }
+                    }
+                    else if (ViewBag.pageStatus == (int)PAGE_STATUS.EDIT)
+                    {
+                        var qry = (from a in uow.stateMachineStateRepository.GetAll()
+                                   where a.stateMachineStateId
+                                        == viewModel.editModel.stateMachineStateId
+                                   select a).SingleOrDefault();
+                        if (qry != null)
+                        {
+                            qry = reflectionUtl.assign<stateMachineState,
+                                stateMachineState>(qry, viewModel.editModel);
+                            uow.GetDbContext().Entry(qry).State
+                                = EntityState.Modified;
+                            viewModel.errorMsg = uow.SaveChanges();
+                            if (string.IsNullOrWhiteSpace(viewModel.errorMsg))
+                            {
+                                viewModel.successMsg = $"{modelMessage} not found";
+                                ViewBag.pageStatus = (int)PAGE_STATUS.SAVED;
+                            }
+                        }
+                        else
+                            viewModel.errorMsg = $"{modelMessage} not found";
+                    }
+                    else
+                        viewModel.errorMsg = $"wrong page status {ViewBag.pageStatus}";
+                    ar = View(viewModel);
+                    break;
                 default:
                     ar = View(viewModel);
                     break;

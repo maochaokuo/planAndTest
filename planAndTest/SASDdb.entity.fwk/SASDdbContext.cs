@@ -42,6 +42,9 @@ namespace SASDdb.entity.fwk
         public virtual DbSet<systems> systems { get; set; }
         public virtual DbSet<systemTemplate> systemTemplate { get; set; }
         public virtual DbSet<templateEntity> templateEntity { get; set; }
+        public virtual DbSet<testCase> testCase { get; set; }
+        public virtual DbSet<testCaseResult> testCaseResult { get; set; }
+        public virtual DbSet<testResult> testResult { get; set; }
         public virtual DbSet<uiControl> uiControl { get; set; }
         public virtual DbSet<uiForm> uiForm { get; set; }
         public virtual DbSet<user> user { get; set; }
