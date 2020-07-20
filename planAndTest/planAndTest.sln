@@ -42,6 +42,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SASDconstants", "SASDconsta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "planAndTest.web", "planAndTest.web\planAndTest.web.csproj", "{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neuralNetworkLib", "neuralNetworkLib\neuralNetworkLib.csproj", "{B184A7ED-28C0-4252-BCD8-6F8539FEF727}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,10 @@ Global
 		{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B184A7ED-28C0-4252-BCD8-6F8539FEF727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B184A7ED-28C0-4252-BCD8-6F8539FEF727}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B184A7ED-28C0-4252-BCD8-6F8539FEF727}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B184A7ED-28C0-4252-BCD8-6F8539FEF727}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +116,7 @@ Global
 		{205D3FFB-DBF7-4403-A491-E7D34A2D70E8} = {336C9973-FA8F-495E-B68F-3131DDC29CF3}
 		{B52E588A-0EDE-464F-BA7B-74E646FCD19A} = {C9E09E22-F4B8-4722-9B4F-F573D99B4C4C}
 		{63E277B5-F6F5-42F1-98C4-E1648BAFF1ED} = {E4E421A4-938D-41CD-B053-4DBBE6495F5D}
+		{B184A7ED-28C0-4252-BCD8-6F8539FEF727} = {EBB780F5-0727-4BD2-93CC-DA52165719E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD1ABD13-4AD5-4B5E-A668-82B0034FA5EC}
