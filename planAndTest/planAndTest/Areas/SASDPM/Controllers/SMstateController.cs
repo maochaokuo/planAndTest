@@ -21,6 +21,7 @@ namespace planAndTest.Areas.SASDPM.Controllers
         }
         public ActionResult Index()
         {
+            //undone (1) !!... state machine states query crash
             SMstateViewModel viewModel;
             var stateMachineModel = TempData[modelName];
             if (stateMachineModel == null)
